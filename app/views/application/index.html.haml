@@ -1,5 +1,12 @@
 %h1
   Welcome to Motorcycle Shims
 
-%p
-  foo
+- if current_user.blank?
+  = link_to "Sign up", new_user_path
+- elsif current_user.engines.blank?
+  = link_to "Create an engine", new_engines_path
+- else
+  %p
+    Select an engine
+  - current_user.engines.each do |engine|
+    = link_to engine.name, engine_path(engine)
