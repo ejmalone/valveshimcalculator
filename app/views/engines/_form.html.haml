@@ -1,0 +1,22 @@
+= form_for @engine do |f|
+  - if @engine.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@engine.errors.count, "error")} prohibited this engine from being saved:"
+      %ul
+        - @engine.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :user_id
+    = f.number_field :user_id
+  .field
+    = f.label :cylinders
+    = f.number_field :cylinders
+  .field
+    = f.label :valves_per_cylinder
+    = f.number_field :valves_per_cylinder
+  .field
+    = f.label :name
+    = f.text_field :name
+  .actions
+    = f.submit 'Save'
