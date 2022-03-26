@@ -1,0 +1,24 @@
+%p#notice= notice
+
+%p
+  %b Engine:
+  = @shim.engine
+%p
+  %b Size mm:
+  = @shim.size_mm
+%p
+  %b In use:
+  = @shim.in_use
+%p
+  %b Cylinder:
+  = @shim.cylinder
+%p
+  %b Valve:
+  = @shim.valve
+%p
+  %b Valve num:
+  = @shim.valve_num
+
+= link_to 'Edit', edit_shim_path(@shim)
+\|
+= link_to 'Back', shims_path

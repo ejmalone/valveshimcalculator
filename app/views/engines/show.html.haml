@@ -14,6 +14,8 @@
   %b Exhaust clearance:
   = "#{ @engine.exhaust_min } - #{ @engine.exhaust_max }"
 
+= link_to "Add shim", new_engine_shim_path(@engine)
+
 = link_to 'Edit', edit_engine_path(@engine)
 \|
 = link_to 'Back', engines_path

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_26_181447) do
+ActiveRecord::Schema.define(version: 2022_03_26_210413) do
 
   create_table "engines", force: :cascade do |t|
     t.integer "user_id"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 2022_03_26_181447) do
     t.decimal "exhaust_max", precision: 4, scale: 2
   end
 
+  create_table "shims", force: :cascade do |t|
+    t.integer "engine_id", null: false
+    t.integer "size_mm"
+    t.boolean "in_use"
+    t.integer "cylinder"
+    t.string "valve"
+    t.integer "valve_num"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["engine_id"], name: "index_shims_on_engine_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -37,4 +49,5 @@ ActiveRecord::Schema.define(version: 2022_03_26_181447) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "shims", "engines"
 end

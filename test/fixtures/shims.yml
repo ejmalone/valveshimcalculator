@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  engine: one
+  size_mm: 1
+  in_use: false
+  cylinder: 1
+  valve: MyString
+  valve_num: 1
+
+two:
+  engine: two
+  size_mm: 1
+  in_use: false
+  cylinder: 1
+  valve: MyString
+  valve_num: 1
