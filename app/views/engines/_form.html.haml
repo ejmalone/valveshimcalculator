@@ -1,6 +1,4 @@
 = form_for @engine do |f|
-  = f.hidden_field :user_id
-
   - if @engine.errors.any?
     #error_explanation
       %h2= "#{pluralize(@engine.errors.count, "error")} prohibited this engine from being saved:"

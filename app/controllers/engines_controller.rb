@@ -22,6 +22,7 @@ class EnginesController < ApplicationController
   # POST /engines or /engines.json
   def create
     @engine = Engine.new(engine_params)
+    @engine.user_id = current_user.id
 
     respond_to do |format|
       if @engine.save
@@ -65,6 +66,6 @@ class EnginesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def engine_params
-      params.require(:engine).permit(:user_id, :cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min, :exhaust_max)
+      params.require(:engine).permit(:cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min, :exhaust_max)
     end
 end
