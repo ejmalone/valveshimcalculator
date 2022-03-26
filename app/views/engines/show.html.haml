@@ -1,17 +1,14 @@
 %p#notice= notice
 
 %p
-  %b User:
-  = @engine.user_id
+  %b Name:
+  = @engine.name
 %p
   %b Cylinders:
   = @engine.cylinders
 %p
   %b Valves per cylinder:
   = @engine.valves_per_cylinder
-%p
-  %b Name:
-  = @engine.name
 
 = link_to 'Edit', edit_engine_path(@engine)
 \|

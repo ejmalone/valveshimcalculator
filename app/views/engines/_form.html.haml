@@ -7,6 +7,10 @@
       %ul
         - @engine.errors.full_messages.each do |message|
           %li= message
+            
+  .field
+    = f.label :name
+    = f.text_field :name
 
   - unless @engine.persisted?
     .field
@@ -23,8 +27,5 @@
     .field
       = "Valves per cylinder #{ @engine.valves_per_cylinder }"
 
-  .field
-    = f.label :name
-    = f.text_field :name
   .actions
     = f.submit 'Save'
