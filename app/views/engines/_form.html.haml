@@ -7,7 +7,7 @@
       %ul
         - @engine.errors.full_messages.each do |message|
           %li= message
-            
+
   .field
     = f.label :name
     = f.text_field :name
@@ -26,6 +26,17 @@
       = "Cylinders #{ @engine.cylinders }"
     .field
       = "Valves per cylinder #{ @engine.valves_per_cylinder }"
+
+    .field
+      = "Intake clearance MM (min to max)"
+      = f.number_field :intake_min, step: :any
+      = " - "
+      = f.number_field :intake_max, step: :any
+    .field
+      = "Exhaust clearance MM (min to max)"
+      = f.number_field :exhaust_min, step: :any
+      = " - "
+      = f.number_field :exhaust_max, step: :any
 
   .actions
     = f.submit 'Save'

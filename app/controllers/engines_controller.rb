@@ -65,6 +65,6 @@ class EnginesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def engine_params
-      params.require(:engine).permit(:user_id, :cylinders, :valves_per_cylinder, :name)
+      params.require(:engine).permit(:user_id, :cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min, :exhaust_max)
     end
 end

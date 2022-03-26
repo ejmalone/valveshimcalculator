@@ -9,6 +9,12 @@
 %p
   %b Valves per cylinder:
   = @engine.valves_per_cylinder
+%p
+  %b Intake clearance:
+  = "#{ @engine.intake_min } - #{ @engine.intake_max }"
+%p
+  %b Exhaust clearance:
+  = "#{ @engine.exhaust_min } - #{ @engine.exhaust_max }"
 
 = link_to 'Edit', edit_engine_path(@engine)
 \|
