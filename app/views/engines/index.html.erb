@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Engines</h1>
+
+<div id="engines">
+  <% @engines.each do |engine| %>
+    <%= render engine %>
+    <p>
+      <%= link_to "Show this engine", engine %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New engine", new_engine_path %>
