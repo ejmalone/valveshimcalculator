@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_27_183159) do
+ActiveRecord::Schema.define(version: 2022_03_27_185421) do
 
   create_table "cylinders", force: :cascade do |t|
     t.integer "engine_id", null: false
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2022_03_27_183159) do
     t.integer "cylinder_id", null: false
     t.integer "gap"
     t.string "intake_or_exhaust"
-    t.integer "cylinder_num"
+    t.integer "valve_num"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["cylinder_id"], name: "index_valves_on_cylinder_id"
@@ -66,6 +66,6 @@ ActiveRecord::Schema.define(version: 2022_03_27_183159) do
 
   add_foreign_key "cylinders", "engines"
   add_foreign_key "engines", "users"
-  add_foreign_key "shims", "valves", column: "valve_id"
+  add_foreign_key "shims", "valves"
   add_foreign_key "valves", "cylinders"
 end
