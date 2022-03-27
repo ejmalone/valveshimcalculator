@@ -1,0 +1,2 @@
+class ValvesController < ApplicationController
+end

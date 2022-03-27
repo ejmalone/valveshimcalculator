@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ShimsControllerTest < ActionDispatch::IntegrationTest
+class ValveTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

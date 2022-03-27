@@ -1,3 +1,3 @@
 class Shim < ApplicationRecord
-  belongs_to :engine
+  belongs_to :valve
 end
