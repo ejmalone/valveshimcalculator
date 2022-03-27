@@ -8,7 +8,12 @@ class Engine < ApplicationRecord
 
   def create_internals
     num_cylinders.times do |cyl_index|
-      cylinders << Cylinder.create(cylinder_num: cyl_index + 1)
+      cylinders << Cylinder.create(cylinder_num: cyl_index + 1) do |cylinder|
+        (valves_per_cylinder / 2).times do |valve_index|
+          cylinder.valves << Valve.create(intake_or_exhaust: Valve::INTAKE)
+          cylinder.valves << Valve.create(intake_or_exhaust: Valve::EXHAUST)
+        end
+      end
     end
   end
 end
