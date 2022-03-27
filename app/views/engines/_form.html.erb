@@ -1,0 +1,56 @@
+<%= form_with(model: engine) do |form| %>
+  <% if engine.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(engine.errors.count, "error") %> prohibited this engine from being saved:</h2>
+
+      <ul>
+        <% engine.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <% unless engine.persisted? %>
+    <div>
+      <%= form.label :cylinders, style: "display: block" %>
+      <%= form.select :cylinders, %i[ 1 2 4 ] %>
+    </div>
+
+    <div>
+      <%= form.label :valves_per_cylinder, style: "display: block" %>
+      <%= form.select :valves_per_cylinder, %i[ 2 4 ] %>
+    </div>
+  <% else %>
+    <div>
+      Note: delete this engine if you need to change the cylinders or valves per cylinder
+    </div>
+
+    <div>
+      Cylinders: <%= engine.cylinders %>
+    </div>
+
+    <div>
+      Valves per cylinder: <%= engine.valves_per_cylinder %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    Intake clearance MM (<%= form.label :intake_min, style: "display: inline" %> to <%= form.label :intake_max, style: "display: inline" %>)
+    <%= form.number_field :intake_min, step: :any %> - <%= form.number_field :intake_max, step: :any %>
+  </div>
+
+  <div>
+    Exhaust clearance MM (<%= form.label :exhaust_min, style: "display: inline" %> to <%= form.label :exhaust_max, style: "display: inline" %>)
+    <%= form.number_field :exhaust_min, step: :any %> - <%= form.number_field :exhaust_max, step: :any %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

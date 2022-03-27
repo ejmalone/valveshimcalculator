@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @engine %>
+
+<div>
+  <%= link_to "Edit this engine", edit_engine_path(@engine) %> |
+  <%= link_to "Back to engines", engines_path %>
+
+  <%= button_to "Destroy this engine", @engine, method: :delete %>
+</div>

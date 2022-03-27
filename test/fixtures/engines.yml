@@ -1,13 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  user_id: 1
+  user: one
   cylinders: 1
   valves_per_cylinder: 1
   name: MyString
+  intake_min: 9.99
+  intake_max: 9.99
+  exhaust_min: 9.99
+  exhaust_max: 9.99
 
 two:
-  user_id: 1
+  user: two
   cylinders: 1
   valves_per_cylinder: 1
   name: MyString
+  intake_min: 9.99
+  intake_max: 9.99
+  exhaust_min: 9.99
+  exhaust_max: 9.99

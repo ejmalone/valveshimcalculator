@@ -15,6 +15,10 @@ class EnginesTest < ApplicationSystemTestCase
     click_on "New engine"
 
     fill_in "Cylinders", with: @engine.cylinders
+    fill_in "Exhaust max", with: @engine.exhaust_max
+    fill_in "Exhaust min", with: @engine.exhaust_min
+    fill_in "Intake max", with: @engine.intake_max
+    fill_in "Intake min", with: @engine.intake_min
     fill_in "Name", with: @engine.name
     fill_in "User", with: @engine.user_id
     fill_in "Valves per cylinder", with: @engine.valves_per_cylinder
@@ -29,6 +33,10 @@ class EnginesTest < ApplicationSystemTestCase
     click_on "Edit this engine", match: :first
 
     fill_in "Cylinders", with: @engine.cylinders
+    fill_in "Exhaust max", with: @engine.exhaust_max
+    fill_in "Exhaust min", with: @engine.exhaust_min
+    fill_in "Intake max", with: @engine.intake_max
+    fill_in "Intake min", with: @engine.intake_min
     fill_in "Name", with: @engine.name
     fill_in "User", with: @engine.user_id
     fill_in "Valves per cylinder", with: @engine.valves_per_cylinder
