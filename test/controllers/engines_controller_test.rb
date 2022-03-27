@@ -17,7 +17,7 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create engine" do
     assert_difference("Engine.count") do
-      post engines_url, params: { engine: { cylinders: @engine.cylinders, exahust_max: @engine.exhaust_max, exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max, intake_min: @engine.intake_min, name: @engine.name, user_id: @engine.user_id, valves_per_cylinder: @engine.valves_per_cylinder } }
+      post engines_url, params: { engine: { num_cylinders: @engine.num_cylinders, exahust_max: @engine.exhaust_max, exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max, intake_min: @engine.intake_min, name: @engine.name, user_id: @engine.user_id, valves_per_cylinder: @engine.valves_per_cylinder } }
     end
 
     assert_redirected_to engine_url(Engine.last)
@@ -34,7 +34,7 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update engine" do
-    patch engine_url(@engine), params: { engine: { cylinders: @engine.cylinders, exhaust_max: @engine.exhaust_max, exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max, intake_min: @engine.intake_min, name: @engine.name, user_id: @engine.user_id, valves_per_cylinder: @engine.valves_per_cylinder } }
+    patch engine_url(@engine), params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max, exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max, intake_min: @engine.intake_min, name: @engine.name, user_id: @engine.user_id, valves_per_cylinder: @engine.valves_per_cylinder } }
     assert_redirected_to engine_url(@engine)
   end
 

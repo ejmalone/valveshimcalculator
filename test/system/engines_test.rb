@@ -14,7 +14,7 @@ class EnginesTest < ApplicationSystemTestCase
     visit engines_url
     click_on "New engine"
 
-    fill_in "Cylinders", with: @engine.cylinders
+    fill_in "Cylinders", with: @engine.num_cylinders
     fill_in "Exhaust max", with: @engine.exhaust_max
     fill_in "Exhaust min", with: @engine.exhaust_min
     fill_in "Intake max", with: @engine.intake_max
@@ -32,7 +32,7 @@ class EnginesTest < ApplicationSystemTestCase
     visit engine_url(@engine)
     click_on "Edit this engine", match: :first
 
-    fill_in "Cylinders", with: @engine.cylinders
+    fill_in "Cylinders", with: @engine.num_cylinders
     fill_in "Exhaust max", with: @engine.exhaust_max
     fill_in "Exhaust min", with: @engine.exhaust_min
     fill_in "Intake max", with: @engine.intake_max

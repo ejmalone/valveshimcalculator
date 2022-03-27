@@ -2,7 +2,7 @@
 
 one:
   user: one
-  cylinders: 1
+  num_cylinders: 1
   valves_per_cylinder: 1
   name: MyString
   intake_min: 9.99
@@ -12,7 +12,7 @@ one:
 
 two:
   user: two
-  cylinders: 1
+  num_cylinders: 1
   valves_per_cylinder: 1
   name: MyString
   intake_min: 9.99

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_27_181951) do
+ActiveRecord::Schema.define(version: 2022_03_27_183159) do
 
   create_table "cylinders", force: :cascade do |t|
     t.integer "engine_id", null: false
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2022_03_27_181951) do
 
   create_table "engines", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "cylinders"
+    t.integer "num_cylinders"
     t.integer "valves_per_cylinder"
     t.string "name"
     t.decimal "intake_min", precision: 4, scale: 2
