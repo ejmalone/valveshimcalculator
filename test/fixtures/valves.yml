@@ -4,10 +4,8 @@ one:
   cylinder: one
   gap: 1
   intake_or_exhaust: MyString
-  cylinder_num: 1
 
 two:
   cylinder: two
   gap: 1
   intake_or_exhaust: MyString
-  cylinder_num: 1

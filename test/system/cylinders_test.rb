@@ -14,7 +14,6 @@ class CylindersTest < ApplicationSystemTestCase
     visit cylinders_url
     click_on "New cylinder"
 
-    fill_in "Cylinder num", with: @cylinder.cylinder_num
     fill_in "Engine", with: @cylinder.engine_id
     click_on "Create Cylinder"
 
@@ -26,7 +25,6 @@ class CylindersTest < ApplicationSystemTestCase
     visit cylinder_url(@cylinder)
     click_on "Edit this cylinder", match: :first
 
-    fill_in "Cylinder num", with: @cylinder.cylinder_num
     fill_in "Engine", with: @cylinder.engine_id
     click_on "Update Cylinder"
 
