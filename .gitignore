@@ -36,3 +36,6 @@
 
 # rvm binstubs
 bin/
+
+# Ignore IDE
+.idea/*
