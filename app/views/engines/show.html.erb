@@ -8,3 +8,7 @@
 
   <%= button_to "Destroy this engine", @engine, method: :delete %>
 </div>
+
+<% if @engine.lacks_shims? %>
+  <%= link_to "Add shims", edit_all_engine_shims_path(@engine) %>
+<% end %>

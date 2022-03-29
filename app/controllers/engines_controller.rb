@@ -1,24 +1,29 @@
 class EnginesController < ApplicationController
   before_action :set_engine, only: %i[ show edit update destroy ]
 
+  # --------------------------------------------------------------
   # GET /engines or /engines.json
   def index
     @engines = Engine.all
   end
 
+  # --------------------------------------------------------------
   # GET /engines/1 or /engines/1.json
   def show
   end
 
+  # --------------------------------------------------------------
   # GET /engines/new
   def new
     @engine = Engine.new(user: current_user)
   end
 
+  # --------------------------------------------------------------
   # GET /engines/1/edit
   def edit
   end
 
+  # --------------------------------------------------------------
   # POST /engines or /engines.json
   def create
     @engine = Engine.new(engine_params)
@@ -35,6 +40,7 @@ class EnginesController < ApplicationController
     end
   end
 
+  # --------------------------------------------------------------
   # PATCH/PUT /engines/1 or /engines/1.json
   def update
     respond_to do |format|
@@ -48,6 +54,7 @@ class EnginesController < ApplicationController
     end
   end
 
+  # --------------------------------------------------------------
   # DELETE /engines/1 or /engines/1.json
   def destroy
     @engine.destroy
@@ -58,14 +65,19 @@ class EnginesController < ApplicationController
     end
   end
 
+  # --------------------------------------------------------------
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_engine
-      @engine = Engine.find(params[:id])
-    end
+  # --------------------------------------------------------------
 
-    # Only allow a list of trusted parameters through.
-    def engine_params
-      params.require(:engine).permit(:num_cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min, :exhaust_max)
-    end
+  # --------------------------------------------------------------
+  # Use callbacks to share common setup or constraints between actions.
+  def set_engine
+    @engine = Engine.find(params[:id])
+  end
+
+  # --------------------------------------------------------------
+  # Only allow a list of trusted parameters through.
+  def engine_params
+    params.require(:engine).permit(:num_cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min, :exhaust_max)
+  end
 end

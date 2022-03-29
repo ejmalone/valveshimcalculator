@@ -36,6 +36,14 @@ class Engine < ApplicationRecord
   validate :valve_clearances_are_valid
   validates :name, presence: true
 
+  scope :includes_shims, -> { includes(cylinders: { valves: :shim }) }
+
+  # --------------------------------------------------------------
+  # Determines if an engine needs initial setup for shims
+  def lacks_shims?
+    Engine.where(id: id).includes_shims.pluck("shims.id").all?(&:blank?)
+  end
+
   # --------------------------------------------------------------
   private
   # --------------------------------------------------------------
