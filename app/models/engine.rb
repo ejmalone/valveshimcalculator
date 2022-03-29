@@ -34,6 +34,7 @@ class Engine < ApplicationRecord
   validates :num_cylinders, inclusion: CYLINDER_OPTS
   validates :valves_per_cylinder, inclusion: VALVES_PER_CYLINDER_OPTS
   validate :valve_clearances_are_valid
+  validates :name, presence: true
 
   # --------------------------------------------------------------
   private
