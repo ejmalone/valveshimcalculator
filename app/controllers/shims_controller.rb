@@ -12,11 +12,15 @@ class ShimsController < ApplicationController
 
   # --------------------------------------------------------------
   def create_all
-    params[:valves].each do |valve_id, size_mm|
-      Shim.create(size_mm: size_mm.to_i, valve: Valve.find(valve_id.to_i))
+    ActiveRecord::Base.transaction do
+      params[:valves].each do |valve_id, size_mm|
+        Shim.create!(size_mm: size_mm.to_i, valve: Valve.find(valve_id.to_i))
+      end
+    rescue
+      redirect_to edit_all_engine_shims_path(@engine), flash: { alert: "One or more shims is invalid" }
+    else
+      redirect_to engine_path(@engine)
     end
-
-    redirect_to engine_path(@engine)
   end
 
   # --------------------------------------------------------------

@@ -17,5 +17,9 @@
 #  valve_id  (valve_id => valves.id)
 #
 class Shim < ApplicationRecord
+  SIZE_LIMITS = 100..500.freeze
+
   belongs_to :valve
+
+  validates :size_mm, inclusion: { in: SIZE_LIMITS }
 end
