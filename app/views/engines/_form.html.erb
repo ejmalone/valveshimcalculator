@@ -14,12 +14,12 @@
   <% unless engine.persisted? %>
     <div>
       <%= form.label :num_cylinders, style: "display: block" %>
-      <%= form.select :num_cylinders, %i[ 1 2 4 ] %>
+      <%= form.select :num_cylinders, Engine::CYLINDER_OPTS %>
     </div>
 
     <div>
       <%= form.label :valves_per_cylinder, style: "display: block" %>
-      <%= form.select :valves_per_cylinder, %i[ 2 4 ] %>
+      <%= form.select :valves_per_cylinder, Engine::VALVES_PER_CYLINDER_OPTS %>
     </div>
   <% else %>
     <div>
