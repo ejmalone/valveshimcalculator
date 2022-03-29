@@ -3,6 +3,13 @@ Rails.application.routes.draw do
     resources :cylinders do
       resources :valves
     end
+
+    resources :shims, only: [ :update ] do
+      collection do
+        get "edit_all"
+        put "create_all"
+      end
+    end
   end
 
   resources :users

@@ -1,3 +1,17 @@
 <p style="color: green"><%= notice %></p>
 
-<%= form_for %>
+<%= form_tag({ action: :create_all }, method: :put) do %>
+  Editing shims
+
+  <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
+    <%= field_set_tag "Cylinder #{ cyl_index }" do %>
+      <% cylinder.valves.each_with_index do |valve, valve_index| %>
+        <%= label_tag valve_form_label(valve) %>
+        <%= text_field_tag "[valves][#{ valve.id }]" %>
+        <br>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= submit_tag "Submit" %>
+<% end %>
