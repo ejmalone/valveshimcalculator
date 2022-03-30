@@ -5,10 +5,25 @@
 <div>
   <%= link_to "Edit this engine", edit_engine_path(@engine) %> |
   <%= link_to "Back to engines", engines_path %>
+</div>
 
+<div>
+  <br>
   <%= button_to "Destroy this engine", @engine, method: :delete %>
 </div>
 
 <% if @engine.lacks_shims? %>
-  <%= link_to "Add shims", edit_all_engine_shims_path(@engine) %>
+  <%= link_to "Add current shims", edit_all_engine_shims_path(@engine) %>
+<% else %>
+  <h2>Current shims</h2>
+  <table>
+    <% @engine.cylinders.each do |cylinder| %>
+      <tr><td colspan="2"><strong>Cylinder <%= cylinder.cylinder_num %></strong></td></tr>
+      <% cylinder.valves.each do |valve| %>
+        <tr>
+          <td><%= valve_form_label(valve) %>: <%= valve.shim.size_mm %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </table>
 <% end %>
