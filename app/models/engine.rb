@@ -28,6 +28,7 @@ class Engine < ApplicationRecord
 
   belongs_to :user
   has_many :cylinders, dependent: :destroy
+  has_many :valve_adjustments, dependent: :destroy
 
   after_create :create_internals
 

@@ -1,8 +1,6 @@
 require "test_helper"
 
 class EnginesControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @engine = build(:klr650)
     sign_in @engine.user

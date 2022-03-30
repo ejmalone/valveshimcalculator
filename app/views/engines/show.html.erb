@@ -26,4 +26,12 @@
       <% end %>
     <% end %>
   </table>
+
+  <div>
+    <%= link_to "Begin valve adjustment", new_engine_valve_adjustment_path(@engine) %>
+    <% if @latest_adjustment.present? %>
+      |
+      <%= link_to "Or continue the most recent from #{ @latest_adjustment.adjustment_date }", edit_valve_adjustment_path(@latest_adjustment) %>
+    <% end %>
+  </div>
 <% end %>

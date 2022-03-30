@@ -10,6 +10,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # GET /engines/1 or /engines/1.json
   def show
+    @latest_adjustment = @engine.valve_adjustments.most_recent.first
   end
 
   # --------------------------------------------------------------

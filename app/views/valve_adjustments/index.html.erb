@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Valve adjustments for <%= @engine.name %></h1>
+
+<div id="valve_adjustments">
+  <% @valve_adjustments.each do |valve_adjustment| %>
+    <%= render valve_adjustment %>
+    <p>
+      <%= link_to "Show this valve adjustment", engine_valve_adjustment_path(@engine, valve_adjustment) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New valve adjustment", new_engine_valve_adjustment_path(@engine) %>

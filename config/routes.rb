@@ -10,6 +10,8 @@ Rails.application.routes.draw do
         put "create_all"
       end
     end
+
+    resources :valve_adjustments
   end
 
   resources :users
