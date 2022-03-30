@@ -25,5 +25,6 @@ class Valve < ApplicationRecord
   belongs_to :cylinder
   has_one :shim, dependent: :destroy
 
-  validates :gap, inclusion: 0.01..15.0
+  # valves can have empty gap on creation via Engine#create_internals
+  validates :gap, inclusion: 0.01..15.0, unless: Proc.new { |v| v.gap.blank? }
 end
