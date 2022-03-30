@@ -39,3 +39,4 @@ bin/
 
 # Ignore IDE
 .idea/*
+.idea/.*
