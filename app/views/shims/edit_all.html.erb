@@ -11,7 +11,12 @@
     <%= field_set_tag "Cylinder #{ cyl_index }" do %>
       <% cylinder.valves.each_with_index do |valve, valve_index| %>
         <%= label_tag valve_form_label(valve) %>
-        <%= text_field_tag "[valves][#{ valve.id }]" %>
+
+        <%= label_tag "Current gap" %>
+        <%= text_field_tag "[valve][#{ valve.id }][gap]" %>
+
+        <%= label_tag "Current shim size"  %>
+        <%= text_field_tag "[valve][#{ valve.id }][size_mm]" %>
         <br>
       <% end %>
     <% end %>

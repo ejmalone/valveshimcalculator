@@ -3,7 +3,7 @@
 # Table name: valves
 #
 #  id                :integer          not null, primary key
-#  gap               :integer
+#  gap               :decimal(4, 2)
 #  intake_or_exhaust :string
 #  valve_num         :integer
 #  created_at        :datetime         not null
@@ -19,9 +19,11 @@
 #  cylinder_id  (cylinder_id => cylinders.id)
 #
 class Valve < ApplicationRecord
+  INTAKE = "intake".freeze
+  EXHAUST = "exhaust".freeze
+
   belongs_to :cylinder
   has_one :shim, dependent: :destroy
 
-  INTAKE = "intake".freeze
-  EXHAUST = "exhaust".freeze
+  validates :gap, inclusion: 0.01..15.0
 end

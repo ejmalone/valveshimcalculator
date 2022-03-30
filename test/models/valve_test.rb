@@ -3,7 +3,7 @@
 # Table name: valves
 #
 #  id                :integer          not null, primary key
-#  gap               :integer
+#  gap               :decimal(4, 2)
 #  intake_or_exhaust :string
 #  valve_num         :integer
 #  created_at        :datetime         not null
