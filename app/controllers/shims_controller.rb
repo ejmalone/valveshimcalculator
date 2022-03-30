@@ -1,8 +1,10 @@
 class ShimsController < ApplicationController
   before_action :load_engine, on: [ :edit_all, :create_all ]
-  before_action :redirect_to_engine, on: [ :edit_all, :create_all ]
+  before_action :redirect_to_engine_if_created, on: [ :edit_all, :create_all ]
 
   # --------------------------------------------------------------
+  # Adds shims to valves an sets valve gaps in a single form
+  # @see create_all for PUT of this form
   def edit_all; end
 
   # --------------------------------------------------------------
@@ -11,6 +13,7 @@ class ShimsController < ApplicationController
   end
 
   # --------------------------------------------------------------
+  # Adds shims to valves an sets valve gaps in a single form
   def create_all
     ActiveRecord::Base.transaction do
       params[:valve].each do |valve_id, _|
@@ -30,10 +33,13 @@ class ShimsController < ApplicationController
   private
   # --------------------------------------------------------------
 
-  def redirect_to_engine
+  # --------------------------------------------------------------
+  # ensure we don't try to generate shims & populate gaps if already done
+  def redirect_to_engine_if_created
     redirect_to engine_path(@engine) unless @engine.lacks_shims?
   end
 
+  # --------------------------------------------------------------
   # --------------------------------------------------------------
   def load_engine
     @engine = Engine.includes_shims.where(id: params[:engine_id]).last
