@@ -24,7 +24,7 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
     end
 
     @engine = Engine.where(user_id: @engine.user_id, name: @engine.name).last
-    assert_redirected_to engine_url(@engine)
+    assert_redirected_to edit_all_engine_shims_url(@engine)
   end
 
 =begin

@@ -31,7 +31,7 @@ class EnginesController < ApplicationController
 
     respond_to do |format|
       if @engine.save
-        format.html { redirect_to engine_url(@engine), notice: "Engine was successfully created." }
+        format.html { redirect_to edit_all_engine_shims_url(@engine), notice: "Engine was successfully created." }
         format.json { render :show, status: :created, location: @engine }
       else
         format.html { render :new, status: :unprocessable_entity }
