@@ -43,8 +43,9 @@ gem "devise"
 
 gem "pg", "~> 1.3.4"
 
-# audit gem necessary for github actions lint
-gem "bundler-audit", "~> 0.9.0.1"
+# gems necessary for github workflow lint
+gem "bundler-audit"
+gem "brakeman"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
