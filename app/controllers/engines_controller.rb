@@ -75,7 +75,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # Use callbacks to share common setup or constraints between actions.
   def set_engine
-    @engine = Engine.find(params[:id])
+    @engine = Engine.where(id: params[:id], user_id: current_user.id).last
   end
 
   # --------------------------------------------------------------
