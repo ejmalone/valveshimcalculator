@@ -16,8 +16,8 @@ class ShimsController < ApplicationController
   # Adds shims to valves an sets valve gaps in a single form
   def create_all
     ActiveRecord::Base.transaction do
-      shim_creator = Shim::Creator.new(params[:valve])
-      shim_creator.call
+      shim_creator = Shims::ShimCreator.new(params[:valve])
+      shim_creator.create
     rescue StandardError => e
       logger.debug("Error creating shims/updating valves: #{e.message}")
       redirect_to edit_all_engine_shims_path(@engine), flash: { alert: 'One or more shims is invalid' }
