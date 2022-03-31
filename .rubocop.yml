@@ -1,5 +1,4 @@
 AllCops:
-  TargetRubyVersion: 2.7.5
   Exclude: # sane default pulled from the web
     - 'db/**/*'
     - 'db/**/*'
@@ -7,6 +6,7 @@ AllCops:
     - 'script/**/*'
     - 'bin/**/*'
     - 'lib/tasks/auto_annotate_models.rake'
+    - 'vendor/bundle/**/*' # don't let rubocop on CI try to validate gems
 Layout/LineLength: # scaffold tests write long parameter chains
   Exclude:
     - 'test/**/*'
