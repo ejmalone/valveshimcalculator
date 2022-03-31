@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resources :user
+
   resources :engines do
     resources :cylinders do
       resources :valves
@@ -14,13 +17,5 @@ Rails.application.routes.draw do
     resources :valve_adjustments
   end
 
-  resources :users
-  devise_for :users
-
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
-  #
   root "application#index"
 end

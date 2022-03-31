@@ -2,7 +2,7 @@
 #
 # Table name: cylinders
 #
-#  id           :integer          not null, primary key
+#  id           :bigint           not null, primary key
 #  cylinder_num :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -14,7 +14,7 @@
 #
 # Foreign Keys
 #
-#  engine_id  (engine_id => engines.id)
+#  fk_rails_...  (engine_id => engines.id)
 #
 require "test_helper"
 

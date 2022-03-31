@@ -2,7 +2,7 @@
 #
 # Table name: engines
 #
-#  id                  :integer          not null, primary key
+#  id                  :bigint           not null, primary key
 #  exhaust_max         :decimal(4, 2)
 #  exhaust_min         :decimal(4, 2)
 #  intake_max          :decimal(4, 2)
@@ -20,7 +20,7 @@
 #
 # Foreign Keys
 #
-#  user_id  (user_id => users.id)
+#  fk_rails_...  (user_id => users.id)
 #
 class Engine < ApplicationRecord
   CYLINDER_OPTS = [ 1, 2, 4 ].freeze

@@ -2,7 +2,7 @@
 #
 # Table name: valves
 #
-#  id                :integer          not null, primary key
+#  id                :bigint           not null, primary key
 #  gap               :decimal(4, 2)
 #  intake_or_exhaust :string
 #  valve_num         :integer
@@ -16,7 +16,7 @@
 #
 # Foreign Keys
 #
-#  cylinder_id  (cylinder_id => cylinders.id)
+#  fk_rails_...  (cylinder_id => cylinders.id)
 #
 require "test_helper"
 

@@ -2,7 +2,7 @@
 #
 # Table name: valve_adjustments
 #
-#  id              :integer          not null, primary key
+#  id              :bigint           not null, primary key
 #  adjustment_date :date
 #  mileage         :integer
 #  notes           :text
@@ -16,7 +16,7 @@
 #
 # Foreign Keys
 #
-#  engine_id  (engine_id => engines.id)
+#  fk_rails_...  (engine_id => engines.id)
 #
 require "test_helper"
 

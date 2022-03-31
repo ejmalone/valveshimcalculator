@@ -1,5 +1,9 @@
 <h1>Welcome to Motorcycle Shims</h1>
 
+<% if current_user.present? %>
+  <h2>Welcome back <%= current_user.email %></h2>
+<% end %>
+
 <% if current_user.blank? %>
   <%= link_to "Sign in", new_user_session_path %>
 <% elsif current_user.engines.blank? %>

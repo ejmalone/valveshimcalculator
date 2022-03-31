@@ -2,7 +2,7 @@
 #
 # Table name: shims
 #
-#  id         :integer          not null, primary key
+#  id         :bigint           not null, primary key
 #  size_mm    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -14,7 +14,7 @@
 #
 # Foreign Keys
 #
-#  valve_id  (valve_id => valves.id)
+#  fk_rails_...  (valve_id => valves.id)
 #
 require "test_helper"
 
