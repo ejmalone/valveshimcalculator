@@ -68,7 +68,7 @@ group :development do
   gem 'bundler-audit'
 
   # github linting
-  gem 'rubocop'
+  gem 'rubocop', '~> 1.26'
 
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
