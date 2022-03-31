@@ -18,7 +18,7 @@
 #
 #  fk_rails_...  (cylinder_id => cylinders.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class ValveTest < ActiveSupport::TestCase
   # test "the truth" do

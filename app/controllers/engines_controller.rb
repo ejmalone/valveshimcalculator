@@ -21,8 +21,7 @@ class EnginesController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /engines/1/edit
-  def edit
-  end
+  def edit; end
 
   # --------------------------------------------------------------
   # POST /engines or /engines.json
@@ -32,7 +31,7 @@ class EnginesController < ApplicationController
 
     respond_to do |format|
       if @engine.save
-        format.html { redirect_to edit_all_engine_shims_url(@engine), notice: "Engine was successfully created." }
+        format.html { redirect_to edit_all_engine_shims_url(@engine), notice: 'Engine was successfully created.' }
         format.json { render :show, status: :created, location: @engine }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -46,7 +45,7 @@ class EnginesController < ApplicationController
   def update
     respond_to do |format|
       if @engine.update(engine_params)
-        format.html { redirect_to engine_url(@engine), notice: "Engine was successfully updated." }
+        format.html { redirect_to engine_url(@engine), notice: 'Engine was successfully updated.' }
         format.json { render :show, status: :ok, location: @engine }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,13 +60,14 @@ class EnginesController < ApplicationController
     @engine.destroy
 
     respond_to do |format|
-      format.html { redirect_to engines_url, notice: "Engine was successfully destroyed." }
+      format.html { redirect_to engines_url, notice: 'Engine was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------
@@ -79,6 +79,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # Only allow a list of trusted parameters through.
   def engine_params
-    params.require(:engine).permit(:num_cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min, :exhaust_max)
+    params.require(:engine).permit(:num_cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min,
+                                   :exhaust_max)
   end
 end

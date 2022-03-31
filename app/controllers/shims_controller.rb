@@ -1,6 +1,6 @@
 class ShimsController < ApplicationController
-  before_action :load_engine, on: [ :edit_all, :create_all ]
-  before_action :redirect_to_engine_if_created, on: [ :edit_all, :create_all ]
+  before_action :load_engine, on: %i[edit_all create_all]
+  before_action :redirect_to_engine_if_created, on: %i[edit_all create_all]
 
   # --------------------------------------------------------------
   # Adds shims to valves an sets valve gaps in a single form
@@ -8,9 +8,7 @@ class ShimsController < ApplicationController
   def edit_all; end
 
   # --------------------------------------------------------------
-  def update
-
-  end
+  def update; end
 
   # --------------------------------------------------------------
   # Adds shims to valves an sets valve gaps in a single form
@@ -21,9 +19,9 @@ class ShimsController < ApplicationController
         Shim.create!(size_mm: params[:valve][valve_id][:size_mm].to_i, valve: valve)
         valve.update(gap: params[:valve][valve_id][:gap].to_d)
       end
-    rescue => e
-      logger.debug("Error creating shims/updating valves: #{ e.message }")
-      redirect_to edit_all_engine_shims_path(@engine), flash: { alert: "One or more shims is invalid" }
+    rescue StandardError => e
+      logger.debug("Error creating shims/updating valves: #{e.message}")
+      redirect_to edit_all_engine_shims_path(@engine), flash: { alert: 'One or more shims is invalid' }
     else
       redirect_to engine_path(@engine)
     end
@@ -31,6 +29,7 @@ class ShimsController < ApplicationController
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------

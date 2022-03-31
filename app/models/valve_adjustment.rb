@@ -21,5 +21,5 @@
 class ValveAdjustment < ApplicationRecord
   belongs_to :engine
 
-  scope :most_recent, -> { order("adjustment_date DESC") }
+  scope :most_recent, -> { order('adjustment_date DESC') }
 end

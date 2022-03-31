@@ -17,7 +17,7 @@
 #  fk_rails_...  (valve_id => valves.id)
 #
 class Shim < ApplicationRecord
-  SIZE_LIMITS = 100..500.freeze
+  SIZE_LIMITS = 100..500
 
   belongs_to :valve
 

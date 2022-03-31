@@ -1,1 +1,1 @@
-json.partial! "engines/engine", engine: @engine
+json.partial! 'engines/engine', engine: @engine

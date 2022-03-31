@@ -10,8 +10,7 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /valve_adjustments/1 or /valve_adjustments/1.json
-  def show
-  end
+  def show; end
 
   # --------------------------------------------------------------
   # GET /valve_adjustments/new
@@ -22,8 +21,7 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /valve_adjustments/1/edit
-  def edit
-  end
+  def edit; end
 
   # --------------------------------------------------------------
   # POST /valve_adjustments or /valve_adjustments.json
@@ -33,7 +31,10 @@ class ValveAdjustmentsController < ApplicationController
 
     respond_to do |format|
       if @valve_adjustment.save
-        format.html { redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment), notice: "Valve adjustment was successfully created." }
+        format.html do
+          redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment),
+                      notice: 'Valve adjustment was successfully created.'
+        end
         format.json { render :show, status: :created, location: @valve_adjustment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -47,7 +48,10 @@ class ValveAdjustmentsController < ApplicationController
   def update
     respond_to do |format|
       if @valve_adjustment.update(valve_adjustment_params)
-        format.html { redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment), notice: "Valve adjustment was successfully updated." }
+        format.html do
+          redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment),
+                      notice: 'Valve adjustment was successfully updated.'
+        end
         format.json { render :show, status: :ok, location: @valve_adjustment }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -62,13 +66,16 @@ class ValveAdjustmentsController < ApplicationController
     @valve_adjustment.destroy
 
     respond_to do |format|
-      format.html { redirect_to engine_valve_adjustments_url(@engine), notice: "Valve adjustment was successfully destroyed." }
+      format.html do
+        redirect_to engine_valve_adjustments_url(@engine), notice: 'Valve adjustment was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------

@@ -1,7 +1,7 @@
 FactoryBot.define do
-  factory :klr650, class: "Engine" do
+  factory :klr650, class: 'Engine' do
     user { create(:user) }
-    name { "KLR 650" }
+    name { 'KLR 650' }
     num_cylinders { 1 }
     valves_per_cylinder { 4 }
     intake_min { 0.1 }

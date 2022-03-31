@@ -18,7 +18,7 @@
 #
 #  fk_rails_...  (engine_id => engines.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class ValveAdjustmentTest < ActiveSupport::TestCase
   # test "the truth" do

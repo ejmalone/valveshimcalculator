@@ -23,8 +23,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Engine < ApplicationRecord
-  CYLINDER_OPTS = [ 1, 2, 4 ].freeze
-  VALVES_PER_CYLINDER_OPTS = [ 2, 4 ].freeze
+  CYLINDER_OPTS = [1, 2, 4].freeze
+  VALVES_PER_CYLINDER_OPTS = [2, 4].freeze
 
   belongs_to :user
   has_many :cylinders, dependent: :destroy
@@ -42,11 +42,12 @@ class Engine < ApplicationRecord
   # --------------------------------------------------------------
   # Determines if an engine needs initial setup for shims
   def lacks_shims?
-    Engine.where(id: id).includes_shims.pluck("shims.id").all?(&:blank?)
+    Engine.where(id: id).includes_shims.pluck('shims.id').all?(&:blank?)
   end
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------
@@ -74,8 +75,8 @@ class Engine < ApplicationRecord
       errors.add(clearance, "can't be less than zero") if send(clearance) <= 0.0
     end
 
-    clearances.each do |(min,max)|
-      errors.add(:base, "#{ min.humanize } and #{ max.humanize } is an invalid range") if send(min) >= send(max)
+    clearances.each do |(min, max)|
+      errors.add(:base, "#{min.humanize} and #{max.humanize} is an invalid range") if send(min) >= send(max)
     end
   end
 end

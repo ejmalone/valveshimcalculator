@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class EngineTest < ActiveSupport::TestCase
   # --------------------------------------------------------------
@@ -32,12 +32,12 @@ class EngineTest < ActiveSupport::TestCase
   end
 
   # --------------------------------------------------------------
-  test "engine has appropriate number of cylinders" do
+  test 'engine has appropriate number of cylinders' do
     assert_equal @engine.cylinders.count, @engine.num_cylinders
   end
 
   # --------------------------------------------------------------
-  test "engine has appropriate number of valves" do
+  test 'engine has appropriate number of valves' do
     assert_equal @engine.cylinders.map(&:valves).flatten.count, @engine.valves_per_cylinder * @engine.num_cylinders
   end
 end

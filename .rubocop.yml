@@ -1,0 +1,10 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bin/**/*'
+    - 'lib/tasks/auto_annotate_models.rake'
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false

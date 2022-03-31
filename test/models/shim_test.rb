@@ -16,7 +16,7 @@
 #
 #  fk_rails_...  (valve_id => valves.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class ShimTest < ActiveSupport::TestCase
   # test "the truth" do

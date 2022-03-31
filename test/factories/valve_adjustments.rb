@@ -22,7 +22,7 @@ FactoryBot.define do
   factory :valve_adjustment do
     engine { nil }
     mileage { 1 }
-    adjustment_date { "2022-03-30" }
-    notes { "MyText" }
+    adjustment_date { '2022-03-30' }
+    notes { 'MyText' }
   end
 end
