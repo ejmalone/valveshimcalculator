@@ -63,6 +63,7 @@ group :development do
   # gems necessary for github workflow lint
   gem "bundler-audit"
   gem "brakeman"
+  gem "rubocop"
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
