@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ValvesHelper
   # --------------------------------------------------------------
   def valve_form_label(valve)

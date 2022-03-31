@@ -1,10 +1,21 @@
 AllCops:
-  Exclude:
+  Exclude: # sane default pulled from the web
     - 'db/**/*'
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
     - 'bin/**/*'
     - 'lib/tasks/auto_annotate_models.rake'
-Layout/SpaceInsidePercentLiteralDelimiters:
+Layout/LineLength: # scaffold tests write long parameter chains
+  Exclude:
+    - 'test/**/*'
+Layout/SpaceInsidePercentLiteralDelimiters: # personal preference
   Enabled: false
+Metrics/AbcSize:
+  IgnoredMethods:
+    - 'create'
+Metrics/MethodLength:
+  Max: 15
+Style/Documentation: # will get to documenting better later
+  Enabled: false
+

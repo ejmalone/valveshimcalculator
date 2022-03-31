@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class EnginesControllerTest < ActionDispatch::IntegrationTest
@@ -20,7 +22,9 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Engine.count') do
       post engines_url,
            params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max,
-                               exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max, intake_min: @engine.intake_min, name: @engine.name, valves_per_cylinder: @engine.valves_per_cylinder } }
+                               exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max,
+                               intake_min: @engine.intake_min, name: @engine.name,
+                               valves_per_cylinder: @engine.valves_per_cylinder } }
     end
 
     @engine = Engine.where(user_id: @engine.user_id, name: @engine.name).last

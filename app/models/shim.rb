@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: shims
@@ -17,7 +19,7 @@
 #  fk_rails_...  (valve_id => valves.id)
 #
 class Shim < ApplicationRecord
-  SIZE_LIMITS = 100..500
+  SIZE_LIMITS = (100..500).freeze
 
   belongs_to :valve
 

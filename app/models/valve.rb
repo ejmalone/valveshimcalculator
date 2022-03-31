@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: valves
@@ -19,8 +21,8 @@
 #  fk_rails_...  (cylinder_id => cylinders.id)
 #
 class Valve < ApplicationRecord
-  INTAKE = 'intake'.freeze
-  EXHAUST = 'exhaust'.freeze
+  INTAKE = 'intake'
+  EXHAUST = 'exhaust'
 
   belongs_to :cylinder
   has_one :shim, dependent: :destroy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ValveAdjustmentsController < ApplicationController
   before_action :set_valve_adjustment, only: %i[ show edit update destroy ]
   before_action :load_engine

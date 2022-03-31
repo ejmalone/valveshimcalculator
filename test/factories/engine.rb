@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :klr650, class: 'Engine' do
     user { create(:user) }
