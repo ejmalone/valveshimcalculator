@@ -5,7 +5,7 @@ module Shims
   class ShimCreator
     # --------------------------------------------------------------
     # user [User] owner of this engine and its valves & shims
-    # parameters [Hash] representing [valve id] -> { size_mm: [int], gap: [int] }
+    # parameters [Hash] representing [valve id] -> { thickness: [int], gap: [int] }
     def initialize(user, parameters)
       @user = user
       @parameters = parameters
@@ -15,7 +15,7 @@ module Shims
     def create
       @parameters.each do |valve_id, _|
         valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { user_id: user.id }).last
-        Shim.create!(size_mm: @parameters[valve_id][:size_mm].to_i, valve: valve)
+        Shim.create!(thickness: @parameters[valve_id][:thickness].to_i, valve: valve)
         valve.update(gap: @parameters[valve_id][:gap].to_d)
       end
     end

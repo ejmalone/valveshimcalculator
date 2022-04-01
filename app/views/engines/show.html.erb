@@ -21,7 +21,7 @@
       <tr><td colspan="2"><strong>Cylinder <%= cylinder.cylinder_num %></strong></td></tr>
       <% cylinder.valves.each do |valve| %>
         <tr>
-          <td><%= valve_form_label(valve) %>: <%= valve.shim.size_mm %></td>
+          <td><%= valve_form_label(valve) %>: <%= valve.shim.thickness %></td>
         </tr>
       <% end %>
     <% end %>

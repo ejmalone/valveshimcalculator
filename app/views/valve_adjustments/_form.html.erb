@@ -31,6 +31,8 @@
     <%= form.text_area :notes %>
   </div>
 
+  <%= render "adjustment_table" unless @engine.lacks_shims? %>
+
   <div>
     <%= form.submit %>
   </div>

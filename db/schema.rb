@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_03_30_172248) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_01_000418) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_03_30_172248) do
 
   create_table "shims", force: :cascade do |t|
     t.integer "valve_id", null: false
-    t.integer "size_mm"
+    t.integer "thickness"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["valve_id"], name: "index_shims_on_valve_id"

@@ -19,7 +19,7 @@ class ShimsTest < ApplicationSystemTestCase
     fill_in 'Cylinder', with: @shim.cylinder
     fill_in 'Engine', with: @shim.engine_id
     check 'In use' if @shim.in_use
-    fill_in 'Size mm', with: @shim.size_mm
+    fill_in 'Thickness', with: @shim.thickness
     fill_in 'Valve', with: @shim.valve
     fill_in 'Valve num', with: @shim.valve_num
     click_on 'Create Shim'
@@ -35,7 +35,7 @@ class ShimsTest < ApplicationSystemTestCase
     fill_in 'Cylinder', with: @shim.cylinder
     fill_in 'Engine', with: @shim.engine_id
     check 'In use' if @shim.in_use
-    fill_in 'Size mm', with: @shim.size_mm
+    fill_in 'Thickness', with: @shim.thickness
     fill_in 'Valve', with: @shim.valve
     fill_in 'Valve num', with: @shim.valve_num
     click_on 'Update Shim'

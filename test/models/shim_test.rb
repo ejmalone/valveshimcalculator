@@ -5,7 +5,7 @@
 # Table name: shims
 #
 #  id         :bigint           not null, primary key
-#  size_mm    :integer
+#  thickness  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  valve_id   :integer          not null
