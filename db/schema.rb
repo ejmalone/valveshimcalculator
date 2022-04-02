@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_01_000418) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_02_172811) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,6 +41,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_01_000418) do
     t.integer "thickness"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "engine_id"
+    t.index ["engine_id"], name: "index_shims_on_engine_id"
     t.index ["valve_id"], name: "index_shims_on_valve_id"
   end
 
@@ -78,6 +80,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_01_000418) do
 
   add_foreign_key "cylinders", "engines"
   add_foreign_key "engines", "users"
+  add_foreign_key "shims", "engines"
   add_foreign_key "shims", "valves"
   add_foreign_key "valve_adjustments", "engines"
   add_foreign_key "valves", "cylinders"

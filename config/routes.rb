@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       resources :valves
     end
 
-    resources :shims, only: [ :update ] do
+    resources :shims, only: [ :new, :create ] do
       collection do
         get "edit_all"
         put "create_all"

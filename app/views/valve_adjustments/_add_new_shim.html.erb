@@ -1,0 +1,30 @@
+<%
+  new_shim = Shim.new
+  unused_shims = Shim.unused_for_engine(@engine)
+%>
+
+<div id="shims-container">
+  <%= field_set_tag "Available shims" do %>
+    <ul>
+      <% if unused_shims.blank? %>
+        <li>None available</li>
+      <% else %>
+        <% unused_shims.each do |shim| %>
+          <li><%= shim.thickness %></li>
+        <% end %>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form_with(model: new_shim, url: [@engine, new_shim], id: "new-shim", local: false) do |form| %>
+    <%= field_set_tag "Add new shim to valve adjustment" do %>
+      <div>
+        <%= form.label :thickness, style: "display: block" %>
+        <%= form.text_field :thickness %>
+      </div>
+      <div>
+        <%= form.submit "Add shim" %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -4,13 +4,14 @@ class ShimsController < ApplicationController
   before_action :load_engine, on: %i[edit_all create_all]
   before_action :redirect_to_engine_if_created, on: %i[edit_all create_all]
 
+  def new; end
+
+  def create; end
+
   # --------------------------------------------------------------
   # Adds shims to valves an sets valve gaps in a single form
   # @see create_all for PUT of this form
   def edit_all; end
-
-  # --------------------------------------------------------------
-  def update; end
 
   # --------------------------------------------------------------
   # Adds shims to valves an sets valve gaps in a single form
