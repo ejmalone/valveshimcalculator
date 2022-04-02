@@ -1,3 +1,4 @@
+<% valve_shim_calculator = ValveAdjustments::Calculator.new(@engine) %>
 <table>
   <tr><td>Intake </td><td><%= @engine.intake_min %> - <%= @engine.intake_max %></td></tr>
   <tr><td>Exhaust </td><td><%= @engine.exhaust_min %> - <%= @engine.exhaust_max %></td></tr>
@@ -7,7 +8,7 @@
 
     <% cylinder.valves.each do |valve| %>
       <tr>
-        <td><%= label_tag valve_form_label(valve) %> gap</td>
+        <td style="color: <%= valve_shim_calculator.valve_style(valve) %>"><%= label_tag valve_form_label(valve) %> gap</td>
         <td><%= valve.gap %></td>
         <td>Current shim</td>
         <td><%= valve.shim.thickness %></td>
@@ -15,4 +16,3 @@
     <% end %>
   <% end %>
 </table>
-
