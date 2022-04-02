@@ -9,7 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  engine_id  :bigint
-#  valve_id   :integer          not null
+#  valve_id   :integer
 #
 # Indexes
 #
@@ -19,7 +19,6 @@
 # Foreign Keys
 #
 #  fk_rails_...  (engine_id => engines.id)
-#  fk_rails_...  (valve_id => valves.id)
 #
 require 'test_helper'
 
@@ -40,5 +39,11 @@ class ShimTest < ActiveSupport::TestCase
 
     assert_not_nil valve.shim
     assert_equal thickness, valve.shim.thickness
+  end
+
+  # --------------------------------------------------------------
+  test 'create new shim on engine' do
+    shim = Shim.new(engine: @engine, thickness: 100)
+    assert shim.save!, 'Shim should be able to create without an associated valve'
   end
 end

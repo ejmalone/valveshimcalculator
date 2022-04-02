@@ -9,7 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  engine_id  :bigint
-#  valve_id   :integer          not null
+#  valve_id   :integer
 #
 # Indexes
 #
@@ -19,12 +19,11 @@
 # Foreign Keys
 #
 #  fk_rails_...  (engine_id => engines.id)
-#  fk_rails_...  (valve_id => valves.id)
 #
 class Shim < ApplicationRecord
   SIZE_LIMITS = (100..500).freeze
 
-  belongs_to :valve
+  belongs_to :valve, optional: true
   belongs_to :engine
 
   validates :thickness, inclusion: { in: SIZE_LIMITS }

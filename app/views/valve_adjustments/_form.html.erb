@@ -36,6 +36,6 @@
   </div>
 
   <%= render "adjustment_table" unless @engine.lacks_shims? %>
-
-  <%= render "add_new_shim" %>
 <% end %>
+
+<%= render "add_new_shim", valve_adjustment: valve_adjustment %>

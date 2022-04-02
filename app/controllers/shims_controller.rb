@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
 class ShimsController < ApplicationController
-  before_action :load_engine, on: %i[edit_all create_all]
-  before_action :redirect_to_engine_if_created, on: %i[edit_all create_all]
+  before_action :load_engine, only: %i[edit_all create_all]
+  before_action :redirect_to_engine_if_created, only: %i[edit_all create_all]
 
   def new; end
 
-  def create; end
+  # --------------------------------------------------------------
+  # Creates a shim and returns to the current valve adjustment
+  def create
+    @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
+    @shim = Shim.create!(engine: @engine, thickness: params[:shim][:thickness])
+    redirect_to edit_engine_valve_adjustment_url(@engine, params[:valve_adjustment_id])
+  end
 
   # --------------------------------------------------------------
   # Adds shims to valves an sets valve gaps in a single form
@@ -41,6 +47,6 @@ class ShimsController < ApplicationController
   # --------------------------------------------------------------
   # --------------------------------------------------------------
   def load_engine
-    @engine = Engine.includes_shims.where(id: params[:engine_id], user_id: current_user.id).last
+    @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
   end
 end
