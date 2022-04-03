@@ -4,14 +4,21 @@
   <tr><td>Exhaust </td><td><%= @engine.exhaust_min %> - <%= @engine.exhaust_max %></td></tr>
 
   <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
-    <tr><td colspan="4">Cylinder <%= cyl_index %></td></tr>
-
+    <tr>
+      <td colspan="4">Cylinder <%= cyl_index %></td>
+    </tr>
+    <tr>
+      <th>Valve name</th>
+      <th>Current gap</th>
+      <th>Current shim</th>
+      <th>New shim</th>
+    </tr>
     <% cylinder.valves.each do |valve| %>
-      <tr>
-        <td style="color: <%= valve_shim_calculator.valve_style(valve) %>"><%= label_tag valve_form_label(valve) %> gap</td>
+      <tr valve-id="<%= valve.id %>">
+        <td style="color: <%= valve_shim_calculator.valve_style(valve) %>"><%= label_tag valve_form_label(valve) %></td>
         <td><%= valve.gap %></td>
-        <td>Current shim</td>
         <td><%= valve.shim.thickness %></td>
+        <td><%= valve_shim_calculator.new_shim_thickness(valve) %></td>
       </tr>
     <% end %>
   <% end %>
