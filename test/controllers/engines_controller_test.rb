@@ -4,8 +4,9 @@ require 'test_helper'
 
 class EnginesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @engine = build(:klr650)
-    sign_in @engine.user
+    @user = create(:user)
+    sign_in @user
+    @engine = build(:klr650, user: @user)
   end
 
   test 'should get index' do

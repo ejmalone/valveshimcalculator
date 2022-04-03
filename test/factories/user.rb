@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :user do
-    email { 'someguy@mysite.com' }
+    email { Faker::Internet.email }
     password { 'password' }
     encrypted_password { Devise::Encryptor.digest(User, 'password') }
   end
