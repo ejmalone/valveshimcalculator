@@ -54,6 +54,8 @@ gem 'pg', '~> 1.3.4'
 group :development, :test do
   gem 'annotate'
 
+  gem 'awesome_print'
+
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[ mri mingw x64_mingw ]
 

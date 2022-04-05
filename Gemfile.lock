@@ -72,6 +72,7 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
+    awesome_print (1.9.2)
     bcrypt (3.1.17)
     bindex (0.8.1)
     bootsnap (1.11.1)
@@ -265,6 +266,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  awesome_print
   bootsnap
   brakeman
   bundler-audit
