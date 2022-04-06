@@ -34,7 +34,7 @@ module ValveAdjustments
 
           next if available_shims.blank?
 
-          best_shim = available_shims.min_by { |shim| new_shim_thickness_range(valve).first - shim.thickness }
+          best_shim = available_shims.min_by { |shim| (new_shim_thickness_range(valve).first - shim.thickness).abs }
 
           valves_to_shims[valve] = best_shim
         end
