@@ -23,7 +23,9 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /valve_adjustments/1/edit
-  def edit; end
+  def edit
+    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
+  end
 
   # --------------------------------------------------------------
   # POST /valve_adjustments or /valve_adjustments.json
@@ -34,7 +36,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       if @valve_adjustment.save
         format.html do
-          redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment),
+          redirect_to edit_engine_valve_adjustment_url(@engine, @valve_adjustment),
                       notice: 'Valve adjustment was successfully created.'
         end
         format.json { render :show, status: :created, location: @valve_adjustment }

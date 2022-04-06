@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  helpers:
+    submit:
+        valve_adjustment:
+          create: "Start a valve adjustment"
+          update: "Update this valve adjustment"

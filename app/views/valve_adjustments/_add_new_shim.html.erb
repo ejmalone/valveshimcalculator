@@ -1,6 +1,10 @@
 <%
   new_shim = Shim.new(engine: @engine)
-  unused_shims = Shim.unused_for_engine(@engine)
+  if params[:choose_shims]
+    unused_shims = valve_shim_calculator.unused_shims
+  else
+    unused_shims = Shim.unused_for_engine(@engine)
+  end
 %>
 
 <div id="shims-container">
@@ -10,7 +14,7 @@
         <li>None available</li>
       <% else %>
         <% unused_shims.each do |shim| %>
-          <li><%= shim.thickness %></li>
+          <li><%= shim.thickness %> - <%= shim.id %></li>
         <% end %>
       <% end %>
     </ul>

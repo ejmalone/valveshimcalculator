@@ -11,6 +11,16 @@ module ValveAdjustments
     end
 
     # --------------------------------------------------------------
+    def new_shim(valve)
+      apply_shims[valve]
+    end
+
+    # --------------------------------------------------------------
+    def unused_shims
+      @engine.shims - apply_shims.values
+    end
+
+    # --------------------------------------------------------------
     # The real logic of determining how to use the available shims to finish an adjustment
     # rubocop:disable Metrics/AbcSize
     def apply_shims
@@ -95,7 +105,7 @@ module ValveAdjustments
 
     # --------------------------------------------------------------
     def well_in_spec?(valve)
-      min_spec?(valve) && valve_range(valve).last - valve.gap < 0.05
+      min_spec?(valve) && valve_range(valve).last - valve.gap <= 0.05
     end
 
     # --------------------------------------------------------------

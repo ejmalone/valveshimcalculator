@@ -11,7 +11,7 @@ class ShimsController < ApplicationController
   def create
     @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
     @shim = Shim.create!(engine: @engine, thickness: params[:shim][:thickness])
-    redirect_to edit_engine_valve_adjustment_url(@engine, params[:valve_adjustment_id])
+    redirect_to edit_engine_valve_adjustment_url(@engine, params[:valve_adjustment_id], choose_shims: true)
   end
 
   # --------------------------------------------------------------
