@@ -44,7 +44,7 @@
   <% if action_name == 'edit' %>
     <%= render "add_new_shim", valve_adjustment: valve_adjustment, valve_shim_calculator: @valve_shim_calculator %>
 
-    <%= link_to "Choose shims", { action: :edit, choose_shims: true }  %>
+    <%= link_to "Choose shims", { action: :edit, choose_shims: true, debug: params[:debug] }  %>
 
     <% if @valve_shim_calculator.shims_applied? %>
       | <%= link_to "Save shim changes", update_shims_engine_valve_adjustment_path(@engine, valve_adjustment), data: { "turbo-method": :put }  %>

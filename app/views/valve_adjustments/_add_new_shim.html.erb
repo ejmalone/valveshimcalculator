@@ -14,7 +14,11 @@
         <li>None available</li>
       <% else %>
         <% unused_shims.each do |shim| %>
-          <li><%= shim.thickness %> - <%= shim.id %></li>
+          <li><%= shim.thickness %>
+            <% if params[:debug] %>
+              - <%= shim.id %>
+            <% end %>
+          </li>
         <% end %>
       <% end %>
     </ul>

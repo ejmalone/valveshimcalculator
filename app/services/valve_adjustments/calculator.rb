@@ -95,8 +95,8 @@ module ValveAdjustments
     # --------------------------------------------------------------
     # rubocop:disable Metrics/AbcSize
     def new_shim_thickness_range(valve)
-      ((valve.gap - max_gap(valve) + valve.shim.thickness.to_d / 100) * 100)..
-        ((valve.gap - min_gap(valve) + valve.shim.thickness.to_d / 100) * 100)
+      ((valve.gap - max_gap(valve) + valve.shim.thickness.to_d / 100) * 100).to_i..
+        ((valve.gap - min_gap(valve) + valve.shim.thickness.to_d / 100) * 100).to_i
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -110,6 +110,17 @@ module ValveAdjustments
         'red'
       else
         'grey'
+      end
+    end
+
+    # --------------------------------------------------------------
+    def shim_style(valve, new_shim)
+      if new_shim.thickness - new_shim_thickness_range(valve).first < 4
+        'green'
+      elsif new_shim_thickness_range(valve).last - new_shim.thickness < 4
+        'red'
+      else
+        'orange'
       end
     end
 
