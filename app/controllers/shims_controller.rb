@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShimsController < ApplicationController
-  before_action :load_engine, only: %i[edit_all create_all, update_all]
+  before_action :load_engine, only: %i[edit_all create_all update_all]
   before_action :redirect_to_engine_if_created, only: %i[create_all]
 
   def new; end

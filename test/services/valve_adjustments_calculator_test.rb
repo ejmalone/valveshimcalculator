@@ -47,7 +47,7 @@ class ValveAdjustmentsCalculatorTest < ActionDispatch::IntegrationTest
       assert_nil existing_shim.valve_id
       assert_equal better_shim, valve.shim
 
-      assert_equal 5, @engine.shims.count, "started with 4 shims, and added a new one for adjustment"
+      assert_equal 5, @engine.shims.count, 'started with 4 shims, and added a new one for adjustment'
     end
   end
 end

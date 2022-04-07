@@ -74,7 +74,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to edit_all_engine_shims_url(@engine, update: true),
-          notice: 'Now measure the new gap'
+                    notice: 'Now measure the new gap'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end
@@ -88,7 +88,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to engine_url(@engine), status: :see_other,
-          notice: 'Valve adjustment complete'
+                                         notice: 'Valve adjustment complete'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end
@@ -131,6 +131,9 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   def load_valve_adjustment
-    @valve_adjustment = ValveAdjustment.joins(:engine).where(id: params[:id], engines: { id: params[:engine_id], user_id: current_user.id }).last
+    @valve_adjustment = ValveAdjustment.joins(:engine).where(id: params[:id],
+                                                             engines: {
+                                                               id: params[:engine_id], user_id: current_user.id
+                                                             }).last
   end
 end

@@ -43,7 +43,7 @@ module ValveAdjustments
     # The real logic of determining how to use the available shims to finish an adjustment
     # rubocop:disable Metrics/AbcSize
     def choose_shims
-      @apply_shims ||= begin
+      @choose_shims ||= begin
         @shims_applied = true
         valves_to_shims = {}
 
