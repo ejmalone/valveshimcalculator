@@ -8,23 +8,43 @@ module ValveAdjustments
     def initialize(engine)
       @engine = engine
       @valves = engine.cylinders.map(&:valves).flatten
+      @shims_applied = false
+    end
+
+    # --------------------------------------------------------------
+    def shims_applied?
+      @shims_applied
     end
 
     # --------------------------------------------------------------
     def new_shim(valve)
-      apply_shims[valve]
+      choose_shims[valve]
     end
 
     # --------------------------------------------------------------
     def unused_shims
-      @engine.shims - apply_shims.values
+      @engine.shims - choose_shims.values
+    end
+
+    # --------------------------------------------------------------
+    def apply_shims
+      shims = []
+      choose_shims.each do |valve, shim|
+        shims << shim
+        Shim.find(shim.id).update(valve_id: valve.id)
+        Valve.find(valve.id).update(gap: nil)
+      end
+
+      unused_shims = @engine.shims - shims
+      Shim.where(id: unused_shims.map(&:id)).update_all(valve_id: nil)
     end
 
     # --------------------------------------------------------------
     # The real logic of determining how to use the available shims to finish an adjustment
     # rubocop:disable Metrics/AbcSize
-    def apply_shims
+    def choose_shims
       @apply_shims ||= begin
+        @shims_applied = true
         valves_to_shims = {}
 
         available_shims_for_valves.each do |valve, shims|

@@ -13,10 +13,10 @@
         <%= label_tag valve_form_label(valve) %>
 
         <%= label_tag "Current gap" %>
-        <%= text_field_tag "[valve][#{ valve.id }][gap]" %>
+        <%= text_field_tag "[valve][#{ valve.id }][gap]", valve.gap %>
 
         <%= label_tag "Current shim size"  %>
-        <%= text_field_tag "[valve][#{ valve.id }][thickness]" %>
+        <%= text_field_tag "[valve][#{ valve.id }][thickness]", valve.shim&.thickness %>
         <br>
       <% end %>
     <% end %>

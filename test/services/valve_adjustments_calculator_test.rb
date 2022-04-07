@@ -28,7 +28,26 @@ class ValveAdjustmentsCalculatorTest < ActionDispatch::IntegrationTest
 
     # given 0.05 gap of the out of spec valve, a 155 shim would be ideal
     @calculator.stub(:available_shims_for_valves, { valve => [Shim.new(thickness: 155), Shim.new(thickness: 165)] }) do
-      assert_equal 155, @calculator.apply_shims[valve].thickness
+      assert_equal 155, @calculator.choose_shims[valve].thickness
+    end
+  end
+
+  # --------------------------------------------------------------
+  test 'apply thinnest shims' do
+    valve = @engine.cylinders.first.valves.first
+    existing_shim = valve.shim
+    better_shim = Shim.create(engine_id: @engine.id, thickness: 155)
+
+    @calculator.stub(:available_shims_for_valves, { valve => [better_shim, existing_shim] }) do
+      @calculator.apply_shims
+
+      valve.reload
+      existing_shim.reload
+
+      assert_nil existing_shim.valve_id
+      assert_equal better_shim, valve.shim
+
+      assert_equal 5, @engine.shims.count, "started with 4 shims, and added a new one for adjustment"
     end
   end
 end

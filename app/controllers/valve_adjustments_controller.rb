@@ -3,6 +3,7 @@
 class ValveAdjustmentsController < ApplicationController
   before_action :set_valve_adjustment, only: %i[ show edit update destroy ]
   before_action :load_engine
+  before_action :load_valve_adjustment, only: %i[ complete ]
 
   # --------------------------------------------------------------
   # GET /valve_adjustments or /valve_adjustments.json
@@ -65,6 +66,35 @@ class ValveAdjustmentsController < ApplicationController
   end
 
   # --------------------------------------------------------------
+  # PATCH/PUT /valve_adjustments/1/update_shims or /valve_adjustments/1/update_shims.json
+  def update_shims
+    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
+    @valve_shim_calculator.apply_shims
+
+    respond_to do |format|
+      format.html do
+        redirect_to edit_all_engine_shims_url(@engine, update: true),
+          notice: 'Now measure the new gap'
+      end
+      format.json { render :show, status: :ok, location: @valve_adjustment }
+    end
+  end
+
+  # --------------------------------------------------------------
+  # PATCH/PUT /valve_adjustments/1/complete or /valve_adjustments/1/complete.json
+  def complete
+    @valve_adjustment.update(completed: true)
+
+    respond_to do |format|
+      format.html do
+        redirect_to engine_url(@engine), status: :see_other,
+          notice: 'Valve adjustment complete'
+      end
+      format.json { render :show, status: :ok, location: @valve_adjustment }
+    end
+  end
+
+  # --------------------------------------------------------------
   # DELETE /valve_adjustments/1 or /valve_adjustments/1.json
   def destroy
     @valve_adjustment.destroy
@@ -96,6 +126,11 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   def load_engine
-    @engine = Engine.find(params[:engine_id])
+    @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
+  end
+
+  # --------------------------------------------------------------
+  def load_valve_adjustment
+    @valve_adjustment = ValveAdjustment.joins(:engine).where(id: params[:id], engines: { id: params[:engine_id], user_id: current_user.id }).last
   end
 end

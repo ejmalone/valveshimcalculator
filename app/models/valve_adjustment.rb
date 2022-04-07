@@ -6,6 +6,7 @@
 #
 #  id              :bigint           not null, primary key
 #  adjustment_date :date
+#  completed       :boolean
 #  mileage         :integer
 #  notes           :text
 #  created_at      :datetime         not null
@@ -24,4 +25,6 @@ class ValveAdjustment < ApplicationRecord
   belongs_to :engine
 
   scope :most_recent, -> { order('adjustment_date DESC') }
+  scope :incomplete, -> { where(completed: nil) }
+  scope :current, -> { most_recent.incomplete }
 end

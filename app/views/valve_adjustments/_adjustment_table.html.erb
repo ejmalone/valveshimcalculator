@@ -24,7 +24,7 @@
         <td><%= valve.gap %></td>
         <td><%= valve.shim.thickness %></td>
         <td><%= valve.shim.id %></td>
-        <td><%= valve_shim_calculator.new_shim_thickness_range(valve) %></td>
+        <td><%= valve.gap.present? ? valve_shim_calculator.new_shim_thickness_range(valve) : '-' %></td>
         <% if params[:choose_shims] && valve_shim_calculator.new_shim(valve) %>
           <td>
             <%= valve_shim_calculator.new_shim(valve).thickness %> - <%= valve_shim_calculator.new_shim(valve).id %>

@@ -28,10 +28,15 @@
   </table>
 
   <div>
-    <%= link_to "Begin valve adjustment", new_engine_valve_adjustment_path(@engine) %>
     <% if @latest_adjustment.present? %>
-      |
-      <%= link_to "Or continue the most recent from #{ @latest_adjustment.adjustment_date }", edit_engine_valve_adjustment_path(@engine, @latest_adjustment) %>
+      <% if @latest_adjustment.completed? %>
+        Most recent adjustment was done on <%= @latest_adjustment.adjustment_date %>
+      <% else %>
+        <%= link_to "Continue valve adjustment #{ @latest_adjustment.adjustment_date }", edit_engine_valve_adjustment_path(@engine, @latest_adjustment) %>
+      <% end %>
+      | <%= link_to "See all adjustments", engine_valve_adjustments_path(@engine) %>
     <% end %>
+
+    | <%= link_to "Begin new valve adjustment", new_engine_valve_adjustment_path(@engine) %>
   </div>
 <% end %>

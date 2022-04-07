@@ -6,6 +6,7 @@
 #
 #  id              :bigint           not null, primary key
 #  adjustment_date :date
+#  completed       :boolean
 #  mileage         :integer
 #  notes           :text
 #  created_at      :datetime         not null
