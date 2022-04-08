@@ -3,8 +3,12 @@
 <%= render @valve_adjustment %>
 
 <div>
-  <%= link_to "Edit this valve adjustment", edit_engine_valve_adjustment_path(@engine, @valve_adjustment) %> |
-  <%= link_to "Back to valve adjustments", engine_valve_adjustments_path(@engine) %>
+  <%= link_to "Edit this valve adjustment", edit_engine_valve_adjustment_path %>
+  <% unless @valve_adjustment.completed? %>
+    |
+    <%= link_to "Continue adjustment", adjust_engine_valve_adjustment_path %>
+  <% end %>
+  | <%= link_to "Back to valve adjustments", engine_valve_adjustments_path %>
 
   <%= button_to "Destroy this valve adjustment", [ @engine, @valve_adjustment ], method: :delete %>
 </div>

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class ValveAdjustmentsController < ApplicationController
-  before_action :set_valve_adjustment, only: %i[ show edit update destroy ]
   before_action :load_engine
-  before_action :load_valve_adjustment, only: %i[ complete ]
+  before_action :load_valve_adjustment, except: %i[ index new create ]
 
   # --------------------------------------------------------------
   # GET /valve_adjustments or /valve_adjustments.json
@@ -25,13 +24,12 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # GET /valve_adjustments/1/edit
   def adjust
-    @valve_adjustment = load_valve_adjustment
     @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
 
-    if @valve_adjustment.needs_gaps_measured?
-      redirect_to edit_all_engine_shims_url(@engine, update: true),
-                  notice: 'New gaps need to be measured'
-    end
+    return unless @valve_adjustment.needs_gaps_measured?
+
+    redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment.id),
+                notice: 'New gaps need to be measured'
   end
 
   # --------------------------------------------------------------
@@ -88,6 +86,13 @@ class ValveAdjustmentsController < ApplicationController
   end
 
   # --------------------------------------------------------------
+  # Creates a shim and returns to the current valve adjustment
+  def create_shim
+    @shim = Shim.create!(engine: @engine, thickness: params[:shim][:thickness])
+    redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment.id, choose_shims: true)
+  end
+
+  # --------------------------------------------------------------
   # PATCH/PUT /valve_adjustments/1/complete or /valve_adjustments/1/complete.json
   def complete
     @valve_adjustment.update(status: ValveAdjustment::COMPLETE)
@@ -120,27 +125,21 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------
-  # Use callbacks to share common setup or constraints between actions.
-  def set_valve_adjustment
-    @valve_adjustment = ValveAdjustment.find(params[:id])
-  end
-
-  # --------------------------------------------------------------
   # Only allow a list of trusted parameters through.
   def valve_adjustment_params
     params.require(:valve_adjustment).permit(:mileage, :adjustment_date, :notes)
   end
 
   # --------------------------------------------------------------
-  def load_engine
-    @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
-  end
-
-  # --------------------------------------------------------------
   def load_valve_adjustment
     @valve_adjustment = ValveAdjustment.joins(:engine).where(id: params[:id],
                                                              engines: {
-                                                               id: params[:engine_id], user_id: current_user.id
+                                                               id: @engine.id
                                                              }).last
+  end
+
+  # --------------------------------------------------------------
+  def load_engine
+    @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
   end
 end

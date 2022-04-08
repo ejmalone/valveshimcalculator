@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         get "adjust"
         put "update_shims"
         put "complete"
+        post "create_shim"
       end
     end
   end

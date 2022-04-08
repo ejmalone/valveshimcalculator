@@ -1,5 +1,4 @@
 <%
-  new_shim = Shim.new(engine: @engine)
   if params[:choose_shims]
     unused_shims = valve_shim_calculator.unused_shims
   else
@@ -24,8 +23,7 @@
     </ul>
   <% end %>
 
-  <%= form_with(model: new_shim, url: [@engine, new_shim], id: "new-shim") do |form| %>
-    <%= hidden_field_tag :valve_adjustment_id, valve_adjustment.id %>
+  <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path) do |form| %>
     <%= field_set_tag "Add new shim to valve adjustment" do %>
       <div>
         <%= form.label :thickness, style: "display: block" %>

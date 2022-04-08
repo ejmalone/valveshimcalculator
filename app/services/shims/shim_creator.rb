@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# creates shims and sets valve gaps from an all-in-one form
+# creates or updates shims and sets valve gaps from an all-in-one form
 module Shims
   class ShimCreator
     # --------------------------------------------------------------
@@ -21,11 +21,14 @@ module Shims
     end
 
     # --------------------------------------------------------------
-    def update
+    def update(engine, valve_adjustment_id)
       @parameters.each do |valve_id, _|
         valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { user_id: @user.id }).last
         valve.update(gap: @parameters[valve_id][:gap].to_d)
       end
+
+      valve_adjustment = ValveAdjustment.where(id: valve_adjustment_id, engine: engine).first
+      valve_adjustment.update(status: ValveAdjustment::PENDING)
     end
   end
 end

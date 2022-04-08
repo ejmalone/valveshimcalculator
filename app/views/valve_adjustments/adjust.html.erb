@@ -8,7 +8,7 @@
 
   <% if @valve_shim_calculator.shims_applied? %>
     |
-    <%= link_to "Save and re-measure gaps", update_shims_engine_valve_adjustment_path(@engine, @valve_adjustment), data: { "turbo-frame": "_top", "turbo-method": :put }  %>
+    <%= link_to "Save and re-measure gaps", update_shims_engine_valve_adjustment_path(@engine, valve_adjustment_id: @valve_adjustment.id), data: { "turbo-frame": "_top", "turbo-method": :put }  %>
   <% end %>
 
   <% if @valve_adjustment.pending? %>
