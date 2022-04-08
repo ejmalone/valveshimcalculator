@@ -15,7 +15,7 @@
       <% else %>
         <% unused_shims.each do |shim| %>
           <li><%= shim.thickness %>
-            <% if params[:debug] %>
+            <% if user_session["debug"] %>
               - <%= shim.id %>
             <% end %>
           </li>

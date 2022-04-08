@@ -1,0 +1,18 @@
+<turbo-frame id="valve-shims-adjust">
+  <h1>Valve Adjustment <%= @valve_adjustment.adjustment_date %></h1>
+
+  <%= render "adjustment_table", valve_shim_calculator: @valve_shim_calculator %>
+  <%= render "add_new_shim", valve_adjustment: @valve_adjustment, valve_shim_calculator: @valve_shim_calculator %>
+
+  <%= link_to "Choose shims", adjust_engine_valve_adjustment_path(@engine, @valve_adjustment, choose_shims: true) %>
+
+  <% if @valve_shim_calculator.shims_applied? %>
+    |
+    <%= link_to "Save and re-measure gaps", update_shims_engine_valve_adjustment_path(@engine, @valve_adjustment), data: { "turbo-frame": "_top", "turbo-method": :put }  %>
+  <% end %>
+
+  <% if @valve_adjustment.pending? %>
+    |
+    <%= link_to "Complete adjustment", complete_engine_valve_adjustment_path(@engine, @valve_adjustment), data: { "turbo-frame": "_top", "turbo-method": :put } %>
+  <% end %>
+</turbo-frame>

@@ -24,8 +24,14 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /valve_adjustments/1/edit
-  def edit
+  def adjust
+    @valve_adjustment = load_valve_adjustment
     @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
+
+    if @valve_adjustment.needs_gaps_measured?
+      redirect_to edit_all_engine_shims_url(@engine, update: true),
+        notice: 'New gaps need to be measured'
+    end
   end
 
   # --------------------------------------------------------------
@@ -37,7 +43,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       if @valve_adjustment.save
         format.html do
-          redirect_to edit_engine_valve_adjustment_url(@engine, @valve_adjustment),
+          redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment),
                       notice: 'Valve adjustment was successfully created.'
         end
         format.json { render :show, status: :created, location: @valve_adjustment }
@@ -70,10 +76,11 @@ class ValveAdjustmentsController < ApplicationController
   def update_shims
     @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
     @valve_shim_calculator.apply_shims
+    @valve_adjustment.update(status: ValveAdjustment::NEEDS_GAPS)
 
     respond_to do |format|
       format.html do
-        redirect_to edit_all_engine_shims_url(@engine, update: true),
+        redirect_to edit_all_engine_shims_url(@engine, update: true), status: :see_other,
                     notice: 'Now measure the new gap'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
@@ -83,7 +90,7 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # PATCH/PUT /valve_adjustments/1/complete or /valve_adjustments/1/complete.json
   def complete
-    @valve_adjustment.update(completed: true)
+    @valve_adjustment.update(status: ValveAdjustment::COMPLETE)
 
     respond_to do |format|
       format.html do

@@ -1,57 +1,37 @@
-<turbo-frame id="valve-shims-form">
-  <%= form_with(model: valve_adjustment, url: [ @engine, valve_adjustment ], data: { turbo: false }) do |form| %>
-    <% if valve_adjustment.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(valve_adjustment.errors.count, "error") %> prohibited this valve_adjustment from being saved:</h2>
+<%= form_with(model: valve_adjustment, url: [ @engine, valve_adjustment ], data: { turbo: false }) do |form| %>
+  <% if valve_adjustment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(valve_adjustment.errors.count, "error") %> prohibited this valve_adjustment from being saved:</h2>
 
-        <ul>
-          <% valve_adjustment.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div>
-      For my <%= @engine.name %>
-      <br>
+      <ul>
+        <% valve_adjustment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
-
-    <div>
-      <%= form.label :mileage, "Mileage (miles)", style: "display: block" %>
-      <%= form.number_field :mileage %>
-    </div>
-
-    <div>
-      <%= form.label :adjustment_date, style: "display: block" %>
-      <%= form.date_field :adjustment_date, value: Time.zone.now.to_date %>
-    </div>
-
-    <div>
-      <%= form.label :notes, style: "display: block" %>
-      <%= form.text_area :notes %>
-    </div>
-
-    <div>
-      <%= form.submit %>
-    </div>
-
-    <% if action_name == "edit" %>
-      <%= render "adjustment_table", valve_shim_calculator: @valve_shim_calculator %>
-    <% end %>
   <% end %>
 
-  <% if action_name == 'edit' %>
-    <%= render "add_new_shim", valve_adjustment: valve_adjustment, valve_shim_calculator: @valve_shim_calculator %>
+  <div>
+    For my <%= @engine.name %>
+    <br>
+  </div>
 
-    <%= link_to "Choose shims", { action: :edit, choose_shims: true, debug: params[:debug] }  %>
+  <div>
+    <%= form.label :mileage, "Mileage (miles)", style: "display: block" %>
+    <%= form.number_field :mileage %>
+  </div>
 
-    <% if @valve_shim_calculator.shims_applied? %>
-      | <%= link_to "Save shim changes", update_shims_engine_valve_adjustment_path(@engine, valve_adjustment), data: { "turbo-method": :put }  %>
-    <% end %>
-  <% end %>
-</turbo-frame>
+  <div>
+    <%= form.label :adjustment_date, style: "display: block" %>
+    <%= form.date_field :adjustment_date, value: Time.zone.now.to_date %>
+  </div>
 
-<% if valve_adjustment.persisted? %>
-| <%= link_to "Complete adjustment", complete_engine_valve_adjustment_path(@engine, valve_adjustment), data: { "turbo-method": :put } %>
+  <div>
+    <%= form.label :notes, style: "display: block" %>
+    <%= form.text_area :notes %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
 <% end %>

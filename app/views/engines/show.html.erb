@@ -32,7 +32,7 @@
       <% if @latest_adjustment.completed? %>
         Most recent adjustment was done on <%= @latest_adjustment.adjustment_date %>
       <% else %>
-        <%= link_to "Continue valve adjustment #{ @latest_adjustment.adjustment_date }", edit_engine_valve_adjustment_path(@engine, @latest_adjustment) %>
+        <%= link_to "Continue valve adjustment #{ @latest_adjustment.adjustment_date }", adjust_engine_valve_adjustment_path(@engine, @latest_adjustment) %>
       <% end %>
       | <%= link_to "See all adjustments", engine_valve_adjustments_path(@engine) %>
     <% end %>

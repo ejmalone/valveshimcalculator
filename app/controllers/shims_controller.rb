@@ -11,7 +11,7 @@ class ShimsController < ApplicationController
   def create
     @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
     @shim = Shim.create!(engine: @engine, thickness: params[:shim][:thickness])
-    redirect_to edit_engine_valve_adjustment_url(@engine, params[:valve_adjustment_id], choose_shims: true)
+    redirect_to adjust_engine_valve_adjustment_url(@engine, params[:valve_adjustment_id], choose_shims: true)
   end
 
   # --------------------------------------------------------------
@@ -21,16 +21,17 @@ class ShimsController < ApplicationController
 
   # --------------------------------------------------------------
   def update_all
-    valve_adjustment = @engine.valve_adjustments.current.first
-
     ActiveRecord::Base.transaction do
       shim_creator = Shims::ShimCreator.new(current_user, params[:valve])
       shim_creator.update
+
+      valve_adjustment = @engine.valve_adjustments.current.first
+      valve_adjustment.update(status: ValveAdjustment::PENDING)
     rescue StandardError => e
       logger.debug("Error updating shims/updating valves: #{e.message}")
       redirect_to edit_all_engine_shims_path(@engine, update: true), flash: { alert: 'One or more shims is invalid' }
     else
-      redirect_to edit_engine_valve_adjustment_path(@engine, valve_adjustment)
+      redirect_to adjust_engine_valve_adjustment_path(@engine, valve_adjustment)
     end
   end
 

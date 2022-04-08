@@ -1,8 +1,15 @@
+<% action, gap_label = if params[:update]
+  [ :update_all, "New" ]
+else
+  [ :create_all, "Current" ]
+end
+%>
 <p style="color: green"><%= notice %></p>
 
 <h1>Editing shims</h1>
 
-<%= form_tag({ action: :create_all }, method: :put) do %>
+
+<%= form_tag({ action: action }, method: :put) do %>
   <p>
     Note: All shims must be in mm between <%= Shim::SIZE_LIMITS.first %> and <%= Shim::SIZE_LIMITS.last %> (e.g. 2.60mm = 260)
   </p>
@@ -12,7 +19,7 @@
       <% cylinder.valves.each_with_index do |valve, valve_index| %>
         <%= label_tag valve_form_label(valve) %>
 
-        <%= label_tag "Current gap" %>
+        <%= label_tag "#{ gap_label } gap" %>
         <%= text_field_tag "[valve][#{ valve.id }][gap]", valve.gap %>
 
         <%= label_tag "Current shim size"  %>

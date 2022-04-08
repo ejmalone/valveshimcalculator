@@ -17,11 +17,14 @@ Rails.application.routes.draw do
 
     resources :valve_adjustments do
       member do
+        get "adjust"
         put "update_shims"
         put "complete"
       end
     end
   end
 
+  get '/enable_debug', to: 'application#enable_debug'
+  get '/disable_debug', to: 'application#disable_debug'
   root "application#index"
 end
