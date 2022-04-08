@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Engines
   class Util
     def self.reset(engine_id)

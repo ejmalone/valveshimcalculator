@@ -30,7 +30,7 @@ class ValveAdjustmentsController < ApplicationController
 
     if @valve_adjustment.needs_gaps_measured?
       redirect_to edit_all_engine_shims_url(@engine, update: true),
-        notice: 'New gaps need to be measured'
+                  notice: 'New gaps need to be measured'
     end
   end
 
@@ -81,7 +81,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to edit_all_engine_shims_url(@engine, update: true), status: :see_other,
-                    notice: 'Now measure the new gap'
+                                                                      notice: 'Now measure the new gap'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end
