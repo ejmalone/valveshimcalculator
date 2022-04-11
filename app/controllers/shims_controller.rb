@@ -2,6 +2,7 @@
 
 class ShimsController < ApplicationController
   before_action :load_engine, only: %i[edit_all create_all update_all]
+  before_action :load_valve_adjustment, only: %i[update_all]
   before_action :redirect_to_engine_if_created, only: %i[create_all]
 
   def new; end
@@ -21,7 +22,7 @@ class ShimsController < ApplicationController
       logger.debug("Error updating shims/updating valves: #{e.message}")
       redirect_to edit_all_engine_shims_path(@engine, update: true), flash: { alert: 'One or more shims is invalid' }
     else
-      redirect_to adjust_engine_valve_adjustment_path(@engine, valve_adjustment)
+      redirect_to adjust_engine_valve_adjustment_path(@engine, @valve_adjustment)
     end
   end
 
@@ -51,8 +52,12 @@ class ShimsController < ApplicationController
   end
 
   # --------------------------------------------------------------
-  # --------------------------------------------------------------
   def load_engine
     @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
+  end
+
+  # --------------------------------------------------------------
+  def load_valve_adjustment
+    @valve_adjustment = ValveAdjustment.where(id: params[:valve_adjustment_id], engine: @engine).last
   end
 end

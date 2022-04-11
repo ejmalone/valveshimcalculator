@@ -20,5 +20,5 @@
 #
 class Cylinder < ApplicationRecord
   belongs_to :engine
-  has_many :valves, dependent: :destroy
+  has_many :valves, -> { order(valve_num: :asc)}, dependent: :destroy
 end
