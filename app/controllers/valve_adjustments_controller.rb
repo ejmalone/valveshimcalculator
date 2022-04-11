@@ -79,7 +79,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to edit_all_engine_shims_url(@engine, update: true), status: :see_other,
-                                                                      notice: 'Now measure the new gap'
+                                                                      notice: 'Now measure the new gaps'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end

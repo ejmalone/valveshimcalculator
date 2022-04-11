@@ -23,11 +23,12 @@
     </ul>
   <% end %>
 
-  <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path) do |form| %>
+  <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: { controller: "shim", action: "shim#validate", shim_min_value: Shim::SIZE_LIMITS.first, shim_max_value: Shim::SIZE_LIMITS.last }) do |form| %>
     <%= field_set_tag "Add new shim to valve adjustment" do %>
       <div>
+        <div data-shim-target="error"></div>
         <%= form.label :thickness, style: "display: block" %>
-        <%= form.text_field :thickness %>
+        <%= form.number_field :thickness, data: { shim_target: "thickness" } %>
       </div>
       <div>
         <%= form.submit "Add shim" %>
