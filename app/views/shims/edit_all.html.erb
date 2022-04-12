@@ -8,7 +8,7 @@ end
 
 <h1>Editing shims</h1>
 
-<%= form_tag({ action: action }, method: :put, data: { controller: "valve-gaps shim", action: "valve-gaps#validate shim#validate", shim_min_value: Shim::SIZE_LIMITS.first, shim_max_value: Shim::SIZE_LIMITS.last }) do %>
+<%= form_tag({ action: action }, method: :put, data: { controller: "valve-gaps", action: "valve-gaps#validate" }.merge_stimulus_data(shim_data_controller)) do %>
   <%= hidden_field_tag(:valve_adjustment_id, params[:valve_adjustment_id]) if params[:valve_adjustment_id].present? %>
 
   <p>

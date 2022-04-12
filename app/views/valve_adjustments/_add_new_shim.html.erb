@@ -23,7 +23,7 @@
     </ul>
   <% end %>
 
-  <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: { controller: "shim", action: "shim#validate", shim_min_value: Shim::SIZE_LIMITS.first, shim_max_value: Shim::SIZE_LIMITS.last }) do |form| %>
+  <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: shim_data_controller) do |form| %>
     <%= field_set_tag "Add new shim to valve adjustment" do %>
       <div>
         <div data-shim-target="error"></div>
