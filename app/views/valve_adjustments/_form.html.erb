@@ -1,4 +1,4 @@
-<div data-controller="new-valve-adjustment">
+<div>
   <%= form_with(model: valve_adjustment, url: [ @engine, valve_adjustment ], data: { controller: "new-valve-adjustment", action: "new-valve-adjustment#validate"}) do |form| %>
     <% if valve_adjustment.errors.any? %>
       <div style="color: red">
