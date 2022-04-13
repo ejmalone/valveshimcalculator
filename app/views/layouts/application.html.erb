@@ -11,8 +11,21 @@
 </head>
 
 <body>
-<%= link_to "Home", :root unless controller_name == "application" && action_name == "index" %>
-<p style="color: red"><%= alert %></p>
-<%= yield %>
+  <%# bootstrap layout from https://github.com/StartBootstrap/startbootstrap-simple-sidebar %>
+  <div class="d-flex" id="wrapper">
+    <!-- Sidebar-->
+    <%= render "sidebar" %>
+    <!-- Page content wrapper-->
+    <div id="page-content-wrapper">
+      <!-- Top navigation-->
+      <%= render "top_nav" %>
+      <!-- Page content-->
+      <div class="container-fluid">
+        <p style="color: red"><%= alert %></p>
+        <%= yield %>
+
+      </div>
+    </div>
+  </div>
 </body>
 </html>
