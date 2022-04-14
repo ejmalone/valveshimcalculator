@@ -25,8 +25,9 @@
 
   <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: shim_data_controller) do |form| %>
     <%= field_set_tag "Add new shim to valve adjustment" do %>
+      <%= form_errors_element(:shim) %>
+
       <div>
-        <div data-shim-target="error"></div>
         <%= form.label :thickness, style: "display: block" %>
         <%= form.number_field :thickness, data: { shim_target: "thickness" } %>
       </div>

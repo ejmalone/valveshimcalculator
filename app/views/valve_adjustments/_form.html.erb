@@ -17,8 +17,9 @@
       <br>
     </div>
 
+    <%= form_errors_element(:new_valve_adjustment) %>
+
     <div>
-      <div data-new-valve-adjustment-target="error"></div>
       <%= form.label :mileage, "Mileage (miles)", style: "display: block" %>
       <%= form.number_field :mileage, data: { new_valve_adjustment_target: "mileage" } %>
     </div>

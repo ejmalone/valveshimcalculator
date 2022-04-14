@@ -4,6 +4,12 @@
 
 import { application } from "./application"
 
+import EngineController from "./engine_controller.js"
+application.register("engine", EngineController)
+
+import FormController from "./form_controller.js"
+application.register("form", FormController)
+
 import HelloController from "./hello_controller.js"
 application.register("hello", HelloController)
 

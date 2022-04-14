@@ -3,3 +3,20 @@
     flex-grow: 0;
   }
 }
+
+form {
+  .form_errors,
+  input.error {
+    border: 1px solid red !important;
+  }
+
+  .form_errors {
+    display: none;
+    color: red;
+    font-style: bold;
+
+    &.populated {
+      display: block;
+    }
+  }
+}

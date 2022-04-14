@@ -1,6 +1,6 @@
-import { Controller } from "@hotwired/stimulus"
+import FormController from "./form_controller"
 
-export default class extends Controller {
+export default class extends FormController {
   static targets = [ "thickness", "error" ]
   static values = {
     min: Number,
@@ -9,8 +9,7 @@ export default class extends Controller {
   static errorSelector = "input[data-shim-target].error"
 
   validate(event) {
-    this.errorTarget.innerHTML = ""
-    document.querySelectorAll(this.constructor.errorSelector).forEach(shim => shim.classList.remove("error"))
+    this.clearErrors(this.errorTarget, this.constructor.errorSelector)
 
     this.thicknessTargets.forEach(shim => {
       if (shim.value <= this.minValue || shim.value > this.maxValue) {
@@ -19,8 +18,9 @@ export default class extends Controller {
     })
 
     if (document.querySelectorAll(this.constructor.errorSelector).length > 0) {
-      this.errorTarget.innerHTML = "Please enter a valid shim thickness (" + this.minValue + " - " + this.maxValue + ")"
-      event.preventDefault()
+      this.addError(this.errorTarget, "Please enter a valid shim thickness (" + this.minValue + " - " + this.maxValue + ")")
     }
+
+    super.validate(event)
   }
 }

@@ -21,8 +21,7 @@ end
     </p>
   <% end %>
 
-  <div data-shim-target="error"></div>
-  <div data-valve-gaps-target="error"></div>
+  <%= form_errors_element(:shim, :valve_gaps) %>
 
   <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
     <%= field_set_tag "Cylinder #{ cyl_index }" do %>
