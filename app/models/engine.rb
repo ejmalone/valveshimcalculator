@@ -11,24 +11,21 @@
 #  intake_min          :decimal(4, 2)
 #  name                :string
 #  num_cylinders       :integer
+#  userable_type       :string
 #  valves_per_cylinder :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  user_id             :integer          not null
+#  userable_id         :integer
 #
 # Indexes
 #
-#  index_engines_on_user_id  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
+#  index_engines_on_userable_type_and_userable_id  (userable_type,userable_id)
 #
 class Engine < ApplicationRecord
   CYLINDER_OPTS = [1, 2, 4].freeze
   VALVES_PER_CYLINDER_OPTS = [2, 4].freeze
 
-  belongs_to :user
+  belongs_to :userable, polymorphic: true
   has_many :cylinders, dependent: :destroy
   has_many :valve_adjustments, dependent: :destroy
   has_many :shims

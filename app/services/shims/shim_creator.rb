@@ -14,7 +14,7 @@ module Shims
     # --------------------------------------------------------------
     def create
       @parameters.each do |valve_id, _|
-        valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { user_id: @user.id }).last
+        valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { userable: @user }).last
         Shim.create_for_engine!(valve, @parameters[valve_id][:thickness].to_i)
         valve.update(gap: @parameters[valve_id][:gap].to_d)
       end
@@ -23,7 +23,7 @@ module Shims
     # --------------------------------------------------------------
     def update(engine, valve_adjustment_id)
       @parameters.each do |valve_id, _|
-        valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { user_id: @user.id }).last
+        valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { userable: @user }).last
         valve.update(gap: @parameters[valve_id][:gap].to_d)
       end
 

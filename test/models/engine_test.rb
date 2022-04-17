@@ -11,18 +11,15 @@
 #  intake_min          :decimal(4, 2)
 #  name                :string
 #  num_cylinders       :integer
+#  userable_type       :string
 #  valves_per_cylinder :integer
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  user_id             :integer          not null
+#  userable_id         :integer
 #
 # Indexes
 #
-#  index_engines_on_user_id  (user_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (user_id => users.id)
+#  index_engines_on_userable_type_and_userable_id  (userable_type,userable_id)
 #
 require 'test_helper'
 

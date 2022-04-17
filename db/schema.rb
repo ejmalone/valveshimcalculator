@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_07_233230) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_17_205140) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -23,7 +23,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_07_233230) do
   end
 
   create_table "engines", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.integer "num_cylinders"
     t.integer "valves_per_cylinder"
     t.string "name"
@@ -33,7 +32,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_07_233230) do
     t.decimal "exhaust_max", precision: 4, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_engines_on_user_id"
+    t.string "userable_type"
+    t.integer "userable_id"
+    t.index ["userable_type", "userable_id"], name: "index_engines_on_userable_type_and_userable_id"
   end
 
   create_table "shims", force: :cascade do |t|
@@ -80,7 +81,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_07_233230) do
   end
 
   add_foreign_key "cylinders", "engines"
-  add_foreign_key "engines", "users"
   add_foreign_key "shims", "engines"
   add_foreign_key "valve_adjustments", "engines"
   add_foreign_key "valves", "cylinders"

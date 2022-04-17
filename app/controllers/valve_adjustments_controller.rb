@@ -140,6 +140,6 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   def load_engine
-    @engine = Engine.where(id: params[:engine_id], user_id: current_user.id).last
+    @engine = Engine.where(id: params[:engine_id], userable: current_user).last
   end
 end

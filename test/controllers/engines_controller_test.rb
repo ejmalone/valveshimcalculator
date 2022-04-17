@@ -6,7 +6,7 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = create(:user)
     sign_in @user
-    @engine = build(:klr650, user: @user)
+    @engine = build(:klr650, userable: @user)
   end
 
   test 'should get index' do
@@ -28,7 +28,7 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
                                valves_per_cylinder: @engine.valves_per_cylinder } }
     end
 
-    @engine = Engine.where(user_id: @engine.user_id, name: @engine.name).last
+    @engine = Engine.where(userable: @engine.userable, name: @engine.name).last
     assert_redirected_to edit_all_engine_shims_url(@engine)
   end
 

@@ -24,5 +24,5 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :engines, dependent: :destroy
+  has_many :engines, as: :userable, dependent: :destroy
 end

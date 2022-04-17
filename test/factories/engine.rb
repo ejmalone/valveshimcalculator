@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :klr650, class: 'Engine' do
-    association :user
+    association :userable, factory: :user
     name { 'KLR 650' }
     num_cylinders { 1 }
     valves_per_cylinder { 4 }

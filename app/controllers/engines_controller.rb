@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class EnginesController < ApplicationController
-  before_action :set_engine, only: %i[ show edit update destroy ]
+  before_action :load_engine, only: %i[ show edit update destroy ]
 
   # --------------------------------------------------------------
   # GET /engines or /engines.json
   def index
-    @engines = Engine.all
+    @engines = Engine.where(userable: current_user)
   end
 
   # --------------------------------------------------------------
@@ -18,7 +18,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # GET /engines/new
   def new
-    @engine = Engine.new(user: current_user)
+    @engine = Engine.new(userable: current_user)
   end
 
   # --------------------------------------------------------------
@@ -29,7 +29,7 @@ class EnginesController < ApplicationController
   # POST /engines or /engines.json
   def create
     @engine = Engine.new(engine_params)
-    @engine.user_id = current_user.id
+    @engine.userable = current_user
 
     respond_to do |format|
       if @engine.save
@@ -74,8 +74,8 @@ class EnginesController < ApplicationController
 
   # --------------------------------------------------------------
   # Use callbacks to share common setup or constraints between actions.
-  def set_engine
-    @engine = Engine.where(id: params[:id], user_id: current_user.id).last
+  def load_engine
+    @engine = Engine.where(id: params[:id], userable: current_user).last
   end
 
   # --------------------------------------------------------------
