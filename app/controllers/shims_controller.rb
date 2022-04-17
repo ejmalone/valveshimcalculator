@@ -16,11 +16,11 @@ class ShimsController < ApplicationController
   # Updating shims is part of a valve adjustment, so we'll redirect back to that page
   def update_all
     ActiveRecord::Base.transaction do
-      shim_creator = Shims::ShimCreator.new(current_user, params[:valve])
+      shim_creator = Shims::ShimCreator.new(current_or_anon_user, params[:valve])
       shim_creator.update(@engine, params[:valve_adjustment_id])
     rescue StandardError => e
       logger.debug("Error updating shims/updating valves: #{e.message}")
-      redirect_to edit_all_engine_shims_path(@engine, update: true), flash: { alert: 'One or more shims is invalid' }
+      redirect_to edit_all_engine_shims_path(@engine, update: true, valve_adjustment_id: params[:valve_adjustment_id]), flash: { alert: 'One or more shims is invalid' }
     else
       redirect_to adjust_engine_valve_adjustment_path(@engine, @valve_adjustment)
     end
@@ -30,7 +30,7 @@ class ShimsController < ApplicationController
   # Adds shims to valves an sets valve gaps in a single form
   def create_all
     ActiveRecord::Base.transaction do
-      shim_creator = Shims::ShimCreator.new(current_user, params[:valve])
+      shim_creator = Shims::ShimCreator.new(current_or_anon_user, params[:valve])
       shim_creator.create
     rescue StandardError => e
       logger.debug("Error creating shims/updating valves: #{e.message}")
@@ -53,7 +53,7 @@ class ShimsController < ApplicationController
 
   # --------------------------------------------------------------
   def load_engine
-    @engine = Engine.where(id: params[:engine_id], userable: current_user).last
+    @engine = Engine.where(id: params[:engine_id], userable: current_or_anon_user).last
   end
 
   # --------------------------------------------------------------

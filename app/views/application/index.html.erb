@@ -3,7 +3,8 @@
 <% end %>
 
 <% if current_user.blank? %>
-  <%= link_to "Sign in", new_user_session_path %>
+  <%= link_to "Sign in", new_user_session_path %> or
+  <%= link_to "Create an engine", new_engine_path %>
 <% elsif current_user.engines.blank? %>
   <%= link_to "Create an engine", new_engine_path %>
 <% else %>

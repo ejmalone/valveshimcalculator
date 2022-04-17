@@ -8,12 +8,12 @@
     </tr>
     <tr>
       <th>Valve name</th>
-      <% if user_session["debug"] %>
+      <% if session[:debug] %>
         <th>Valve ID</th>
       <% end %>
       <th>Current gap</th>
       <th>Current shim</th>
-      <% if user_session["debug"] %>
+      <% if session[:debug] %>
         <th>Shim ID</th>
       <% end %>
       <th>New shim (thinner is better)</th>
@@ -22,12 +22,12 @@
     <% cylinder.valves.each do |valve| %>
       <tr valve-id="<%= valve.id %>">
         <td style="color: <%= valve_shim_calculator.valve_style(valve) %>"><%= label_tag valve_form_label(valve) %></td>
-        <% if user_session["debug"] %>
+        <% if session[:debug] %>
           <td><%= valve.id %></td>
         <% end %>
         <td><%= valve.gap %></td>
         <td><%= valve.shim.thickness %></td>
-        <% if user_session["debug"] %>
+        <% if session[:debug] %>
           <td><%= valve.shim.id %></td>
         <% end %>
         <td><%= valve.gap.present? ? valve_shim_calculator.new_shim_thickness_range(valve) : '-' %></td>
@@ -36,7 +36,7 @@
         <% if shim %>
           <td style="color: <%= valve_shim_calculator.shim_style(valve, shim) %>">
             <%= shim.thickness %>
-            <% if user_session["debug"] %>
+            <% if session[:debug] %>
               - <%= shim.id %>
             <% end %>
           </td>

@@ -5,13 +5,44 @@ class ApplicationController < ActionController::Base
 
   # --------------------------------------------------------------
   def enable_debug
-    user_session['debug'] = true
+    session[:debug] = true
     redirect_to :root
   end
 
   # --------------------------------------------------------------
   def disable_debug
-    user_session.delete('debug')
+    session.delete('debug')
     redirect_to :root
+  end
+
+  # --------------------------------------------------------------
+  def current_or_anon_user
+    current_user || anonymous_user
+  end
+
+  # --------------------------------------------------------------
+  private
+  # --------------------------------------------------------------
+
+  # --------------------------------------------------------------
+  helper_method def anonymous_user(create = false)
+    if session[:anonymous_user].present?
+      user = AnonymousUser.where(token: session[:anonymous_user]).last
+
+      if user
+        user
+      elsif create
+        create_anonymous_user
+      end
+    elsif create
+      create_anonymous_user
+    end
+  end
+
+  # --------------------------------------------------------------
+  def create_anonymous_user
+    user = AnonymousUser.create
+    session[:anonymous_user] = user.token
+    user
   end
 end

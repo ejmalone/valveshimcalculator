@@ -6,7 +6,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # GET /engines or /engines.json
   def index
-    @engines = Engine.where(userable: current_user)
+    @engines = Engine.where(userable: current_or_anon_user)
   end
 
   # --------------------------------------------------------------
@@ -18,7 +18,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # GET /engines/new
   def new
-    @engine = Engine.new(userable: current_user)
+    @engine = Engine.new(userable: current_user || anonymous_user(true))
   end
 
   # --------------------------------------------------------------
@@ -29,7 +29,7 @@ class EnginesController < ApplicationController
   # POST /engines or /engines.json
   def create
     @engine = Engine.new(engine_params)
-    @engine.userable = current_user
+    @engine.userable = current_or_anon_user
 
     respond_to do |format|
       if @engine.save
@@ -75,7 +75,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # Use callbacks to share common setup or constraints between actions.
   def load_engine
-    @engine = Engine.where(id: params[:id], userable: current_user).last
+    @engine = Engine.where(id: params[:id], userable: current_or_anon_user).last
   end
 
   # --------------------------------------------------------------
