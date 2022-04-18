@@ -16,16 +16,12 @@ class ApplicationController < ActionController::Base
   end
 
   # --------------------------------------------------------------
-  def current_or_anon_user
+  helper_method def current_or_anon_user
     current_user || anonymous_user
   end
 
   # --------------------------------------------------------------
-  private
-  # --------------------------------------------------------------
-
-  # --------------------------------------------------------------
-  helper_method def anonymous_user(create = false)
+  helper_method def anonymous_user(create: false)
     if session[:anonymous_user].present?
       user = AnonymousUser.where(token: session[:anonymous_user]).last
 
@@ -38,6 +34,11 @@ class ApplicationController < ActionController::Base
       create_anonymous_user
     end
   end
+
+  # --------------------------------------------------------------
+  private
+
+  # --------------------------------------------------------------
 
   # --------------------------------------------------------------
   def create_anonymous_user

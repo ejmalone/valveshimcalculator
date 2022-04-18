@@ -18,7 +18,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # GET /engines/new
   def new
-    @engine = Engine.new(userable: current_user || anonymous_user(true))
+    @engine = Engine.new(userable: current_user || anonymous_user(create: true))
   end
 
   # --------------------------------------------------------------

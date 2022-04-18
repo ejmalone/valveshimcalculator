@@ -2,21 +2,29 @@
   <h2>Welcome back <%= current_user.email %></h2>
 <% end %>
 
-<% if current_user.blank? %>
-  <%= link_to "Sign in", new_user_session_path %> or
-  <%= link_to "Create an engine", new_engine_path %>
-<% elsif current_user.engines.blank? %>
-  <%= link_to "Create an engine", new_engine_path %>
-<% else %>
-  <p>
+<p>
+  <%= session.try(:[], "anonymous_user").inspect %>
+</p>
+
+<p>
+  <% if current_or_anon_user&.engines&.present? %>
     Select an engine <br>
 
     <ul>
-      <% current_user.engines.each do |engine| %>
+      <% current_or_anon_user.engines.each do |engine| %>
         <li><%= link_to engine.name, engine_path(engine)  %></li>
       <% end %>
     </ul>
 
     <%= link_to "Or create an engine", new_engine_path %>
-  </p>
-<% end %>
+  <% end %>
+</p>
+
+<p>
+  <% if anonymous_user.present? && anonymous_user.engines.present? %>
+    <%= link_to "Create an account to save your engine", sign_up_to_save_path %>
+  <% elsif current_user.blank? %>
+    <%= link_to "Sign in", new_user_session_path %> or
+    <%= link_to "Create an engine", new_engine_path %>
+  <% end %>
+</p>

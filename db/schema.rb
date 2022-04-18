@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_17_210423) do
+ActiveRecord::Schema[7.0].define(version: 2022_04_18_033530) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,6 +18,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_17_210423) do
     t.string "token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["token"], name: "index_anonymous_users_on_token", unique: true
+    t.index ["user_id"], name: "index_anonymous_users_on_user_id"
   end
 
   create_table "cylinders", force: :cascade do |t|
@@ -86,6 +89,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_17_210423) do
     t.index ["cylinder_id"], name: "index_valves_on_cylinder_id"
   end
 
+  add_foreign_key "anonymous_users", "users"
   add_foreign_key "cylinders", "engines"
   add_foreign_key "shims", "engines"
   add_foreign_key "valve_adjustments", "engines"

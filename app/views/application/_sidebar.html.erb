@@ -2,7 +2,11 @@
   <div class="sidebar-heading border-bottom bg-light">Valve Adjustments</div>
   <div class="list-group list-group-flush">
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
-      Hi <%= current_user&.email || anonymous_user&.token || "nobody" %>
+      <% if current_user.present? %>
+        Hi <%= current_user&.email %>
+      <% elsif anonymous_user&.token %>
+        Hi <%= link_to anonymous_user.token, restart_session_path(token: anonymous_user.token) %>
+      <% end %>
     </a>
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
     <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>

@@ -25,4 +25,5 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :engines, as: :userable, dependent: :destroy
+  has_one :anonymous_user, dependent: :destroy
 end
