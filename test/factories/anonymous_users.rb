@@ -20,7 +20,5 @@
 #  fk_rails_...  (user_id => users.id)
 #
 FactoryBot.define do
-  factory :anonymous_user do
-    token { 'MyString' }
-  end
+  factory :anonymous_user
 end
