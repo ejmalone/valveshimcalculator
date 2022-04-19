@@ -29,10 +29,11 @@ class EnginesController < ApplicationController
   # POST /engines or /engines.json
   def create
     if current_user.blank?
-      verified = verify_recaptcha(action: Recaptcha::CREATE_ANON_ENGINE, minimum_score: Recaptcha::ANON_ENGINE_THRESHOLD)
+      verified = verify_recaptcha(action: Recaptcha::CREATE_ANON_ENGINE,
+                                  minimum_score: Recaptcha::ANON_ENGINE_THRESHOLD)
       unless verified
-        logger.debug("Failed to create user, reply: #{ recaptcha_reply.inspect }, error: #{ flash[:recaptcha_error] }")
-        redirect_to new_user_registration_url, notice: "Please create an account to continue"
+        logger.debug("Failed to create user, reply: #{recaptcha_reply.inspect}, error: #{flash[:recaptcha_error]}")
+        redirect_to new_user_registration_url, notice: 'Please create an account to continue'
         return
       end
     end

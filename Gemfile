@@ -45,7 +45,7 @@ gem 'devise'
 gem 'pg', '~> 1.3.4'
 
 # without the git source it was stuck at an old version
-gem 'recaptcha', git: "https://github.com/ambethia/recaptcha.git"
+gem 'recaptcha', git: 'https://github.com/ambethia/recaptcha.git'
 
 # Use Sass to process CSS
 # gem 'sassc-rails'

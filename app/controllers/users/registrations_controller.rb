@@ -6,7 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # see https://github.com/heartcombo/devise/wiki/How-To:-Use-Recaptcha-with-Devise#deviseregistrationscontroller
   def check_captcha
     verified = verify_recaptcha(action: Recaptcha::CREATE_USER, minimum_score: Recaptcha::USER_THRESHOLD)
-    logger.debug("-- recaptcha: #{ verified }, response: #{ recaptcha_reply.inspect }")
+    logger.debug("-- recaptcha: #{verified}, response: #{recaptcha_reply.inspect}")
     return if verified
 
     self.resource = resource_class.new sign_up_params

@@ -1,8 +1,10 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class UserFlowsTest < ActionDispatch::IntegrationTest
   setup do
-    @engine = build(:klr650, userable: @anonymous_user, name: "anonymous engine")
+    @engine = build(:klr650, userable: @anonymous_user, name: 'anonymous engine')
     @email = Faker::Internet.email
   end
 
@@ -15,10 +17,10 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_select "a[href*='users/restart']"
 
     post engines_url,
-      params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max,
-        exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max,
-        intake_min: @engine.intake_min, name: @engine.name,
-        valves_per_cylinder: @engine.valves_per_cylinder } }
+         params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max,
+                             exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max,
+                             intake_min: @engine.intake_min, name: @engine.name,
+                             valves_per_cylinder: @engine.valves_per_cylinder } }
 
     @engine = Engine.where(name: @engine.name).last
     anonymous_user = AnonymousUser.last
@@ -29,7 +31,7 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     get sign_up_to_save_url
     assert_redirected_to new_user_registration_url
 
-    post '/users', params: { user: { email: @email, password: "password", password_confirmation: "password" } }
+    post '/users', params: { user: { email: @email, password: 'password', password_confirmation: 'password' } }
     assert_redirected_to associate_new_user_url
     get associate_new_user_url
     assert_redirected_to root_url
