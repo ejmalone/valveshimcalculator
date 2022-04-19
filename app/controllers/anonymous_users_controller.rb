@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class AnonymousUsersController < ApplicationController
   # TODO: better naming on these methods
 
   # --------------------------------------------------------------

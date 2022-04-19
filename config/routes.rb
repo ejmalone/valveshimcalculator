@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  }
 
   resources :engines do
     resources :cylinders do
@@ -26,8 +29,8 @@ Rails.application.routes.draw do
 
   get '/enable_debug', to: 'application#enable_debug'
   get '/disable_debug', to: 'application#disable_debug'
-  get '/users/sign_up_anonymous', to: 'users#sign_up_anonymous', as: :sign_up_to_save
-  get '/users/associate_new_user', to: 'users#associate_new_user', as: :associate_new_user
-  get '/users/restart/:token', to: 'users#restart', as: :restart_session
+  get '/users/sign_up_anonymous', to: 'anonymous_users#sign_up_anonymous', as: :sign_up_to_save
+  get '/users/associate_new_user', to: 'anonymous_users#associate_new_user', as: :associate_new_user
+  get '/users/restart/:token', to: 'anonymous_users#restart', as: :restart_session
   root "application#index"
 end

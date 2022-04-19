@@ -61,4 +61,8 @@
   <div>
     <%= form.submit %>
   </div>
+
+  <% if current_user.blank? %>
+    <%= recaptcha_v3(action: Recaptcha::CREATE_ANON_ENGINE) %>
+  <% end %>
 <% end %>
