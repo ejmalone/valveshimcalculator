@@ -10,7 +10,17 @@ class ShimsController < ApplicationController
   # --------------------------------------------------------------
   # Adds shims to valves an sets valve gaps in a single form
   # @see create_all and update_all for PUT of this form
-  def edit_all; end
+  def edit_all
+    breadcrumb "My #{@engine.name}", engine_url(@engine)
+
+    if params[:valve_adjustment_id].present?
+      breadcrumb "#{load_valve_adjustment.mileage} mile valve adjustment",
+                 engine_valve_adjustment_url(@engine, @valve_adjustment)
+      breadcrumb 'Measuring new gaps'
+    else
+      breadcrumb 'Shims'
+    end
+  end
 
   # --------------------------------------------------------------
   # Updating shims is part of a valve adjustment, so we'll redirect back to that page

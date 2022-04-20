@@ -3,10 +3,12 @@
 class ValveAdjustmentsController < ApplicationController
   before_action :load_engine
   before_action :load_valve_adjustment, except: %i[ index new create ]
+  before_action :set_breadcrumb
 
   # --------------------------------------------------------------
   # GET /valve_adjustments or /valve_adjustments.json
   def index
+    breadcrumb 'All valve adjustments'
     @valve_adjustments = @engine.valve_adjustments
   end
 
@@ -17,6 +19,7 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # GET /valve_adjustments/new
   def new
+    breadcrumb 'Start a valve adjustment'
     @engine = Engine.find(params[:engine_id])
     @valve_adjustment = ValveAdjustment.new
   end
@@ -24,6 +27,8 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # GET /valve_adjustments/1/edit
   def adjust
+    breadcrumb @valve_adjustment.pending? ? 'Confirming adjustment' : 'Selecting new shims'
+
     @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
 
     return unless @valve_adjustment.needs_gaps_measured?
@@ -78,8 +83,8 @@ class ValveAdjustmentsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to edit_all_engine_shims_url(@engine, update: true), status: :see_other,
-                                                                      notice: 'Now measure the new gaps'
+        redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment), status: :see_other,
+                                                                                                              notice: 'Now measure the new gaps'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end
@@ -141,5 +146,15 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   def load_engine
     @engine = Engine.where(id: params[:engine_id], userable: current_or_anon_user).last
+  end
+
+  # --------------------------------------------------------------
+  def set_breadcrumb
+    breadcrumb "My #{@engine.name}", engine_url(@engine)
+
+    return unless @valve_adjustment.present?
+
+    breadcrumb "#{@valve_adjustment.mileage} mile valve adjustment",
+               engine_valve_adjustment_url(@engine, @valve_adjustment)
   end
 end

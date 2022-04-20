@@ -21,6 +21,18 @@
       <%= render "top_nav" %>
       <!-- Page content-->
       <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <% breadcrumbs.each do |(text, link)| %>
+              <% if link.present? %>
+                <li class="breadcrumb-item"><%= link_to text, link %></li>
+              <% else %>
+                <li class="breadcrumb-item active" aria-current="page"><%= text %></li>
+              <% end %>
+            <% end %>
+          </ol>
+        </nav>
+        
         <p style="color: red"><%= alert %></p>
         <p style="color: green"><%= notice %></p>
 
