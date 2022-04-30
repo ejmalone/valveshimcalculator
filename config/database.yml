@@ -13,8 +13,9 @@ default: &default
   password: password
 
 development:
-  <<: *default
-  database: motorcycleshims_development
+  url: <%= (ENV['DATABASE_URL'] || "postgresql://shimsuser:password@postgres:5432/motorcycleshims?encoding=utf8&pool=5&timeout=5000").gsub('?', '_development?') %>
+  #<<: *default
+  #database: motorcycleshims_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
