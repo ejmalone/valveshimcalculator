@@ -1,9 +1,5 @@
 FROM ruby:2.7.6 as shims-development
 
-# Docker build arguments for docker-compose
-#ARG USER_ID
-#ARG GROUP_ID
-
 # Expose when running Dockerfile alone
 ENV USER_ID 1000
 ENV GROUP_ID 1000
