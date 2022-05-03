@@ -6,24 +6,25 @@
 #
 default: &default
   adapter: postgresql
+  port: 5432
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-  username: shimsuser
-  password: password
+  host: <%= ENV['DB_HOST'] %>
+  username: <%= ENV['DB_USER'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
 
 development:
-  url: <%= (ENV['DATABASE_URL'] || "postgresql://shimsuser:password@postgres:5432/motorcycleshims?encoding=utf8&pool=5&timeout=5000").gsub('?', '_development?') %>
-  #<<: *default
-  #database: motorcycleshims_development
+  <<: *default
+  database: <%= ENV['DATABASE'] %>_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: motorcycleshims_test
+  database: <%= ENV['DATABASE'] %>_test
 
 production:
   <<: *default
-  database: motorcycleshims_production
+  database: <%= ENV['DATABASE'] %>_production

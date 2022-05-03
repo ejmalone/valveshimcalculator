@@ -10,7 +10,7 @@ services:
     volumes:
       - shims-postgres:/var/lib/postgresql/data
   web:
-    image: ejmalone/web:latest
+    image: motorcycleshims/web:production
     links:
       - postgres
     ports:

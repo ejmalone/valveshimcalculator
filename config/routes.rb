@@ -31,5 +31,7 @@ Rails.application.routes.draw do
   get '/users/sign_up_anonymous', to: 'anonymous_users#sign_up_anonymous', as: :sign_up_to_save
   get '/users/associate_new_user', to: 'anonymous_users#associate_new_user', as: :associate_new_user
   get '/users/restart/:token', to: 'anonymous_users#restart', as: :restart_session
+
+  get '/uptime/check', to: 'uptime#check'
   root "application#index"
 end

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-set -e
+set -ex
 
 if [ -f tmp/pids/server.pid ]; then
   rm tmp/pids/server.pid
