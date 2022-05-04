@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.2
+
 FROM ruby:2.7.6 as shims-development
 
 # Expose when running Dockerfile alone
@@ -6,7 +8,6 @@ ENV GROUP_ID 1000
 
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
-ENV RAILS_LOG_TO_STDOUT true
 
 # Create a user with the same ID and GID
 RUN addgroup --gid $GROUP_ID user
@@ -27,10 +28,10 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.lis
 RUN apt-get update && apt-get install -y --no-install-recommends esbuild nodejs npm yarn
 
 COPY . .
-#RUN yarn install
+
 RUN bundle install --without development test
-RUN bundle exec rails assets:precompile
+RUN --mount=type=secret,id=master_key RAILS_MASTER_KEY=$(cat /run/secrets/master_key) bundle exec rails assets:precompile
 
 EXPOSE 3000
 
-CMD ["rails", "server", "-p", "3000", "--binding", "0.0.0.0", "--log-to-stdout"]
+CMD ["rails", "server", "-p", "3000", "--binding", "0.0.0.0"]

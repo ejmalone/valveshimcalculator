@@ -1,7 +1,9 @@
 .git
 .dockerignore
 .env
-node_modules/
+config/master.key
+config/credentials/production.key
 bundle/
 log/
+node_modules/
 tmp/

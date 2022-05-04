@@ -45,3 +45,5 @@
 !/app/assets/builds/.keep
 /node_modules
 yarn-error.log
+
+/config/credentials/production.key
