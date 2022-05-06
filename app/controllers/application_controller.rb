@@ -38,11 +38,6 @@ class ApplicationController < ActionController::Base
   end
 
   # --------------------------------------------------------------
-  helper_method def git_rev
-    `git rev-parse --short HEAD`
-  end
-
-  # --------------------------------------------------------------
   private
   # --------------------------------------------------------------
 
