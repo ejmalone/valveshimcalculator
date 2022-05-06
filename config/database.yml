@@ -16,7 +16,10 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DATABASE'] %>_development
+  username: shimsuser
+  password: password
+  host: localhost
+  database: motorcycleshims_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

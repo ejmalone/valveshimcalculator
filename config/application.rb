@@ -1,5 +1,14 @@
 require_relative "boot"
 
+if ENV['RAILS_ENV'] == "production" && ENV['AWS_REGION'] && !ENV['DISABLE_AWS_SECRETS']
+  # Load env vars before Rails is loaded
+  require 'aws-sdk-secretsmanager'
+
+  client = Aws::SecretsManager::Client.new(region: ENV['AWS_REGION'])
+  get_secret_value_response = client.get_secret_value(secret_id: "prod/MotorcyleShims/rails")
+  ENV["RAILS_MASTER_KEY"] = JSON.parse(get_secret_value_response.secret_string)["RAILS_MASTER_KEY"]
+end
+
 require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems

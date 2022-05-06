@@ -5,6 +5,8 @@ git_source(:github) { |_repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.6'
 
+gem 'aws-sdk-secretsmanager', '~> 1', require: false
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 7.0.2', '>= 7.0.2.3'
 

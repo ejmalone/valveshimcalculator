@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends esbuild nodejs 
 COPY . .
 
 RUN bundle install --without development test
-RUN --mount=type=secret,id=master_key RAILS_MASTER_KEY=$(cat /run/secrets/master_key) bundle exec rails assets:precompile
+RUN --mount=type=secret,id=master_key RAILS_MASTER_KEY=$(cat /run/secrets/master_key) DISABLE_AWS_SECRETS=1 bundle exec rails assets:precompile
 
 EXPOSE 3000
 
