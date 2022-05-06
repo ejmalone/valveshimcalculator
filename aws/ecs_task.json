@@ -1,0 +1,29 @@
+{
+  "family": "shimsweb",
+  "taskRoleArn": "arn:aws:iam::952598771041:role/ecsTaskExecutionRole",
+  "executionRoleArn": "arn:aws:iam::952598771041:role/ecsTaskExecutionRole",
+  "networkMode": "bridge",
+  "requiresCompatibilities": "ECS",
+  "containerDefinitions": [
+    {
+      "name": "shimsweb",
+      "image": "952598771041.dkr.ecr.us-west-2.amazonaws.com/motorcycleshims/web:production",
+      "cpu": 1024,
+      "memory": 758,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "AWS_REGION",
+          "value": "us-west-2"
+        }
+      ]
+    }
+  ]
+}
