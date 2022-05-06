@@ -26,5 +26,7 @@
   <% elsif current_user.blank? %>
     <%= link_to "Sign in", new_user_session_path %> or
     <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>
+  <% elsif current_user.present? %>
+    <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>
   <% end %>
 </p>
