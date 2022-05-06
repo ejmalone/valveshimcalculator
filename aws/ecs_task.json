@@ -3,7 +3,6 @@
   "taskRoleArn": "arn:aws:iam::952598771041:role/ecsTaskExecutionRole",
   "executionRoleArn": "arn:aws:iam::952598771041:role/ecsTaskExecutionRole",
   "networkMode": "bridge",
-  "requiresCompatibilities": "ECS",
   "containerDefinitions": [
     {
       "name": "shimsweb",
