@@ -28,6 +28,8 @@ test:
   <<: *default
   database: <%= ENV['DATABASE'] %>_test
 
+# will pull from AWS Secrets Manager. see config/production_credentials.rb
 production:
   <<: *default
-  database: <%= ENV['DATABASE'] %>_production
+  database: <%= ENV['DATABASE'] %>
+
