@@ -2,7 +2,7 @@
 
 set -ex 
 
-docker build -t "motorcycleshims/web:production" -f docker/Dockerfile.production --secret id=master_key,src=config/credentials/production.key .
+docker build -t "motorcycleshims/web:production" -f Dockerfile.production --secret id=master_key,src=config/credentials/production.key .
 
 aws ecr get-login-password --region us-west-2 --profile app_runner | docker login --username AWS --password-stdin 952598771041.dkr.ecr.us-west-2.amazonaws.com
 

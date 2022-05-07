@@ -16,10 +16,7 @@ default: &default
 
 development:
   <<: *default
-  username: shimsuser
-  password: password
-  host: localhost
-  database: motorcycleshims_development
+  url: <%= ENV['DATABASE_URL'] || "postgresql://shimsuser:password@localhost:5432/motorcycleshims_development?encoding=utf8&pool=5&timeout=5000" %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".

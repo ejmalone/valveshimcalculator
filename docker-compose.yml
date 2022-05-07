@@ -10,19 +10,17 @@ services:
     volumes:
       - shims-postgres:/var/lib/postgresql/data
   web:
-    image: motorcycleshims/web:production
+    image: motorcycleshims/web:development
     links:
       - postgres
     ports:
       - '3000:3000'
-    env_file:
-      - .env
     tty: true
     volumes:
       - .:/opt/app
       - gem_cache:/usr/local/bundle/gems
       - node_modules:/opt/app/node_modules
-    entrypoint: ./entrypoint.sh
+    entrypoint: ./bin/docker_entrypoint.sh
 volumes:
   shims-postgres:
   gem_cache:
