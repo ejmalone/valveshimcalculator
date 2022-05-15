@@ -21,6 +21,16 @@ services:
       - gem_cache:/usr/local/bundle/gems
       - node_modules:/opt/app/node_modules
     entrypoint: ./bin/docker_entrypoint.sh
+  nginx:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.nginx
+    links:
+      - web
+    depends_on:
+      - web
+    ports:
+      - '80:80'
 volumes:
   shims-postgres:
   gem_cache:
