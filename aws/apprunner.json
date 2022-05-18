@@ -1,0 +1,34 @@
+{
+  "AutoScalingConfigurationArn": "arn:aws:apprunner:us-west-2:952598771041:autoscalingconfiguration/minimum/1/63899e5d51434e148743ade2c960e65a",
+  "ServiceName": "shimsproduction",
+  "SourceConfiguration": {
+    "AuthenticationConfiguration": {
+      "AccessRoleArn": "arn:aws:iam::952598771041:role/service-role/AppRunnerECRAccessRole"
+    },
+    "AutoDeploymentsEnabled": true,
+    "ImageRepository": {
+      "ImageIdentifier": "952598771041.dkr.ecr.us-west-2.amazonaws.com/motorcycleshims/web:production",
+      "ImageConfiguration": {
+        "Port": "3000",
+        "RuntimeEnvironmentVariables": {
+          "AWS_REGION": "us-west-2",
+          "RAILS_LOG_TO_STDOUT": "true"
+        }
+      },
+      "ImageRepositoryType": "ECR"
+    }
+  },
+  "NetworkConfiguration": {
+    "EgressConfiguration": {
+      "EgressType": "VPC",
+      "VpcConnectorArn": "arn:aws:apprunner:us-west-2:952598771041:vpcconnector/motorcycle-shims/1/66b51644fa034f3f9aa6cb87f795e920"
+    }
+  },
+  "HealthCheckConfiguration": {
+    "Protocol": "HTTP",
+    "Path": "/uptime/check"
+  },
+  "InstanceConfiguration": {
+    "InstanceRoleArn": "arn:aws:iam::952598771041:role/ShimsInstanceRole"
+  }
+}
