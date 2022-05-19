@@ -21,12 +21,13 @@
   "NetworkConfiguration": {
     "EgressConfiguration": {
       "EgressType": "VPC",
-      "VpcConnectorArn": "arn:aws:apprunner:us-west-2:952598771041:vpcconnector/motorcycle-shims/1/66b51644fa034f3f9aa6cb87f795e920"
+      "VpcConnectorArn": "arn:aws:apprunner:us-west-2:952598771041:vpcconnector/shims-connector/1/c224e72e258b42b29fee53203db54620"
     }
   },
   "HealthCheckConfiguration": {
     "Protocol": "HTTP",
-    "Path": "/uptime/check"
+    "Path": "/uptime/check",
+    "Interval": 20
   },
   "InstanceConfiguration": {
     "InstanceRoleArn": "arn:aws:iam::952598771041:role/ShimsInstanceRole"
