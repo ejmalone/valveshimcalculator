@@ -97,3 +97,5 @@ end
 gem 'cssbundling-rails'
 
 gem 'jsbundling-rails'
+
+gem "sidekiq", "~> 6.4"

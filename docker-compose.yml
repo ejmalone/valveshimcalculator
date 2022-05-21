@@ -10,7 +10,9 @@ services:
     volumes:
       - shims-postgres:/var/lib/postgresql/data
   web:
-    image: motorcycleshims/web:development
+    build:
+      context: .
+      dockerfile: ./Dockerfile.development
     links:
       - postgres
     ports:
@@ -18,9 +20,15 @@ services:
     tty: true
     volumes:
       - .:/opt/app
-      - gem_cache:/usr/local/bundle/gems
-      - node_modules:/opt/app/node_modules
-    entrypoint: ./bin/docker_entrypoint.sh
+    command: ./bin/docker_entrypoint.sh
+  sidekiq:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.development
+    links:
+      - postgres
+      - redis
+    command: bundle exec sidekiq
   nginx:
     build:
       context: .
@@ -31,7 +39,12 @@ services:
       - web
     ports:
       - '80:80'
+  redis:
+    image: redis:7.0
+    ports:
+      - '6379:6379'
+    volumes:
+      - shims-redis:/var/lib/redis/data
 volumes:
   shims-postgres:
-  gem_cache:
-  node_modules:
+  shims-redis:

@@ -33,5 +33,6 @@ Rails.application.routes.draw do
   get '/users/restart/:token', to: 'anonymous_users#restart', as: :restart_session
 
   get '/uptime/check', to: 'uptime#check'
+  get '/adder/:one/:two', to: "application#adder"
   root "application#index"
 end

@@ -8,14 +8,14 @@ ENV LANGUAGE en_US:en
 ENV USER_ID 1000
 ENV GROUP_ID 1000
 
+ENV REDIS_URL redis://redis:6379/0
 ENV DATABASE_URL postgresql://shimsuser:password@postgres:5432/motorcycleshims_development?encoding=utf8&pool=5&timeout=5000
 
 # Create a user with the same ID and GID
 RUN addgroup --gid $GROUP_ID user
 RUN adduser --disabled-password --gecos '' --uid $USER_ID --gid $GROUP_ID user
 
-# throw errors if Gemfile has been modified since Gemfile.lock
-RUN bundle config --global frozen 1
+RUN bundle config --global
 
 # Default directory
 ENV INSTALL_PATH /opt/app
@@ -33,5 +33,3 @@ RUN yarn install
 RUN bundle install
 
 EXPOSE 3000
-
-CMD ["./bin/dev"]

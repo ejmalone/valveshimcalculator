@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
     redirect_to :root
   end
 
+  def adder
+    AddJob.perform_async(params[:one].to_i, params[:two].to_i)
+    render plain: "added async job"
+  end
+
   # --------------------------------------------------------------
   helper_method def current_or_anon_user
     current_user || anonymous_user
