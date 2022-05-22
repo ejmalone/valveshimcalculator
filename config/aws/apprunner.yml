@@ -1,0 +1,25 @@
+auto_scaling_configuration_arn: arn:aws:apprunner:us-west-2:952598771041:autoscalingconfiguration/minimum/1/63899e5d51434e148743ade2c960e65a
+service_name: shimsproduction
+source_configuration:
+  authentication_configuration:
+    access_role_arn: arn:aws:iam::952598771041:role/service-role/AppRunnerECRAccessRole
+  auto_deployments_enabled: true,
+  image_repository:
+    image_repository_type: ECR
+    image_identifier: 952598771041.dkr.ecr.us-west-2.amazonaws.com/motorcycleshims/web:production
+    image_configuration:
+      port: "3000"
+      runtime_environment_variables:
+        AWS_REGION: us-west-2
+        RAILS_LOG_TO_STDOUT: "true"
+        REDIS_URL: redis://shims.p7f4ew.ng.0001.usw2.cache.amazonaws.com:6379
+network_configuration:
+  egress_configuration:
+    egress_type: VPC
+    vpc_connector_arn: arn:aws:apprunner:us-west-2:952598771041:vpcconnector/shims-connector/1/c224e72e258b42b29fee53203db54620
+health_check_configuration:
+  protocol: HTTP
+  path: /uptime/check
+  interval: 20
+instance_configuration:
+  instance_role_arn: arn:aws:iam::952598771041:role/ShimsInstanceRole

@@ -67,6 +67,11 @@ group :development, :test do
 end
 
 group :development do
+  gem "aws-sdk-rails"
+  gem "aws-sdk-ec2"
+  gem "aws-sdk-apprunner"
+  gem "aws-sdk-ecs"
+
   # github linting
   gem 'brakeman'
 

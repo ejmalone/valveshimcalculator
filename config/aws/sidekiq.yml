@@ -1,0 +1,27 @@
+family: shimsweb
+task_role_arn: arn:aws:iam::952598771041:role/ecsTaskExecutionRole
+execution_role_arn: arn:aws:iam::952598771041:role/ecsTaskExecutionRole
+network_mode: bridge
+container_definitions:
+  -
+    name: shimsweb
+    image: 952598771041.dkr.ecr.us-west-2.amazonaws.com/motorcycleshims/web:production
+    cpu: 1024
+    memory: 758
+    command:
+      - bundle
+      - exec
+      - sidekiq
+    port_mappings:
+      -
+        container_port: 3000
+        host_port: 80
+        protocol: tcp
+    essential: true
+    environment:
+      -
+        name: AWS_REGION
+        value: us-west-2
+      -
+        name: REDIS_URL
+        value: redis://shims.p7f4ew.ng.0001.usw2.cache.amazonaws.com:6379
