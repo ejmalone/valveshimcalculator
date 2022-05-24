@@ -1,6 +1,8 @@
 # Docs at https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws.html
+# TODO: log to STDOUT to know if tasks are successful
 namespace :aws do
   # --------------------------------------------------------------
+  # TODO: figure out how to better update the service since this deletes the service, needs to wait until it's exited, then start anew
   desc "Deploy site to AppRunner"
   task deploy_site: :upload_image do
     runner = Aws::AppRunner::Client.new(region: 'us-west-2')
@@ -37,6 +39,8 @@ namespace :aws do
   desc "Upload new Docker image for Site or Sidekiq"
   task upload_image: :environment do
     unless ENV['SKIP_UPLOAD'].present?
+      system("aws ecr get-login-password --region us-west-2 --profile app_runner | docker login --username AWS --password-stdin 952598771041.dkr.ecr.us-west-2.amazonaws.com")
+
       Rails.logger.info "Building docker image"
       system("docker build -t \"motorcycleshims/web:production\" -f Dockerfile.production --secret id=master_key,src=config/credentials/production.key .")
 
