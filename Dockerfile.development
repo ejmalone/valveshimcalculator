@@ -29,7 +29,7 @@ RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.lis
 RUN apt-get update && apt-get install -y --no-install-recommends esbuild nodejs npm yarn
 
 COPY . .
-RUN yarn install
+RUN yarn install --modules-folder /opt/node_modules
 RUN bundle install
 
 EXPOSE 3000

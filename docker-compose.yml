@@ -20,6 +20,7 @@ services:
     tty: true
     volumes:
       - .:/opt/app
+      - node-modules:/opt/node_modules
     command: ./bin/docker_entrypoint.sh
   sidekiq:
     build:
@@ -48,3 +49,4 @@ services:
 volumes:
   shims-postgres:
   shims-redis:
+  node-modules:
