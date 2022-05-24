@@ -24,9 +24,7 @@ class EnginesController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /engines/1/edit
-  def edit
-    breadcrumbs.add "My #{engine_name(@engine)}"
-  end
+  def edit; end
 
   # --------------------------------------------------------------
   # POST /engines or /engines.json
@@ -100,6 +98,6 @@ class EnginesController < ApplicationController
 
   # --------------------------------------------------------------
   def set_breadcrumb
-    breadcrumb("My #{engine_name(@engine)}")
+    breadcrumb "My #{helpers.engine_name(@engine)}"
   end
 end

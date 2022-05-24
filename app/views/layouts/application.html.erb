@@ -23,7 +23,7 @@
       <div class="container-fluid">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            <% @breadcrumbs.each do |(text, link)| %>
+            <% (@breadcrumbs || []).each do |(text, link)| %>
               <% if link.present? %>
                 <li class="breadcrumb-item"><%= link_to text, link %></li>
               <% else %>

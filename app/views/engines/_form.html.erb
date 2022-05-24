@@ -39,7 +39,7 @@
 
   <div>
     <%= form.label :make, style: "display: block" %>
-    <%= form.select :make, options_for_select(Engine::MAKES + [ "Other" ]), {include_blank: true}, data: { engine_target: "make" } %>
+    <%= form.select :make, options_for_select(Engine::MAKES + [ "Other" ], engine.make), {include_blank: true}, data: { engine_target: "make" } %>
   </div>
 
   <div>
