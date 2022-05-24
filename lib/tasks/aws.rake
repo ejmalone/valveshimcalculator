@@ -1,10 +1,25 @@
 # Docs at https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws.html
 # TODO: log to STDOUT to know if tasks are successful
 namespace :aws do
+
+  # --------------------------------------------------------------
+  desc "Uploads new image for AppRunner, which then deploys automatically"
+  task deploy_site: :upload_image do
+    runner = Aws::AppRunner::Client.new(region: 'us-west-2')
+    service = runner.list_services.service_summary_list.detect { |s| s.service_name == "shimsproduction" }
+    response = runner.start_deployment(service_arn: service.service_arn)
+
+    if response.successful?
+      Rails.logger.info "Deployment started"
+    else
+      Rails.logger.info "Deployment failed"
+    end
+  end
+
   # --------------------------------------------------------------
   # TODO: figure out how to better update the service since this deletes the service, needs to wait until it's exited, then start anew
-  desc "Deploy site to AppRunner"
-  task deploy_site: :upload_image do
+  desc "Deploy site config (and new deployment) to update AppRunner"
+  task deploy_apprunner_config: :upload_image do
     runner = Aws::AppRunner::Client.new(region: 'us-west-2')
     service = runner.list_services.service_summary_list.detect { |s| s.service_name == "shimsproduction" }
 
@@ -53,5 +68,4 @@ namespace :aws do
       Rails.logger.info "Skipping docker image upload"
     end
   end
-
 end
