@@ -24,11 +24,11 @@ class EnginesControllerTest < ActionDispatch::IntegrationTest
       post engines_url,
            params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max,
                                exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max,
-                               intake_min: @engine.intake_min, name: @engine.name,
+                               intake_min: @engine.intake_min, make: @engine.make, model: @engine.model,
                                valves_per_cylinder: @engine.valves_per_cylinder } }
     end
 
-    @engine = Engine.where(userable: @engine.userable, name: @engine.name).last
+    @engine = Engine.where(userable: @engine.userable, make: @engine.make, model: @engine.model).last
     assert_redirected_to edit_all_engine_shims_url(@engine)
   end
 

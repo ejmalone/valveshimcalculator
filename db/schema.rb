@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_21_191857) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_23_013717) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_191857) do
   end
 
   create_table "cylinders", force: :cascade do |t|
-    t.integer "engine_id", null: false
+    t.bigint "engine_id", null: false
     t.integer "cylinder_num"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_191857) do
   create_table "engines", force: :cascade do |t|
     t.integer "num_cylinders"
     t.integer "valves_per_cylinder"
-    t.string "name"
+    t.string "nickname"
     t.decimal "intake_min", precision: 4, scale: 2
     t.decimal "intake_max", precision: 4, scale: 2
     t.decimal "exhaust_min", precision: 4, scale: 2
@@ -49,6 +49,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_191857) do
     t.datetime "updated_at", null: false
     t.string "userable_type"
     t.integer "userable_id"
+    t.string "make"
+    t.string "model"
     t.index ["userable_type", "userable_id"], name: "index_engines_on_userable_type_and_userable_id"
   end
 
@@ -75,7 +77,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_191857) do
   end
 
   create_table "valve_adjustments", force: :cascade do |t|
-    t.integer "engine_id", null: false
+    t.bigint "engine_id", null: false
     t.integer "mileage"
     t.date "adjustment_date"
     t.text "notes"
@@ -86,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_191857) do
   end
 
   create_table "valves", force: :cascade do |t|
-    t.integer "cylinder_id", null: false
+    t.bigint "cylinder_id", null: false
     t.decimal "gap", precision: 4, scale: 2
     t.string "intake_or_exhaust"
     t.integer "valve_num"

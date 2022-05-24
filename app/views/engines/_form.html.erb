@@ -1,4 +1,4 @@
-<%= form_with(model: engine, data: { controller: "engine", action: "engine#validate" }) do |form| %>
+<%= form_with(model: engine, data: { controller: "engine", action: "engine#validate" }, class: "engine") do |form| %>
   <% if engine.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(engine.errors.count, "error") %> prohibited this engine from being saved:</h2>
@@ -38,11 +38,21 @@
   <% end %>
 
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name, data: { engine_target: "name" } %>
+    <%= form.label :make, style: "display: block" %>
+    <%= form.select :make, options_for_select(Engine::MAKES + [ "Other" ]), {include_blank: true}, data: { engine_target: "make" } %>
   </div>
 
   <div>
+    <%= form.label :model, style: "display: block" %>
+    <%= form.text_field :model, data: { engine_target: "model" } %>
+  </div>
+
+  <div>
+    <%= form.label :nickname, "Nickname (optional)", style: "display: block" %>
+    <%= form.text_field :nickname, data: { engine_target: "nickname" } %>
+  </div>
+
+  <div class="clearance">
     Intake clearance MM (<%= form.label :intake_min, style: "display: inline" %>
     to <%= form.label :intake_max, style: "display: inline" %>)
 
@@ -50,7 +60,7 @@
     <%= form.number_field :intake_max, step: :any, data: { engine_target: "maxintake" } %>
   </div>
 
-  <div>
+  <div class="clearance">
     Exhaust clearance MM (<%= form.label :exhaust_min, style: "display: inline" %>
     to <%= form.label :exhaust_max, style: "display: inline" %>)
 

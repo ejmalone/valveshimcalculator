@@ -3,7 +3,8 @@
 FactoryBot.define do
   factory :klr650, class: 'Engine' do
     association :userable, factory: :user
-    name { 'KLR 650' }
+    make { 'Kawasaki' }
+    model { 'KLR 650' }
     num_cylinders { 1 }
     valves_per_cylinder { 4 }
     intake_min { 0.1 }

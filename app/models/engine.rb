@@ -9,7 +9,9 @@
 #  exhaust_min         :decimal(4, 2)
 #  intake_max          :decimal(4, 2)
 #  intake_min          :decimal(4, 2)
-#  name                :string
+#  make                :string
+#  model               :string
+#  nickname            :string
 #  num_cylinders       :integer
 #  userable_type       :string
 #  valves_per_cylinder :integer
@@ -24,6 +26,7 @@
 class Engine < ApplicationRecord
   CYLINDER_OPTS = [1, 2, 4].freeze
   VALVES_PER_CYLINDER_OPTS = [2, 4].freeze
+  MAKES = [ "Aprilia", "Buell", "Ducati", "Gas Gas", "Harley", "Honda", "Indian", "KTM", "Kawasaki", "Moto Guzzi", "Suzuki", "Triumph", "Vespa" ].freeze
 
   belongs_to :userable, polymorphic: true
   has_many :cylinders, dependent: :destroy
@@ -35,7 +38,8 @@ class Engine < ApplicationRecord
   validates :num_cylinders, inclusion: CYLINDER_OPTS
   validates :valves_per_cylinder, inclusion: VALVES_PER_CYLINDER_OPTS
   validate :valve_clearances_are_valid
-  validates :name, presence: true
+  validates :make, presence: true
+  validates :model, presence: true
 
   scope :includes_shims, -> { includes(cylinders: { valves: :shim }) }
 
@@ -72,11 +76,11 @@ class Engine < ApplicationRecord
     ]
 
     clearances.flatten.each do |clearance|
-      errors.add(clearance, "can't be less than zero") if send(clearance) <= 0.0
+      errors.add(clearance, "can't be less than zero") if send(clearance).to_f <= 0.0
     end
 
     clearances.each do |(min, max)|
-      errors.add(:base, "#{min.humanize} and #{max.humanize} is an invalid range") if send(min) >= send(max)
+      errors.add(:base, "#{min.humanize} and #{max.humanize} is an invalid range") if send(min).to_f >= send(max).to_f
     end
   end
 end

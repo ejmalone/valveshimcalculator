@@ -4,7 +4,7 @@ require 'test_helper'
 
 class UserFlowsTest < ActionDispatch::IntegrationTest
   setup do
-    @engine = build(:klr650, userable: @anonymous_user, name: 'anonymous engine')
+    @engine = build(:klr650, userable: @anonymous_user, nickname: 'anonymous engine')
     @email = Faker::Internet.email
   end
 
@@ -19,10 +19,10 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     post engines_url,
          params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max,
                              exhaust_min: @engine.exhaust_min, intake_max: @engine.intake_max,
-                             intake_min: @engine.intake_min, name: @engine.name,
-                             valves_per_cylinder: @engine.valves_per_cylinder } }
+                             intake_min: @engine.intake_min, make: @engine.make, model: @engine.model,
+                             nickname: @engine.nickname, valves_per_cylinder: @engine.valves_per_cylinder } }
 
-    @engine = Engine.where(name: @engine.name).last
+    @engine = Engine.where(make: @engine.make, model: @engine.model, nickname: @engine.nickname).last
     anonymous_user = AnonymousUser.last
     assert_equal @engine, anonymous_user.engines.last
 

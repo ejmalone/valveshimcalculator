@@ -9,7 +9,9 @@
 #  exhaust_min         :decimal(4, 2)
 #  intake_max          :decimal(4, 2)
 #  intake_min          :decimal(4, 2)
-#  name                :string
+#  make                :string
+#  model               :string
+#  nickname            :string
 #  num_cylinders       :integer
 #  userable_type       :string
 #  valves_per_cylinder :integer

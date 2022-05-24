@@ -11,7 +11,7 @@
 #  status          :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  engine_id       :integer          not null
+#  engine_id       :bigint           not null
 #
 # Indexes
 #

@@ -10,7 +10,7 @@
   <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 </head>
 
-<body>
+<body class="<%= controller_name %>_controller">
   <%# bootstrap layout from https://github.com/StartBootstrap/startbootstrap-simple-sidebar %>
   <div class="d-flex" id="wrapper">
     <!-- Sidebar-->

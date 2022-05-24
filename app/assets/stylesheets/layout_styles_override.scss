@@ -6,7 +6,9 @@
 
 form {
   .form_errors,
-  input.error {
+  input.error,
+  select.error,
+  textarea.error {
     border: 1px solid red !important;
   }
 

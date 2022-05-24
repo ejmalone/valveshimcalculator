@@ -10,7 +10,7 @@
 #  valve_num         :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  cylinder_id       :integer          not null
+#  cylinder_id       :bigint           not null
 #
 # Indexes
 #

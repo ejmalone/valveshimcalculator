@@ -25,7 +25,7 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # GET /engines/1/edit
   def edit
-    breadcrumbs.add "My #{@engine.name}"
+    breadcrumbs.add "My #{engine_name(@engine)}"
   end
 
   # --------------------------------------------------------------
@@ -94,12 +94,12 @@ class EnginesController < ApplicationController
   # --------------------------------------------------------------
   # Only allow a list of trusted parameters through.
   def engine_params
-    params.require(:engine).permit(:num_cylinders, :valves_per_cylinder, :name, :intake_min, :intake_max, :exhaust_min,
-                                   :exhaust_max)
+    params.require(:engine).permit(:num_cylinders, :valves_per_cylinder, :nickname, :intake_min, :intake_max,
+                                   :exhaust_min, :exhaust_max, :make, :model)
   end
 
   # --------------------------------------------------------------
   def set_breadcrumb
-    breadcrumb("My #{@engine.name}")
+    breadcrumb("My #{engine_name(@engine)}")
   end
 end
