@@ -1,3 +1,5 @@
+<% sb_link_class = "list-group-item list-group-item-action list-group-item-light p-3" %>
+
 <div class="border-end bg-white" id="sidebar-wrapper">
   <div class="sidebar-heading border-bottom bg-light">Valve Adjustments</div>
   <div class="list-group list-group-flush">
@@ -8,10 +10,25 @@
         Hi <%= link_to anonymous_user.token, restart_session_path(token: anonymous_user.token) %>
       <% end %>
     </a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Shortcuts</a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Overview</a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Events</a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Profile</a>
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Status</a>
+    <%= link_to "Spreadsheet Template", "https://docs.google.com/spreadsheets/d/14FS-uSZW0rZPqQWJdAzRera2HgG2RDvyNpt47aH2rVk/edit?usp=sharing", class: sb_link_class, target: :_blank, title: "A helpful spreadsheet if you don't want to use this website" %>
+    <%= link_to "About", { action: :about }, class: sb_link_class %>
+    <%= link_to "Legal", { action: :legal }, class: sb_link_class %>
+    <%= link_to "Contact", "#", class: sb_link_class, data: { bs_toggle: :modal, bs_target: "#wufoo_contact"} %>
+  </div>
+</div>
+
+<div id="wufoo_contact" style="display: none;" class="modal" tabindex="-1" data-iframe-src="https://ericmalone.wufoo.com/embed/m7wlw3l1gv5h5v/">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <iframe height="437" title="Embedded Wufoo Form" allowtransparency="true" frameborder="0" scrolling="no" style="width:100%;border:none" src=""> <a href="https://ericmalone.wufoo.com/forms/m7wlw3l1gv5h5v/">Fill out my Wufoo form!</a> </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
 </div>

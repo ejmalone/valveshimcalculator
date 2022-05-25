@@ -3,10 +3,6 @@
 <% end %>
 
 <p>
-  <%= session.try(:[], "anonymous_user").inspect %>
-</p>
-
-<p>
   <% if current_or_anon_user&.engines&.present? %>
     Select an engine <br>
 
@@ -17,12 +13,11 @@
     </ul>
 
     <%= link_to "Or create an engine", new_engine_path %>
-  <% end %>
-</p>
 
-<p>
-  <% if anonymous_user.present? && anonymous_user.engines.present? %>
-    <%= link_to "Create an account to save your engine", sign_up_to_save_path %>
+    <% if anonymous_user.present? && anonymous_user.engines.present? %>
+      <%= link_to "Create an account to save your engine", sign_up_to_save_path %>
+    <% end %>
+
   <% elsif current_user.blank? %>
     <%= link_to "Sign in", new_user_session_path %> or
     <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>

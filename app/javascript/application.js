@@ -2,6 +2,7 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
-import Sidebar from "./layout_scripts"
+import { Sidebar, Contact } from "./layout_scripts"
 
 Sidebar()
+Contact()

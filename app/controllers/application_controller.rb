@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
 
   # --------------------------------------------------------------
   def add_breadcrumbs
-    breadcrumb('Home', root_url)
+    breadcrumb('Home', root_url) unless controller_name == "application" && action_name == "index"
   end
 
   # --------------------------------------------------------------
