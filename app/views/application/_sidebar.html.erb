@@ -11,8 +11,8 @@
       <% end %>
     </a>
     <%= link_to "Spreadsheet Template", "https://docs.google.com/spreadsheets/d/14FS-uSZW0rZPqQWJdAzRera2HgG2RDvyNpt47aH2rVk/edit?usp=sharing", class: sb_link_class, target: :_blank, title: "A helpful spreadsheet if you don't want to use this website" %>
-    <%= link_to "About", { action: :about }, class: sb_link_class %>
-    <%= link_to "Legal", { action: :legal }, class: sb_link_class %>
+    <%= link_to "About", { controller: :application, action: :about }, class: sb_link_class %>
+    <%= link_to "Legal", { controller: :application, action: :legal }, class: sb_link_class %>
     <%= link_to "Contact", "#", class: sb_link_class, data: { bs_toggle: :modal, bs_target: "#wufoo_contact"} %>
   </div>
 </div>
