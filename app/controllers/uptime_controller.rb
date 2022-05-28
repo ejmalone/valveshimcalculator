@@ -6,4 +6,8 @@ class UptimeController < ApplicationController
   def check
     render plain: "OK"
   end
+
+  def test_exception
+    raise params[:exception] || "This is an exception"
+  end
 end

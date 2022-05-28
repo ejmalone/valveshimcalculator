@@ -104,3 +104,5 @@ gem 'cssbundling-rails'
 gem 'jsbundling-rails'
 
 gem "sidekiq", "~> 6.4"
+
+gem "rollbar", "~> 3.3"
