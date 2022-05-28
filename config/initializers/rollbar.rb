@@ -2,6 +2,8 @@ Rollbar.configure do |config|
   # Without configuration, Rollbar is enabled in all environments.
   # To disable in specific environments, set config.enabled=false.
 
+  config.open_timeout = 15
+  config.request_timeout = 15
   config.access_token = Rails.application.credentials.rollbar_token
 
   # Here we'll disable in 'test':
