@@ -30,8 +30,8 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/about', to: 'application#about'
-  get '/legal', to: 'application#legal'
+  get '/about', to: 'application#about', as: :about
+  get '/legal', to: 'application#legal', as: :legal
 
   get '/enable_debug', to: 'application#enable_debug'
   get '/disable_debug', to: 'application#disable_debug'
