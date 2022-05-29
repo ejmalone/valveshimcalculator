@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   get '/about', to: 'application#about', as: :about
   get '/legal', to: 'application#legal', as: :legal
+  get '/valve-adjustment-spreadsheet', to: 'application#spreadsheet', as: :spreadsheet
 
   get '/enable_debug', to: 'application#enable_debug'
   get '/disable_debug', to: 'application#disable_debug'

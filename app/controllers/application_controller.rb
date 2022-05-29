@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  before_action :add_breadcrumbs
-
   def index; end
 
   # --------------------------------------------------------------
@@ -51,11 +49,6 @@ class ApplicationController < ActionController::Base
     user = AnonymousUser.create
     session[:anonymous_user] = user.token
     user
-  end
-
-  # --------------------------------------------------------------
-  def add_breadcrumbs
-    breadcrumb('Home', root_url) unless controller_name == "application" && action_name == "index"
   end
 
   # --------------------------------------------------------------

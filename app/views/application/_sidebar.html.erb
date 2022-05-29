@@ -1,14 +1,14 @@
 <% sb_link_class = "list-group-item list-group-item-action list-group-item-light p-3" %>
 
 <div class="border-end bg-white" id="sidebar-wrapper">
-  <div class="sidebar-heading border-bottom bg-light">Valve Adjustments</div>
+  <div class="sidebar-heading border-bottom bg-light">
+    <%= link_to "Valve Adjustments", root_url %>
+  </div>
   <div class="list-group list-group-flush">
-    <% if current_user.present? %>
-      <%= link_to "Hi #{ current_user.email }", "javascript:void", class: sb_link_class %>
-    <% elsif anonymous_user&.engines&.present? %>
+    <% if anonymous_user&.engines&.present? %>
       <strong><%= link_to "Save progress", view_token_path, class: sb_link_class %></strong>
     <% end %>
-    <%= link_to "Spreadsheet Template", "https://docs.google.com/spreadsheets/d/14FS-uSZW0rZPqQWJdAzRera2HgG2RDvyNpt47aH2rVk/edit?usp=sharing", class: sb_link_class, target: :_blank, title: "A helpful spreadsheet if you don't want to use this website" %>
+    <%= link_to "Spreadsheet Template", spreadsheet_path, class: sb_link_class %>
     <%= link_to "About", about_path, class: sb_link_class %>
     <%= link_to "Legal", legal_path, class: sb_link_class %>
     <%= link_to "Contact", "#", class: sb_link_class, data: { bs_toggle: :modal, bs_target: "#wufoo_contact"} %>

@@ -20,21 +20,32 @@
       <!-- Top navigation-->
       <%= render "top_nav" %>
       <!-- Page content-->
-      <div class="container-fluid">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <% (@breadcrumbs || []).each do |(text, link)| %>
-              <% if link.present? %>
-                <li class="breadcrumb-item"><%= link_to text, link %></li>
-              <% else %>
-                <li class="breadcrumb-item active" aria-current="page"><%= text %></li>
-              <% end %>
+      <div class="container">
+        <% if @breadcrumbs.present? %>
+          <div class="row">
+            <nav aria-label="breadcrumb" class="p-3">
+              <ol class="breadcrumb">
+                <% (@breadcrumbs || []).each do |(text, link)| %>
+                  <% if link.present? %>
+                    <li class="breadcrumb-item"><%= link_to text, link %></li>
+                  <% else %>
+                    <li class="breadcrumb-item active" aria-current="page"><%= text %></li>
+                  <% end %>
+                <% end %>
+              </ol>
+            </nav>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <% [ [ alert, :danger ], [ notice, :info ] ].each do |message, alert_class| %>
+            <% if message.present? %>
+              <div class="alert alert-<%= alert_class %>" role="alert">
+                <%= message %>
+              </div>
             <% end %>
-          </ol>
-        </nav>
-        
-        <p style="color: red"><%= alert %></p>
-        <p style="color: green"><%= notice %></p>
+          <% end %>
+        </div>
 
         <%= yield %>
       </div>

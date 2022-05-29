@@ -1,38 +1,44 @@
-<h1>Welcome to valveadjustments.com</h1>
+<%= centered_content do %>
+  <h1>Welcome to valveadjustments.com</h1>
 
-<p>
-  This site was created to help making valve adjustments easier for shim-under-bucket engines.
-</p>
+  <br>
 
-<p>
-  Simply enter the type of engine you have, your current measurements and shim sizes,
-  and we will let you know which shims are needed to get your engine back in specification.
-</p>
+  <p>
+    This site was created to help making valve adjustments easier for
+    <%= link_to "shim-under-bucket", "https://www.revzilla.com/common-tread/why-do-bikes-use-shim-under-bucket-valve-adjusters", target: :_blank %>
+    engines.
+  </p>
 
-<p>
-  No login required, but you can sign up to save your engines.
-</p>
+  <p>
+    Simply enter the type of engine you have, your current measurements and shim sizes,
+    and this will let you know which shims are needed to bring your engine back in specification.
+  </p>
 
-<p>
-  <% if current_or_anon_user&.engines&.present? %>
-    Select an engine <br>
+  <p>
+    No login required, but you can sign up to save your engines.
+  </p>
 
-    <ul>
-      <% current_or_anon_user.engines.each do |engine| %>
-        <li><%= link_to engine_name(engine), engine_path(engine)  %></li>
+  <p>
+    <% if current_or_anon_user&.engines&.present? %>
+      Select an engine <br>
+
+      <ul>
+        <% current_or_anon_user.engines.each do |engine| %>
+          <li><%= link_to engine_name(engine), engine_path(engine)  %></li>
+        <% end %>
+      </ul>
+
+      <%= link_to "Or create an engine", new_engine_path %>
+
+      <% if anonymous_user&.engines&.present? %>
+        <%= link_to "Create an account to save your engine", sign_up_to_save_path %>
       <% end %>
-    </ul>
 
-    <%= link_to "Or create an engine", new_engine_path %>
-
-    <% if anonymous_user&.engines&.present? %>
-      <%= link_to "Create an account to save your engine", sign_up_to_save_path %>
+    <% elsif current_user.blank? %>
+      <%= link_to "Sign in", new_user_session_path %> or
+      <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>
+    <% elsif current_user.present? %>
+      <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>
     <% end %>
-
-  <% elsif current_user.blank? %>
-    <%= link_to "Sign in", new_user_session_path %> or
-    <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>
-  <% elsif current_user.present? %>
-    <%= link_to "Create an engine", new_engine_path, data: { turbo: false } %>
-  <% end %>
-</p>
+  </p>
+<% end %>

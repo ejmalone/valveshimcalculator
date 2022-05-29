@@ -4,6 +4,13 @@
   }
 }
 
+.sidebar-heading {
+  a {
+    text-decoration: none;
+    color: $gray-900;
+  }
+}
+
 form {
   .form_errors,
   input.error,
