@@ -4,10 +4,6 @@ export default class extends FormController {
   static targets = [ "minintake", "maxintake", "minexhaust", "maxexhaust", "make", "model", "nickname", "error" ]
   static errorSelector = "input[data-engine-target].error"
 
-  connect() {
-    console.log("attached engine 1")
-  }
-
   validate(event) {
     this.clearErrors(this.errorTarget, this.constructor.errorSelector)
 

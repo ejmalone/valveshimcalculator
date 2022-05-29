@@ -1,0 +1,17 @@
+
+<p>
+  You are not logged in, but can come back to the site within 48 hours to restart your valve adjustment by copying this URL.
+</p>
+
+<div data-controller="token">
+  <p>
+    <%= text_field_tag 'restart_url', restart_session_url(token: anonymous_user.token), readonly: true, data: { token_target: "token" }  %>
+    <%= button_tag "Copy", class: "d-none", data: { action: "click->token#copy", token_target: "button" } %>
+  </p>
+</div>
+
+<p>
+  Or you can
+  <%= link_to "create an account", anonymous_user&.engines&.present? ? sign_up_to_save_path : new_user_registration_path %>
+  and return any time.
+</p>

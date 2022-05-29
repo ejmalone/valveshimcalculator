@@ -10,14 +10,14 @@ application.register("engine", EngineController)
 import FormController from "./form_controller.js"
 application.register("form", FormController)
 
-import HelloController from "./hello_controller.js"
-application.register("hello", HelloController)
-
 import NewValveAdjustmentController from "./new_valve_adjustment_controller.js"
 application.register("new-valve-adjustment", NewValveAdjustmentController)
 
 import ShimController from "./shim_controller.js"
 application.register("shim", ShimController)
+
+import TokenController from "./token_controller.js"
+application.register("token", TokenController)
 
 import ValveGapsController from "./valve_gaps_controller.js"
 application.register("valve-gaps", ValveGapsController)

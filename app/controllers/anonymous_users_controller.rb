@@ -4,6 +4,14 @@ class AnonymousUsersController < ApplicationController
   # TODO: better naming on these methods
 
   # --------------------------------------------------------------
+  def token
+    if current_user.present?
+      redirect_to :root, notice: 'You are already signed in'
+      return
+    end
+  end
+
+  # --------------------------------------------------------------
   def sign_up_anonymous
     if current_user.present?
       redirect_to :root, notice: 'You are already signed in'

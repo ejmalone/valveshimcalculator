@@ -1,6 +1,17 @@
-<% if current_user.present? %>
-  <h2>Welcome back <%= current_user.email %></h2>
-<% end %>
+<h1>Welcome to valveadjustments.com</h1>
+
+<p>
+  This site was created to help making valve adjustments easier for shim-under-bucket engines.
+</p>
+
+<p>
+  Simply enter the type of engine you have, your current measurements and shim sizes,
+  and we will let you know which shims are needed to get your engine back in specification.
+</p>
+
+<p>
+  No login required, but you can sign up to save your engines.
+</p>
 
 <p>
   <% if current_or_anon_user&.engines&.present? %>
@@ -14,7 +25,7 @@
 
     <%= link_to "Or create an engine", new_engine_path %>
 
-    <% if anonymous_user.present? && anonymous_user.engines.present? %>
+    <% if anonymous_user&.engines&.present? %>
       <%= link_to "Create an account to save your engine", sign_up_to_save_path %>
     <% end %>
 

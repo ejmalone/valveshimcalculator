@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   get '/enable_debug', to: 'application#enable_debug'
   get '/disable_debug', to: 'application#disable_debug'
 
+  get '/users/token', to: 'anonymous_users#token', as: :view_token
   get '/users/sign_up_anonymous', to: 'anonymous_users#sign_up_anonymous', as: :sign_up_to_save
   get '/users/associate_new_user', to: 'anonymous_users#associate_new_user', as: :associate_new_user
   get '/users/restart/:token', to: 'anonymous_users#restart', as: :restart_session

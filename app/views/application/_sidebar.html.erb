@@ -3,13 +3,11 @@
 <div class="border-end bg-white" id="sidebar-wrapper">
   <div class="sidebar-heading border-bottom bg-light">Valve Adjustments</div>
   <div class="list-group list-group-flush">
-    <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">
-      <% if current_user.present? %>
-        Hi <%= current_user&.email %>
-      <% elsif anonymous_user&.token %>
-        Hi <%= link_to anonymous_user.token, restart_session_path(token: anonymous_user.token) %>
-      <% end %>
-    </a>
+    <% if current_user.present? %>
+      <%= link_to "Hi #{ current_user.email }", "javascript:void", class: sb_link_class %>
+    <% elsif anonymous_user&.token %>
+      <strong><%= link_to "Save progress", view_token_path, class: sb_link_class %></strong>
+    <% end %>
     <%= link_to "Spreadsheet Template", "https://docs.google.com/spreadsheets/d/14FS-uSZW0rZPqQWJdAzRera2HgG2RDvyNpt47aH2rVk/edit?usp=sharing", class: sb_link_class, target: :_blank, title: "A helpful spreadsheet if you don't want to use this website" %>
     <%= link_to "About", about_path, class: sb_link_class %>
     <%= link_to "Legal", legal_path, class: sb_link_class %>
