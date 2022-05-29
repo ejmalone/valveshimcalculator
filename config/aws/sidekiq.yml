@@ -12,6 +12,7 @@ container_definitions:
       - bundle
       - exec
       - sidekiq
+      - 2>&1 >> log/sidekiq.log
     port_mappings:
       -
         container_port: 3000
