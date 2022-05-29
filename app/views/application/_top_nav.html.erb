@@ -7,14 +7,14 @@
         <li class="nav-item active">
           <%= link_to "Home", :root, class: "nav-link" %>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Signed <%= user_signed_in? ? "in" : "out" %>
+          </a>
           <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#!">Action</a>
-            <a class="dropdown-item" href="#!">Another action</a>
-            <div class="dropdown-divider"></div>
             <% if user_signed_in? %>
+              <%= link_to "My engines", engines_path, class: "dropdown-item" %>
+              <%= link_to "Change password", edit_user_registration_path, class: "dropdown-item" %>
               <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %>
             <% else %>
               <%= link_to "Sign in", new_user_session_path, class: "dropdown-item" %>
