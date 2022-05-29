@@ -5,7 +5,9 @@
     <%= link_to "Valve Adjustments", root_url %>
   </div>
   <div class="list-group list-group-flush">
-    <% if anonymous_user&.engines&.present? %>
+    <% if current_user&.engines&.present? %>
+      <%= link_to "My engines", engines_path, class: sb_link_class %>
+    <% elsif anonymous_user&.engines&.present? %>
       <strong><%= link_to "Save progress", view_token_path, class: sb_link_class %></strong>
     <% end %>
     <%= link_to "Spreadsheet Template", spreadsheet_path, class: sb_link_class %>

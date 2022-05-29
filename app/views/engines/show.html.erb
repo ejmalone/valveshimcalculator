@@ -1,18 +1,14 @@
 <%= render @engine %>
 
 <div>
-  <%= link_to "Edit this engine", edit_engine_path(@engine) %> |
-  <%= link_to "Back to engines", engines_path %>
+  <% if @engine.lacks_shims? %>
+    <%= link_to "Add current shims", edit_all_engine_shims_path(@engine), class: "btn btn-primary" %>
+  <% end %>
+  <%= link_to "Edit this engine", edit_engine_path(@engine), class: "btn btn-secondary" %>
+  <%= button_to "Remove this engine", @engine, method: :delete, form: { class: "d-inline", data: { turbo_confirm: "Are you sure you want to remove this engine?" } }, class: "btn btn-danger" %>
 </div>
 
-<div>
-  <br>
-  <%= button_to "Destroy this engine", @engine, method: :delete %>
-</div>
-
-<% if @engine.lacks_shims? %>
-  <%= link_to "Add current shims", edit_all_engine_shims_path(@engine) %>
-<% else %>
+<% unless @engine.lacks_shims? %>
   <h2>Current shims</h2>
   <table>
     <% @engine.cylinders.each do |cylinder| %>

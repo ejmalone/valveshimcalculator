@@ -1,6 +1,6 @@
 <%= form_with(model: engine, data: { controller: "engine", action: "engine#validate" }, class: "engine") do |form| %>
   <% if engine.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger">
       <h2><%= pluralize(engine.errors.count, "error") %> prohibited this engine from being saved:</h2>
 
       <ul>
@@ -13,64 +13,91 @@
 
   <%= form_errors_element(:engine) %>
 
-  <% unless engine.persisted? %>
-    <div>
-      <%= form.label :num_cylinders, style: "display: block" %>
-      <%= form.select :num_cylinders, Engine::CYLINDER_OPTS %>
-    </div>
-
-    <div>
-      <%= form.label :valves_per_cylinder, style: "display: block" %>
-      <%= form.select :valves_per_cylinder, Engine::VALVES_PER_CYLINDER_OPTS %>
-    </div>
-  <% else %>
-    <div>
+  <% if engine.persisted? %>
+    <div class="row alert alert-info" role="alert">
       Note: delete this engine if you need to change the cylinders or valves per cylinder
-    </div>
-
-    <div>
-      Cylinders: <%= engine.cylinders.count %>
-    </div>
-
-    <div>
-      Valves per cylinder: <%= engine.valves_per_cylinder %>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :make, style: "display: block" %>
-    <%= form.select :make, options_for_select(Engine::MAKES + [ "Other" ], engine.make), {include_blank: true}, data: { engine_target: "make" } %>
+  <div class="row align-items-center mb-3">
+    <%= form.label :num_cylinders, "Cylinders", class: "col-xs-12 col-sm-4 col-md-3 col-xl-2 col-form-label" %>
+    <div class="col col-sm-2 col-md-1">
+      <%= form.select :num_cylinders, options_for_select(Engine::CYLINDER_OPTS, engine.num_cylinders), {}, html_options({class: "form-control"}, disabled: engine.persisted?) %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :model, style: "display: block" %>
-    <%= form.text_field :model, data: { engine_target: "model" } %>
+  <div class="row align-items-center mb-3">
+    <%= form.label :valves_per_cylinder, class: "col-xs-12 col-sm-4 col-md-3 col-xl-2 col-form-label" %>
+    <div class="col col-sm-2 col-md-1">
+      <%= form.select :valves_per_cylinder, Engine::VALVES_PER_CYLINDER_OPTS, {}, html_options({class: "form-control"}, disabled: engine.persisted?) %>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :nickname, "Nickname (optional)", style: "display: block" %>
-    <%= form.text_field :nickname, data: { engine_target: "nickname" } %>
+  <div class="row align-items-center mb-3">
+    <div class="col-sm-2">
+      <%= form.label :make, class: "form-label" %>
+      <%= form.select :make, options_for_select(Engine::MAKES + [ "Other" ], engine.make), {include_blank: true}, data: {engine_target: "make"}, class: "form-control" %>
+      <div class="form-text">&nbsp;</div>
+    </div>
+
+    <div class="col-sm-2">
+      <%= form.label :model, class: "form-label" %>
+      <%= form.text_field :model, data: { engine_target: "model" }, class: "form-control" %>
+      <div class="form-text">&nbsp;</div>
+    </div>
+
+    <div class="col-sm-2">
+      <%= form.label :nickname, "Nickname", class: "form-label" %>
+      <%= form.text_field :nickname, data: { engine_target: "nickname" }, class: "form-control" %>
+      <div class="form-text">optional</div>
+    </div>
   </div>
 
-  <div class="clearance">
-    Intake clearance MM (<%= form.label :intake_min, style: "display: inline" %>
-    to <%= form.label :intake_max, style: "display: inline" %>)
-
-    <%= form.number_field :intake_min, step: :any, data: { engine_target: "minintake" } %> -
-    <%= form.number_field :intake_max, step: :any, data: { engine_target: "maxintake" } %>
+  <div class="row mb-2">
+    <div class="col-auto">
+      Intake clearance
+    </div>
   </div>
 
-  <div class="clearance">
-    Exhaust clearance MM (<%= form.label :exhaust_min, style: "display: inline" %>
-    to <%= form.label :exhaust_max, style: "display: inline" %>)
+  <div class="row align-items-center mb-3 clearance">
+    <div class="col-auto input-group">
+      <%= form.label :intake_min, class: "visually-hidden" %>
+      <%= form.number_field :intake_min, step: :any, data: { engine_target: "minintake" }, class: "form-control" %>
 
-    <%= form.number_field :exhaust_min, step: :any, data: { engine_target: "minexhaust" } %> -
-    <%= form.number_field :exhaust_max, step: :any, data: { engine_target: "maxexhaust" } %>
+      <span class="input-group-text">-</span>
+
+      <%= form.label :intake_max, class: "visually-hidden" %>
+      <%= form.number_field :intake_max, step: :any, data: { engine_target: "maxintake" }, class: "form-control" %>
+    </div>
+
+    <div class="form-text">
+      millimeters (min - max)
+    </div>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="row mb-2">
+    <div class="col-auto">
+      Exhaust clearance
+    </div>
   </div>
+
+  <div class="row align-items-center mb-3 clearance">
+    <div class="col-auto input-group">
+      <%= form.label :exhaust_min, class: "visually-hidden" %>
+      <%= form.number_field :exhaust_min, step: :any, data: { engine_target: "minexhaust" }, class: "form-control" %>
+
+      <span class="input-group-text">-</span>
+
+      <%= form.label :exhaust_max, class: "visually-hidden" %>
+      <%= form.number_field :exhaust_max, step: :any, data: { engine_target: "maxexhaust" }, class: "form-control" %>
+    </div>
+
+    <div class="form-text">
+      millimeters (min - max)
+    </div>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
 
   <% if current_user.blank? %>
     <%= recaptcha_v3(action: Recaptcha::CREATE_ANON_ENGINE) %>

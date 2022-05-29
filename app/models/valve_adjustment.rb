@@ -29,6 +29,7 @@ class ValveAdjustment < ApplicationRecord
   belongs_to :engine
 
   scope :most_recent, -> { order('adjustment_date DESC') }
+  scope :complete, -> { where(status: COMPLETE) }
   scope :incomplete, -> { where(status: [nil, PENDING, NEEDS_GAPS]) }
   scope :current, -> { most_recent.incomplete }
 

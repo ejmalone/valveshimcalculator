@@ -2,7 +2,7 @@
 
 class EnginesController < ApplicationController
   before_action :load_engine, only: %i[ show edit update destroy ]
-  before_action :set_breadcrumb, only: %i[ show edit ]
+  before_action :set_engines_breadcrumb, only: %i[ show edit ]
 
   # --------------------------------------------------------------
   # GET /engines or /engines.json
@@ -14,6 +14,7 @@ class EnginesController < ApplicationController
   # GET /engines/1 or /engines/1.json
   def show
     @latest_adjustment = @engine.valve_adjustments.most_recent.first
+    breadcrumb "My #{helpers.engine_name(@engine)}"
   end
 
   # --------------------------------------------------------------
@@ -26,7 +27,10 @@ class EnginesController < ApplicationController
 
   # --------------------------------------------------------------
   # GET /engines/1/edit
-  def edit; end
+  def edit
+    breadcrumb "My #{helpers.engine_name(@engine)}", engine_url(@engine)
+    breadcrumb "Editing"
+  end
 
   # --------------------------------------------------------------
   # POST /engines or /engines.json
@@ -99,8 +103,7 @@ class EnginesController < ApplicationController
   end
 
   # --------------------------------------------------------------
-  def set_breadcrumb
+  def set_engines_breadcrumb
     breadcrumb "Engines", engines_url
-    breadcrumb "My #{helpers.engine_name(@engine)}"
   end
 end

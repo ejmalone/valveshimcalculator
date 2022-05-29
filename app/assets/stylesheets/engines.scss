@@ -1,6 +1,11 @@
 .engines_controller {
   form.engine {
     .clearance {
+      input {
+        flex-grow: 0;
+        width: 100px;
+      }
+
       .field_with_errors {
         display: inline;
       }

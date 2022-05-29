@@ -1,12 +1,27 @@
-<h1>Engines</h1>
+<h1>My Engines</h1>
 
-<div id="engines">
+<table class="table align-middle">
+  <thead>
+    <tr>
+      <th>Engine</th>
+      <th>Last adjusted mileage</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
   <% @engines.each do |engine| %>
-    <%= render engine %>
-    <p>
-      <%= link_to "Show this engine", engine %>
-    </p>
+    <tr>
+      <td>
+        <%= link_to engine_name(engine), engine_path(engine) %>
+      </td>
+      <td>
+        <%= engine.last_adjusted_mileage || 'n/a' %>
+      </td>
+      <td>
+        <%= button_to "Remove this engine", engine, method: :delete, form: { data: { turbo_confirm: "Are you sure you want to remove this engine?" } }, class: "btn btn-danger" %>
+      </td>
+    </tr>
   <% end %>
-</div>
+</table>
 
-<%= link_to "New engine", new_engine_path %>
+<%= link_to "New engine", new_engine_path, class: "btn btn-primary" %>

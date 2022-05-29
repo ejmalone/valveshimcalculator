@@ -38,7 +38,7 @@
         <% end %>
 
         <div class="row">
-          <% [ [ alert, :danger ], [ notice, :info ] ].each do |message, alert_class| %>
+          <% [ [ alert, :danger ], [ notice, :success ] ].each do |message, alert_class| %>
             <% if message.present? %>
               <div class="alert alert-<%= alert_class %>" role="alert">
                 <%= message %>
