@@ -90,4 +90,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.rollbar_js_token = "fed5c8a825a54ddca1508862c65160b9"
 end
