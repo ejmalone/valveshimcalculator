@@ -21,27 +21,38 @@ end
 
   <%= form_errors_element(:shim, :valve_gaps) %>
 
-  <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
-    <%= field_set_tag "Cylinder #{ cyl_index + 1 }" do %>
-      <% cylinder.valves.each_with_index do |valve, valve_index| %>
-        <div class="row mb-3">
-          <div class="col-sm-4 col-lg-3 col-xl-2">
-            <%= valve_form_label(valve) %>
-          </div>
+  <div class="accordion mb-3" id="shimsaccordion">
+    <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading<%= cyl_index %>">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= cyl_index %>" aria-expanded="true" aria-controls="collapse<%= cyl_index %>">
+            <%= "Cylinder #{ cyl_index + 1 }" %>
+          </button>
+        </h2>
+        <div id="collapse<%= cyl_index %>" class="accordion-collapse collapse <%= "show" if cyl_index == 0 %>" aria-labelledby="heading<%= cyl_index %>">
+          <div class="accordion-body">
+            <% cylinder.valves.each_with_index do |valve, valve_index| %>
+              <div class="row mb-3">
+                <div class="col-sm-4 col-lg-3 col-xl-2">
+                  <%= valve_form_label(valve) %>
+                </div>
 
-          <div class="col-sm-4 col-lg-3 col-xl-2">
-            <%= label_tag "#{ label } gap", nil, for: "_valve_#{ valve.id }_gap", class: "form-label" %>
-            <%= text_field_tag "[valve][#{ valve.id }][gap]", valve.gap, data: { valve_gaps_target: "gap" }, class: "form-control" %>
-          </div>
+                <div class="col-sm-4 col-lg-3 col-xl-2">
+                  <%= label_tag "#{ label } gap", nil, for: "_valve_#{ valve.id }_gap", class: "form-label" %>
+                  <%= number_field_tag "[valve][#{ valve.id }][gap]", valve.gap, data: { valve_gaps_target: "gap" }, class: "form-control", step: :any  %>
+                </div>
 
-          <div class="col-sm-4 col-lg-3 col-xl-2">
-            <%= label_tag "#{ label } shim size", nil, for: "_valve_#{ valve.id }_thickness", class: "form-label"  %>
-            <%= text_field_tag "[valve][#{ valve.id }][thickness]", valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control" %>
+                <div class="col-sm-4 col-lg-3 col-xl-2">
+                  <%= label_tag "#{ label } shim size", nil, for: "_valve_#{ valve.id }_thickness", class: "form-label"  %>
+                  <%= number_field_tag "[valve][#{ valve.id }][thickness]", valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control", step: :any %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
-      <% end %>
+      </div>
     <% end %>
-  <% end %>
+  </div>
 
   <%= submit_tag "Submit", class: "btn btn-primary" %>
 <% end %>
