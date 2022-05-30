@@ -50,6 +50,11 @@ class Engine < ApplicationRecord
   end
 
   # --------------------------------------------------------------
+  def latest_adjustment
+    valve_adjustments.most_recent.first
+  end
+
+  # --------------------------------------------------------------
   def last_adjusted_mileage
     valve_adjustments.most_recent.complete.first&.mileage
   end

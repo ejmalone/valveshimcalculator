@@ -34,4 +34,13 @@
     <%= engine.exhaust_min %> - <%= engine.exhaust_max %>
   </p>
 
+  <p>
+    <strong>Valve shims populated:</strong>
+    <%= engine.lacks_shims? ? "No" : "Yes" %>
+  </p>
+
+  <p>
+    <strong>Latest valve adjustment</strong>:
+    <%= engine.latest_adjustment&.completed? ? engine.latest_adjustment.adjustment_date : "n/a" %>
+  </p>
 </div>

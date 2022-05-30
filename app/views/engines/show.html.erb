@@ -1,36 +1,39 @@
-<%= render @engine %>
+<div class="row">
+  <div class="col-md-6 mb-3">
+    <%= render @engine %>
 
-<div>
-  <% if @engine.lacks_shims? %>
-    <%= link_to "Add current shims", edit_all_engine_shims_path(@engine), class: "btn btn-primary" %>
-  <% end %>
-  <%= link_to "Edit this engine", edit_engine_path(@engine), class: "btn btn-secondary" %>
-  <%= button_to "Remove this engine", @engine, method: :delete, form: { class: "d-inline", data: { turbo_confirm: "Are you sure you want to remove this engine?" } }, class: "btn btn-danger" %>
-</div>
-
-<% unless @engine.lacks_shims? %>
-  <h2>Current shims</h2>
-  <table>
-    <% @engine.cylinders.each do |cylinder| %>
-      <tr><td colspan="2"><strong>Cylinder <%= cylinder.cylinder_num %></strong></td></tr>
-      <% cylinder.valves.each do |valve| %>
-        <tr>
-          <td><%= valve_form_label(valve) %>: <%= valve.shim.thickness %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </table>
-
-  <div>
-    <% if @latest_adjustment.present? %>
-      <% if @latest_adjustment.completed? %>
-        Most recent adjustment was done on <%= @latest_adjustment.adjustment_date %>
-      <% else %>
+    <div class="mb-3">
+      <% if @engine.lacks_shims? %>
+        <%= link_to "Add current shims", edit_all_engine_shims_path(@engine), class: "btn btn-primary" %>
+      <% elsif @engine.latest_adjustment&.incomplete? %>
         <%= link_to "Continue valve adjustment #{ @latest_adjustment.adjustment_date }", adjust_engine_valve_adjustment_path(@engine, @latest_adjustment) %>
+      <% else %>
+        <%= link_to "Start valve adjustment", new_engine_valve_adjustment_path(@engine), class: "btn btn-primary" %>
       <% end %>
-      | <%= link_to "See all adjustments", engine_valve_adjustments_path(@engine) %>
-    <% end %>
 
-    | <%= link_to "Begin new valve adjustment", new_engine_valve_adjustment_path(@engine) %>
+      <%= link_to "Edit this engine", edit_engine_path(@engine), class: "btn btn-secondary" %>
+      <%= button_to "Remove this engine", @engine, method: :delete, form: { class: "d-inline", data: { turbo_confirm: "Are you sure you want to remove this engine?" } }, class: "btn btn-danger" %>
+    </div>
+
+    <% if @engine.valve_adjustments.any? %>
+      <div>
+        <%= link_to "See all adjustments", engine_valve_adjustments_path(@engine) %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+
+  <% unless @engine.lacks_shims? %>
+    <div class="col-md-6">
+      <table>
+        <% @engine.cylinders.each do |cylinder| %>
+          <tr><td colspan="2"><strong>Cylinder <%= cylinder.cylinder_num %></strong></td></tr>
+          <% cylinder.valves.each do |valve| %>
+            <tr>
+              <td><%= valve_form_label(valve) %>: <%= valve.shim.thickness %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </table>
+    </div>
+  <% end %>
+</div>

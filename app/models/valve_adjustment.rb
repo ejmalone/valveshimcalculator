@@ -39,6 +39,11 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
+  def incomplete?
+    [ PENDING, NEEDS_GAPS, nil ].include? status
+  end
+
+  # --------------------------------------------------------------
   def completed?
     status == COMPLETE
   end
