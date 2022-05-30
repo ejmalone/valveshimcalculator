@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def form_errors_element(*targets)
-    tag.div class: 'row alert alert-danger d-none' do
+    tag.div class: 'alert alert-danger d-none' do
       targets.each do |target|
         concat tag.div class: 'form_error', data: { "#{target}-target" => 'error' }
       end

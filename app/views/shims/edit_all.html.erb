@@ -24,17 +24,24 @@ end
   <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
     <%= field_set_tag "Cylinder #{ cyl_index + 1 }" do %>
       <% cylinder.valves.each_with_index do |valve, valve_index| %>
-        <%= label_tag valve_form_label(valve) %>
+        <div class="row mb-3">
+          <div class="col-sm-4 col-lg-3 col-xl-2">
+            <%= valve_form_label(valve) %>
+          </div>
 
-        <%= label_tag "#{ label } gap" %>
-        <%= text_field_tag "[valve][#{ valve.id }][gap]", valve.gap, data: { valve_gaps_target: "gap" } %>
+          <div class="col-sm-4 col-lg-3 col-xl-2">
+            <%= label_tag "#{ label } gap", nil, for: "_valve_#{ valve.id }_gap", class: "form-label" %>
+            <%= text_field_tag "[valve][#{ valve.id }][gap]", valve.gap, data: { valve_gaps_target: "gap" }, class: "form-control" %>
+          </div>
 
-        <%= label_tag "#{ label } shim size"  %>
-        <%= text_field_tag "[valve][#{ valve.id }][thickness]", valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" } %>
-        <br>
+          <div class="col-sm-4 col-lg-3 col-xl-2">
+            <%= label_tag "#{ label } shim size", nil, for: "_valve_#{ valve.id }_thickness", class: "form-label"  %>
+            <%= text_field_tag "[valve][#{ valve.id }][thickness]", valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control" %>
+          </div>
+        </div>
       <% end %>
     <% end %>
   <% end %>
 
-  <%= submit_tag "Submit" %>
+  <%= submit_tag "Submit", class: "btn btn-primary" %>
 <% end %>

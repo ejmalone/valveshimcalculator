@@ -2,14 +2,14 @@ import FormController from "./form_controller"
 
 export default class extends FormController {
   static targets = [ "gap", "error" ]
-  static errorSelector = "input[data-valve-gaps-target].error"
+  static errorSelector = "input[data-valve-gaps-target].is-invalid"
 
   validate(event) {
     this.clearErrors(this.errorTarget, this.constructor.errorSelector)
 
     this.gapTargets.forEach(gap => {
       if (gap.value <= 0 || gap.value >= 1) {
-        gap.classList.add("error")
+        gap.classList.add("is-invalid")
       }
     })
 

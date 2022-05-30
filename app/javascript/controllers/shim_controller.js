@@ -6,14 +6,14 @@ export default class extends FormController {
     min: Number,
     max: Number
   }
-  static errorSelector = "input[data-shim-target].error"
+  static errorSelector = "input[data-shim-target].is-invalid"
 
   validate(event) {
     this.clearErrors(this.errorTarget, this.constructor.errorSelector)
 
     this.thicknessTargets.forEach(shim => {
       if (shim.value <= this.minValue || shim.value > this.maxValue) {
-        shim.classList.add("error")
+        shim.classList.add("is-invalid")
       }
     })
 
