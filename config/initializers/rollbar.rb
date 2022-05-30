@@ -4,8 +4,7 @@ Rollbar.configure do |config|
 
   config.access_token = Rails.application.credentials.rollbar_token
 
-  # Here we'll disable in 'test':
-  if Rails.env.test?
+  if Rails.env.test? || Rails.env.development?
     config.enabled = false
   end
 
@@ -48,7 +47,12 @@ Rollbar.configure do |config|
   # Enable delayed reporting (using Sidekiq)
   # config.use_sidekiq
   # You can supply custom Sidekiq options:
-  config.use_sidekiq 'queue' => 'default'
+
+  if Rails.env.production?
+    # TODO: This never sent to the default queue, so I updated sidekiq.yml to include the rollbar queue. Need to investigate.
+    config.use_sidekiq 'queue' => 'default'
+  end
+
 
   # If your application runs behind a proxy server, you can set proxy parameters here.
   # If https_proxy is set in your environment, that will be used. Settings here have precedence.
