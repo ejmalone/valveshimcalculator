@@ -29,3 +29,11 @@ form {
     }
   }
 }
+
+.accordion {
+  .accordion-header {
+    &.is-invalid {
+      border: 1px solid $danger;
+    }
+  }
+}

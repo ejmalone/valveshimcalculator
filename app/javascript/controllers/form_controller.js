@@ -35,6 +35,21 @@ export default class extends Controller {
     }
   }
 
+  // given an element in an accordion, add an error class to its header
+  addErrorToAccordionHeader(element) {
+    while(element && !element.matches(".accordion-item")) {
+      element = element.parentElement;
+    }
+
+    if (element) {
+      element.querySelector(".accordion-header").classList.add("is-invalid")
+    }
+  }
+
+  removeAccordionErrors(accordion) {
+    accordion.querySelectorAll(".accordion-header.is-invalid").forEach(field => field.classList.remove("is-invalid"))
+  }
+
   anyErrorPresent(formErrorsEl) {
     return Array.from(formErrorsEl.querySelectorAll(".form_error")).some(el => el.innerHTML)
   }

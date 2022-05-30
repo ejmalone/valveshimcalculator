@@ -21,7 +21,7 @@ end
 
   <%= form_errors_element(:shim, :valve_gaps) %>
 
-  <div class="accordion mb-3" id="shimsaccordion">
+  <div class="accordion mb-3" id="shimsaccordion" data-valve-gaps-target="accordion" data-shim-target="accordion">
     <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
       <div class="accordion-item">
         <h2 class="accordion-header" id="heading<%= cyl_index %>">

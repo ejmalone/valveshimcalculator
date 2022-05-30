@@ -37,15 +37,13 @@
           </div>
         <% end %>
 
-        <div class="row">
-          <% [ [ alert, :danger ], [ notice, :success ] ].each do |message, alert_class| %>
-            <% if message.present? %>
-              <div class="alert alert-<%= alert_class %>" role="alert">
-                <%= message %>
-              </div>
-            <% end %>
+        <% [ [ alert, :danger ], [ notice, :success ] ].each do |message, alert_class| %>
+          <% if message.present? %>
+            <div class="alert alert-<%= alert_class %>" role="alert">
+              <%= message %>
+            </div>
           <% end %>
-        </div>
+        <% end %>
 
         <%= yield %>
       </div>
