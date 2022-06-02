@@ -1,5 +1,6 @@
 import FormController from "./form_controller"
 
+// TODO: replace a user-entered shim thickness of "x.yz" with "xyz"
 export default class extends FormController {
   static targets = [ "thickness", "error", "accordion" ]
   static values = {
@@ -10,12 +11,18 @@ export default class extends FormController {
 
   validate(event) {
     this.clearErrors(this.errorTarget, this.constructor.errorSelector)
-    this.removeAccordionErrors(this.accordionTarget)
+
+    if (this.hasAccordionTarget) {
+      this.removeAccordionErrors(this.accordionTarget)
+    }
 
     this.thicknessTargets.forEach(shim => {
       if (shim.value <= this.minValue || shim.value > this.maxValue) {
         shim.classList.add("is-invalid")
-        this.addErrorToAccordionHeader(shim)
+
+        if (this.hasAccordionTarget) {
+          this.addErrorToAccordionHeader(shim)
+        }
       }
     })
 

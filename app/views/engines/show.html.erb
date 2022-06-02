@@ -6,7 +6,7 @@
       <% if @engine.lacks_shims? %>
         <%= link_to "Add current shims", edit_all_engine_shims_path(@engine), class: "btn btn-primary" %>
       <% elsif @engine.latest_adjustment&.incomplete? %>
-        <%= link_to "Resume #{ @engine.latest_adjustment.mileage / 1000 }k mile valve adjustment", adjust_engine_valve_adjustment_path(@engine, @engine.latest_adjustment), class: "btn btn-primary" %>
+        <%= link_to "Resume #{ short_mileage(@engine.latest_adjustment.mileage) } valve adjustment", adjust_engine_valve_adjustment_path(@engine, @engine.latest_adjustment), class: "btn btn-primary" %>
       <% else %>
         <%= link_to "Start valve adjustment", new_engine_valve_adjustment_path(@engine), class: "btn btn-primary" %>
       <% end %>

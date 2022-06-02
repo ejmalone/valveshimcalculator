@@ -84,7 +84,7 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment), status: :see_other,
-                                                                                                              notice: 'Now measure the new gaps'
+                                                                                                              notice: 'Shims changes have been saved to this valve adjustment'
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end
@@ -150,11 +150,12 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   def set_breadcrumb
-    breadcrumb "My #{@engine.name}", engine_url(@engine)
+    breadcrumb "Engines", engines_url
+    breadcrumb "My #{ helpers.engine_name(@engine) }", engine_url(@engine)
 
     return unless @valve_adjustment.present?
 
-    breadcrumb "#{@valve_adjustment.mileage} mile valve adjustment",
+    breadcrumb "#{helpers.short_mileage(@valve_adjustment.mileage)} valve adjustment",
                engine_valve_adjustment_url(@engine, @valve_adjustment)
   end
 end

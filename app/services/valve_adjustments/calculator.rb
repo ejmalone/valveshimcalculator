@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 module ValveAdjustments
+  IN_SPEC = 'in spec'.freeze
+  MIN_SPEC = 'min spec'.freeze
+  OUT_OF_SPEC = 'out of spec'.freeze
+  UNKNOWN_SPEC = 'unknown spec'.freeze
+
   class Calculator
     attr_accessor :engine, :valves
 
@@ -101,26 +106,26 @@ module ValveAdjustments
     # rubocop:enable Metrics/AbcSize
 
     # --------------------------------------------------------------
-    def valve_style(valve)
+    def valve_status(valve)
       if well_in_spec?(valve)
-        'green'
+        IN_SPEC
       elsif min_spec?(valve)
-        'orange'
+        MIN_SPEC
       elsif out_of_spec?(valve)
-        'red'
+        OUT_OF_SPEC
       else
-        'grey'
+        UNKNOWN_SPEC
       end
     end
 
     # --------------------------------------------------------------
-    def shim_style(valve, new_shim)
+    def shim_status(valve, new_shim)
       if new_shim.thickness - new_shim_thickness_range(valve).first < 4
-        'green'
+        IN_SPEC
       elsif new_shim_thickness_range(valve).last - new_shim.thickness < 4
-        'red'
+        OUT_OF_SPEC
       else
-        'orange'
+        MIN_SPEC
       end
     end
 

@@ -6,12 +6,15 @@
   end
 %>
 
-<div id="shims-container">
-  <%= field_set_tag "Available shims" do %>
-    <ul>
-      <% if unused_shims.blank? %>
-        <li>None available</li>
-      <% else %>
+<div class="row">
+  <div class="col">
+    <h3>Available Shims</h3>
+    <% if unused_shims.blank? %>
+      <div class="mb-3">
+        None yet. Add shims below <i class="bi bi-arrow-down"></i>
+      </div>
+    <% else %>
+      <ul>
         <% unused_shims.each do |shim| %>
           <li><%= shim.thickness %>
             <% if session[:debug] %>
@@ -19,21 +22,21 @@
             <% end %>
           </li>
         <% end %>
-      <% end %>
-    </ul>
-  <% end %>
+      </ul>
+    <% end %>
 
-  <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: shim_data_controller) do |form| %>
-    <%= field_set_tag "Add new shim to valve adjustment" do %>
+    <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: shim_data_controller) do |form| %>
       <%= form_errors_element(:shim) %>
 
-      <div>
-        <%= form.label :thickness, style: "display: block" %>
-        <%= form.number_field :thickness, data: { shim_target: "thickness" } %>
+      <div class="row mb-3">
+        <div class="col-sm-6 col-md-3 col-lg-4 col-xl-3">
+          <%= form.label :thickness, class: "form-label" %> <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter a 1.52mm shim as 152"></i>
+          <%= form.number_field :thickness, data: { shim_target: "thickness" }, class: "form-control" %>
+          <div class="form-text"><%= Shim::SIZE_LIMITS.first %>-<%= Shim::SIZE_LIMITS.last %></div>
+        </div>
       </div>
-      <div>
-        <%= form.submit "Add shim" %>
-      </div>
+
+      <%= form.submit "Add shim", class: "btn btn-secondary" %>
     <% end %>
-  <% end %>
+  </div>
 </div>

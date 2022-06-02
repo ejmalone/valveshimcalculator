@@ -1,47 +1,58 @@
-<table>
-  <tr><td>Intake </td><td><%= @engine.intake_min %> - <%= @engine.intake_max %></td></tr>
-  <tr><td>Exhaust </td><td><%= @engine.exhaust_min %> - <%= @engine.exhaust_max %></td></tr>
+<h3>Cylinders</h3>
 
-  <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
-    <tr>
-      <td colspan="4">Cylinder <%= cyl_index %></td>
-    </tr>
-    <tr>
-      <th>Valve name</th>
-      <% if session[:debug] %>
-        <th>Valve ID</th>
-      <% end %>
-      <th>Current gap</th>
-      <th>Current shim</th>
-      <% if session[:debug] %>
-        <th>Shim ID</th>
-      <% end %>
-      <th>New shim (thinner is better)</th>
-      <th>Using new shim</th>
-    </tr>
-    <% cylinder.valves.each do |valve| %>
-      <tr valve-id="<%= valve.id %>">
-        <td style="color: <%= valve_shim_calculator.valve_style(valve) %>"><%= label_tag valve_form_label(valve) %></td>
+<div class="row">
+  <div class="col">
+    <table class="table table-sm valve-adjustment" data-controller="valve-adjustment-table">
+      <tr>
+        <th>Valve name</th>
         <% if session[:debug] %>
-          <td><%= valve.id %></td>
+          <th>Valve ID</th>
         <% end %>
-        <td><%= valve.gap %></td>
-        <td><%= valve.shim.thickness %></td>
+        <th>Current gap</th>
+        <th>Current shim</th>
         <% if session[:debug] %>
-          <td><%= valve.shim.id %></td>
+          <th>Shim ID</th>
         <% end %>
-        <td><%= valve.gap.present? ? valve_shim_calculator.new_shim_thickness_range(valve) : '-' %></td>
-        <% shim = params[:choose_shims] ? valve_shim_calculator.new_shim(valve) : valve.shim %>
-
-        <% if shim %>
-          <td style="color: <%= valve_shim_calculator.shim_style(valve, shim) %>">
-            <%= shim.thickness %>
-            <% if session[:debug] %>
-              - <%= shim.id %>
-            <% end %>
-          </td>
-        <% end %>
+        <th>Shim range <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Thinner is better"></i></th>
+        <th>Using shim</th>
       </tr>
-    <% end %>
-  <% end %>
-</table>
+
+      <% @engine.cylinders.each_with_index do |cylinder, cyl_index| %>
+        <tr>
+          <td colspan="5" class="py-2">Cylinder <%= cyl_index %></td>
+        </tr>
+
+        <% cylinder.valves.each do |valve| %>
+          <% valve_attrs = valve_adjust_attrs(valve_shim_calculator.valve_status(valve)) %>
+          <tr valve-id="<%= valve.id %>">
+            <td class="valve <%= valve_attrs[:class] %>" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= valve_attrs[:title] %>">
+              <%= label_tag valve_form_label(valve) %>
+            </td>
+            <% if session[:debug] %>
+              <td><%= valve.id %></td>
+            <% end %>
+            <td><%= valve.gap %></td>
+            <td><%= valve.shim.thickness %></td>
+            <% if session[:debug] %>
+              <td><%= valve.shim.id %></td>
+            <% end %>
+            <td><%= valve.gap.present? ? valve_shim_calculator.new_shim_thickness_range(valve) : '-' %></td>
+            <% shim = params[:choose_shims] ? valve_shim_calculator.new_shim(valve) : valve.shim %>
+
+            <% if shim %>
+              <% shim_attrs = valve_adjust_attrs(valve_shim_calculator.shim_status(valve, shim)) %>
+              <td class="shim <%= shim_attrs[:class] %>" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= shim_attrs[:title] %>">
+                <%= shim.thickness %>
+                <% if session[:debug] %>
+                  - <%= shim.id %>
+                <% end %>
+              </td>
+            <% else %>
+              <td></td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+</div>

@@ -1,41 +1,38 @@
-<div>
-  <%= form_with(model: valve_adjustment, url: [ @engine, valve_adjustment ], data: { controller: "new-valve-adjustment", action: "new-valve-adjustment#validate"}) do |form| %>
-    <% if valve_adjustment.errors.any? %>
-      <div style="color: red">
-        <h2><%= pluralize(valve_adjustment.errors.count, "error") %> prohibited this valve_adjustment from being saved:</h2>
+<%= form_with(model: valve_adjustment, url: [ @engine, valve_adjustment ], data: { controller: "new-valve-adjustment", action: "new-valve-adjustment#validate"}) do |form| %>
+  <% if valve_adjustment.errors.any? %>
+    <div class="alert alert-danger">
+      <h2><%= pluralize(valve_adjustment.errors.count, "error") %> prohibited this valve_adjustment from being saved:</h2>
 
-        <ul>
-          <% valve_adjustment.errors.each do |error| %>
-            <li><%= error.full_message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div>
-      For my <%= @engine.name %>
-      <br>
-    </div>
-
-    <%= form_errors_element(:new_valve_adjustment) %>
-
-    <div>
-      <%= form.label :mileage, "Mileage (miles)", style: "display: block" %>
-      <%= form.number_field :mileage, data: { new_valve_adjustment_target: "mileage" } %>
-    </div>
-
-    <div>
-      <%= form.label :adjustment_date, style: "display: block" %>
-      <%= form.date_field :adjustment_date, value: Time.zone.now.to_date %>
-    </div>
-
-    <div>
-      <%= form.label :notes, style: "display: block" %>
-      <%= form.text_area :notes %>
-    </div>
-
-    <div>
-      <%= form.submit %>
+      <ul>
+        <% valve_adjustment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-</div>
+
+  <%= form_errors_element(:new_valve_adjustment) %>
+
+  <div class="row align-items-center mb-3">
+    <div class="col-md-6 col-xl-2">
+      <%= form.label :mileage, "Mileage (miles)", class: "form-label" %>
+      <%= form.number_field :mileage, data: { new_valve_adjustment_target: "mileage" }, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row align-items-center mb-3">
+    <div class="col-md-6 col-xl-2">
+      <%= form.label :adjustment_date, class: "form-label" %>
+      <%= form.date_field :adjustment_date, value: Time.zone.now.to_date, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="row align-items-center mb-3">
+    <div class="col-md-6">
+      <%= form.label :notes, class: "form-label" %>
+      <%= form.text_area :notes, class: "form-control" %>
+    </div>
+  </div>
+
+  <%= form.submit class: "btn btn-primary" %>
+<% end %>

@@ -19,5 +19,8 @@ application.register("shim", ShimController)
 import TokenController from "./token_controller.js"
 application.register("token", TokenController)
 
+import ValveAdjustmentTableController from "./valve_adjustment_table_controller.js"
+application.register("valve-adjustment-table", ValveAdjustmentTableController)
+
 import ValveGapsController from "./valve_gaps_controller.js"
 application.register("valve-gaps", ValveGapsController)

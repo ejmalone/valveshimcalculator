@@ -1,0 +1,17 @@
+.valve-adjustment {
+  .valve,
+  .shim {
+    &.in-spec {
+      color: $success;
+    }
+    &.min-spec {
+      color: $warning;
+    }
+    &.out-of-spec {
+      color: $danger;
+    }
+    &.unknown-spec {
+      color: $gray-500;
+    }
+  }
+}
