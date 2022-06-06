@@ -27,7 +27,13 @@
 
       <ul>
         <% current_or_anon_user.engines.each do |engine| %>
-          <li><%= link_to engine_name(engine), engine_path(engine)  %></li>
+          <li>
+            <%= link_to engine_name(engine), engine_path(engine)  %>
+
+            <% if engine&.latest_adjustment&.incomplete? %>
+              - <%= link_to "continue adjustment", adjust_engine_valve_adjustment_path(engine, engine.latest_adjustment) %>
+            <% end %>
+          </li>
         <% end %>
       </ul>
 
