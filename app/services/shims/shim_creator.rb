@@ -21,13 +21,12 @@ module Shims
     end
 
     # --------------------------------------------------------------
-    def update(engine, valve_adjustment_id)
+    def update(engine, valve_adjustment)
       @parameters.each do |valve_id, _|
         valve = Valve.joins(cylinder: :engine).where(valves: { id: valve_id.to_i }, engines: { userable: @user }).last
-        valve.update(gap: @parameters[valve_id][:gap].to_d)
+        valve_adjustment.update_gap(valve, @parameters[valve_id][:gap].to_d)
       end
 
-      valve_adjustment = ValveAdjustment.where(id: valve_adjustment_id, engine: engine).first
       valve_adjustment.update(status: ValveAdjustment::PENDING)
     end
   end

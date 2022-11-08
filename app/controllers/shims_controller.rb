@@ -2,7 +2,7 @@
 
 class ShimsController < ApplicationController
   before_action :load_engine, only: %i[edit_all create_all update_all]
-  before_action :load_valve_adjustment, only: %i[update_all]
+  before_action :load_valve_adjustment, only: %i[edit_all update_all]
   before_action :redirect_to_engine_if_created, only: %i[create_all]
 
   def new; end
@@ -15,7 +15,7 @@ class ShimsController < ApplicationController
     breadcrumb "My #{helpers.engine_name(@engine)}", engine_url(@engine)
 
     if params[:valve_adjustment_id].present?
-      breadcrumb "#{load_valve_adjustment.mileage} mile valve adjustment",
+      breadcrumb "#{@valve_adjustment.mileage} mile valve adjustment",
                  engine_valve_adjustment_url(@engine, @valve_adjustment)
       breadcrumb 'Measuring new gaps'
     else
@@ -28,7 +28,7 @@ class ShimsController < ApplicationController
   def update_all
     ActiveRecord::Base.transaction do
       shim_creator = Shims::ShimCreator.new(current_or_anon_user, params[:valve])
-      shim_creator.update(@engine, params[:valve_adjustment_id])
+      shim_creator.update(@engine, @valve_adjustment)
     rescue StandardError => e
       logger.debug("Error updating shims/updating valves: #{e.message}")
       redirect_to edit_all_engine_shims_path(@engine, update: true, valve_adjustment_id: params[:valve_adjustment_id]),

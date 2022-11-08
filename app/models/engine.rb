@@ -24,6 +24,8 @@
 #  index_engines_on_userable_type_and_userable_id  (userable_type,userable_id)
 #
 class Engine < ApplicationRecord
+  include AdjustmentCommon
+
   CYLINDER_OPTS = [1, 2, 4].freeze
   VALVES_PER_CYLINDER_OPTS = [2, 4].freeze
   MAKES = [ "Aprilia", "Buell", "Ducati", "Gas Gas", "Harley", "Honda", "Indian", "KTM", "Kawasaki", "Moto Guzzi", "Suzuki", "Triumph", "Vespa" ].freeze

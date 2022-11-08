@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col">
-    <table class="table table-sm valve-adjustment" data-controller="valve-adjustment-table">
+    <table class="table table-sm valve-adjustment">
       <tr>
         <th>Valve name</th>
         <% if session[:debug] %>
@@ -31,13 +31,13 @@
             <% if session[:debug] %>
               <td><%= valve.id %></td>
             <% end %>
-            <td><%= valve.gap %></td>
+            <td><%= @valve_adjustment.pending? ? @valve_adjustment.new_gap(valve) : valve.gap %></td>
             <td><%= valve.shim.thickness %></td>
             <% if session[:debug] %>
               <td><%= valve.shim.id %></td>
             <% end %>
             <td><%= valve.gap.present? ? valve_shim_calculator.new_shim_thickness_range(valve) : '-' %></td>
-            <% shim = params[:choose_shims] ? valve_shim_calculator.new_shim(valve) : valve.shim %>
+            <% shim = params[:choose_shims] ? valve_shim_calculator.new_shim(valve) : @valve_adjustment.new_shim(valve) %>
 
             <% if shim %>
               <% shim_attrs = valve_adjust_attrs(valve_shim_calculator.shim_status(valve, shim)) %>

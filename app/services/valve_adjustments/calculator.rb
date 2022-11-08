@@ -7,11 +7,12 @@ module ValveAdjustments
   UNKNOWN_SPEC = 'unknown spec'.freeze
 
   class Calculator
-    attr_accessor :engine, :valves
+    attr_accessor :engine, :valve_adjustment, :valves
 
     # --------------------------------------------------------------
-    def initialize(engine)
+    def initialize(engine, valve_adjustment = nil)
       @engine = engine
+      @valve_adjustment = valve_adjustment
       @valves = engine.cylinders.map(&:valves).flatten
       @shims_applied = false
     end
@@ -32,16 +33,25 @@ module ValveAdjustments
     end
 
     # --------------------------------------------------------------
-    def apply_shims
+    def apply_shims(update_engine: false)
       shims = []
       choose_shims.each do |valve, shim|
         shims << shim
-        Shim.find(shim.id).update(valve_id: valve.id)
-        Valve.find(valve.id).update(gap: nil)
+        if update_engine
+          Shim.find(shim.id).update(valve_id: valve.id)
+          Valve.find(valve.id).update(gap: nil)
+        else
+          valve_adjustment.update_valve(valve, shim)
+        end
       end
 
       unused_shims = @engine.shims - shims
-      Shim.where(id: unused_shims.map(&:id)).update_all(valve_id: nil)
+
+      if update_engine
+        Shim.where(id: unused_shims.map(&:id)).update_all(valve_id: nil)
+      else
+        valve_adjustment.update_unused_shims(unused_shims)
+      end
     end
 
     # --------------------------------------------------------------
@@ -141,12 +151,12 @@ module ValveAdjustments
 
     # --------------------------------------------------------------
     def well_in_spec?(valve)
-      min_spec?(valve) && valve_range(valve).last - valve.gap <= 0.05
+      min_spec?(valve) && valve_range(valve).last - valve_gap(valve) <= 0.05
     end
 
     # --------------------------------------------------------------
     def min_spec?(valve)
-      valve_range(valve).cover?(valve.gap)
+      valve_range(valve).cover?(valve_gap(valve))
     end
 
     # --------------------------------------------------------------
@@ -157,6 +167,15 @@ module ValveAdjustments
     # --------------------------------------------------------------
     def valve_range(valve)
       valve.intake? ? @engine.intake_min..@engine.intake_max : @engine.exhaust_min..@engine.exhaust_max
+    end
+
+    # --------------------------------------------------------------
+    def valve_gap(valve)
+      if @valve_adjustment.present?
+        @valve_adjustment.new_gap(valve)
+      else
+        valve.gap
+      end
     end
   end
 end

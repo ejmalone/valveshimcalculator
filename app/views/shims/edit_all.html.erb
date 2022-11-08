@@ -8,7 +8,7 @@ end
 <h1>Editing shims</h1>
 
 <%= form_tag({ action: action }, method: :put, data: { controller: "valve-gaps", action: "valve-gaps#validate" }.merge_stimulus_data(shim_data_controller)) do %>
-  <%= hidden_field_tag(:valve_adjustment_id, params[:valve_adjustment_id]) if params[:valve_adjustment_id].present? %>
+  <%= hidden_field_tag(:valve_adjustment_id, @valve_adjustment.id) if @valve_adjustment.present? %>
 
   <div class="alert alert-info" role="alert">
     Note: Enter shim size in mm thickness as marked on shims (enter 2.61mm as "261")
@@ -39,12 +39,12 @@ end
 
                 <div class="col-sm-4 col-lg-3 col-xl-2">
                   <%= label_tag "#{ label } gap", nil, for: "_valve_#{ valve.id }_gap", class: "form-label" %>
-                  <%= number_field_tag "[valve][#{ valve.id }][gap]", valve.gap, data: { valve_gaps_target: "gap" }, class: "form-control", step: :any  %>
+                  <%= number_field_tag "[valve][#{ valve.id }][gap]", @valve_adjustment.present? ? nil : valve.gap, data: { valve_gaps_target: "gap" }, class: "form-control", step: :any  %>
                 </div>
 
                 <div class="col-sm-4 col-lg-3 col-xl-2">
                   <%= label_tag "#{ label } shim size", nil, for: "_valve_#{ valve.id }_thickness", class: "form-label"  %>
-                  <%= number_field_tag "[valve][#{ valve.id }][thickness]", valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control", step: :any %>
+                  <%= number_field_tag "[valve][#{ valve.id }][thickness]", @valve_adjustment.present? ? @valve_adjustment.new_shim(valve).thickness : valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control", step: :any %>
                   <div class="form-text"><%= Shim::SIZE_LIMITS.first %>-<%= Shim::SIZE_LIMITS.last %></div>
                 </div>
               </div>

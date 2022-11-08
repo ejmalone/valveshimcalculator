@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_23_013717) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_06_225158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,6 +84,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_23_013717) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.json "initial"
+    t.json "result"
     t.index ["engine_id"], name: "index_valve_adjustments_on_engine_id"
   end
 

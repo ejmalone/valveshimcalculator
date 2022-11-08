@@ -1,6 +1,8 @@
 <%
   if params[:choose_shims]
     unused_shims = valve_shim_calculator.unused_shims
+  elsif valve_adjustment.pending?
+    unused_shims = valve_adjustment.unused_shims
   else
     unused_shims = Shim.unused_for_engine(@engine)
   end
@@ -28,15 +30,15 @@
     <%= form_with(model: Shim, url: create_shim_engine_valve_adjustment_path, data: shim_data_controller) do |form| %>
       <%= form_errors_element(:shim) %>
 
-      <div class="row mb-3">
-        <div class="col-sm-6 col-md-3 col-lg-4 col-xl-3">
+      <div class="row">
+        <div class="col-sm-6 col-lg-4 col-xxl-3">
           <%= form.label :thickness, class: "form-label" %> <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter a 1.52mm shim as 152"></i>
           <%= form.number_field :thickness, data: { shim_target: "thickness" }, class: "form-control" %>
           <div class="form-text"><%= Shim::SIZE_LIMITS.first %>-<%= Shim::SIZE_LIMITS.last %></div>
         </div>
       </div>
 
-      <%= form.submit "Add shim", class: "btn btn-secondary" %>
+      <%= form.submit "Add shim", class: "btn btn-secondary", disabled: @valve_adjustment.pending?, data: { valve_adjustment_target: "addShim" } %>
     <% end %>
   </div>
 </div>

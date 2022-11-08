@@ -6,8 +6,10 @@
 #
 #  id              :bigint           not null, primary key
 #  adjustment_date :date
+#  initial         :json
 #  mileage         :integer
 #  notes           :text
+#  result          :json
 #  status          :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

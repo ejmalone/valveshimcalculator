@@ -29,7 +29,7 @@ class ValveAdjustmentsController < ApplicationController
   def adjust
     breadcrumb @valve_adjustment.pending? ? 'Confirming adjustment' : 'Selecting new shims'
 
-    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
+    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine, @valve_adjustment)
 
     return unless @valve_adjustment.needs_gaps_measured?
 
@@ -77,16 +77,32 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # PATCH/PUT /valve_adjustments/1/update_shims or /valve_adjustments/1/update_shims.json
   def update_shims
-    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine)
+    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine, @valve_adjustment)
     @valve_shim_calculator.apply_shims
-    @valve_adjustment.update(status: ValveAdjustment::NEEDS_GAPS)
+    @valve_adjustment.update(status: ValveAdjustment::IN_PROGRESS)
 
     respond_to do |format|
       format.html do
-        redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment), status: :see_other,
-                                                                                                              notice: 'Shims changes have been saved to this valve adjustment'
+        redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment), status: :see_other
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
+    end
+  end
+
+  # --------------------------------------------------------------
+  # From the adjustment SPA, resets to 'needs gaps' so that the user can change shims
+  # PATCH/PUT /valve_adjustments/1/update_needs_gaps or /valve_adjustments/1/update_needs_gaps.json
+  def update_in_progress
+    respond_to do |format|
+      if @valve_adjustment.update(status: ValveAdjustment::IN_PROGRESS)
+        format.html do
+          redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment)
+        end
+        format.json { render :show, status: :ok, location: @valve_adjustment }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @valve_adjustment.errors, status: :unprocessable_entity }
+      end
     end
   end
 

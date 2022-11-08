@@ -1,24 +1,13 @@
 <turbo-frame id="valve-shims-adjust">
-  <%= render "valve_specs" %>
-  <%= render "adjustment_table", valve_shim_calculator: @valve_shim_calculator %>
-
-  <div class="row">
-    <div class="col-sm-6">
-      <%= render "add_new_shim", valve_adjustment: @valve_adjustment, valve_shim_calculator: @valve_shim_calculator %>
-    </div>
-    <div class="col-sm-6">
-      <h3>Actions</h3>
-
-      <% unless @valve_shim_calculator.shims_applied? %>
-        <%= link_to "Pick my shims", adjust_engine_valve_adjustment_path(@engine, @valve_adjustment, choose_shims: true), class: "btn #{ params[:choose_shims] ? "btn-outline-primary" : "btn-primary" }" %>
-      <% else %>
-        <%= link_to "Save and re-measure gaps", update_shims_engine_valve_adjustment_path(@engine, valve_adjustment_id: @valve_adjustment.id), class: "btn btn-primary", data: { "turbo-frame": "_top", "turbo-method": :put }  %>
-      <% end %>
-
-      <% if @valve_adjustment.pending? %>
-        |
-        <%= link_to "Complete adjustment", complete_engine_valve_adjustment_path(@engine, @valve_adjustment), data: { "turbo-frame": "_top", "turbo-method": :put } %>
-      <% end %>
-    </div>
+  <div data-controller="valve-adjustment">
+    <% if @valve_adjustment.pending? %>
+      <div class="alert alert-info" role="alert">
+        Confirm that these values are desired and click "Complete Adjustment," or "Pick my shims" if you want to fine-tune
+        the adjustment.
+      </div>
+    <% end %>
+    <%= render "valve_specs" %>
+    <%= render "adjustment_table", valve_shim_calculator: @valve_shim_calculator %>
+    <%= render "adjustment_actions" %>
   </div>
 </turbo-frame>

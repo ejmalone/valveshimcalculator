@@ -24,6 +24,7 @@ Rails.application.routes.draw do
       member do
         get "adjust"
         put "update_shims"
+        put "update_in_progress"
         put "complete"
         post "create_shim"
       end

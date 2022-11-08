@@ -39,7 +39,7 @@ class ValveAdjustmentsCalculatorTest < ActionDispatch::IntegrationTest
     better_shim = Shim.create(engine_id: @engine.id, thickness: 155)
 
     @calculator.stub(:available_shims_for_valves, { valve => [better_shim, existing_shim] }) do
-      @calculator.apply_shims
+      @calculator.apply_shims(update_engine: true)
 
       valve.reload
       existing_shim.reload
