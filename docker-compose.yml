@@ -18,6 +18,7 @@ services:
     ports:
       - '3000:3000'
     tty: true
+    stdin_open: true
     volumes:
       - .:/opt/app
       - node-modules:/opt/node_modules
