@@ -12,7 +12,7 @@ class ValveAdjustmentsCalculatorTest < ActionDispatch::IntegrationTest
 
   # --------------------------------------------------------------
   test 'valve is out of spec' do
-    assert_equal 'red', @calculator.valve_style(@valve)
+    assert_equal ValveAdjustments::OUT_OF_SPEC, @calculator.valve_status(@valve)
   end
 
   # --------------------------------------------------------------
