@@ -11,7 +11,7 @@ end
   <%= hidden_field_tag(:valve_adjustment_id, @valve_adjustment.id) if @valve_adjustment.present? %>
 
   <div class="alert alert-info" role="alert">
-    Note: Enter shim size in mm thickness as marked on shims (enter 2.61mm as "261")
+    Note: Enter shim size in mm thickness in hundreds (enter 2.61mm as "261")
 
     <% if params[:update] %>
       <hr>

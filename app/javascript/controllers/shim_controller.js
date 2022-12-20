@@ -17,7 +17,14 @@ export default class extends FormController {
     }
 
     this.thicknessTargets.forEach(shim => {
-      if (shim.value <= this.minValue || shim.value > this.maxValue) {
+      let shimThickness = parseFloat(shim.value)
+
+      if (!isNaN(shimThickness) && shimThickness < 10) {
+        shimThickness *= 100
+        shim.value = shimThickness
+      }
+
+      if (isNaN(shimThickness) || shimThickness <= this.minValue || shimThickness > this.maxValue) {
         shim.classList.add("is-invalid")
 
         if (this.hasAccordionTarget) {
