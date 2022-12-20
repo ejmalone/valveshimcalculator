@@ -23,7 +23,7 @@
         </tr>
 
         <% cylinder.valves.each do |valve| %>
-          <% valve_attrs = valve_adjust_attrs(valve_shim_calculator.valve_status(valve)) %>
+          <% valve_attrs = valve_adjust_attrs(@valve_adjustment.valve_status(valve)) %>
           <tr valve-id="<%= valve.id %>">
             <td class="valve <%= valve_attrs[:class] %>" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= valve_attrs[:title] %>">
               <%= label_tag valve_form_label(valve) %>
@@ -31,16 +31,16 @@
             <% if session[:debug] %>
               <td><%= valve.id %></td>
             <% end %>
-            <td><%= @valve_adjustment.pending? ? @valve_adjustment.new_gap(valve) : valve.gap %></td>
+            <td><%= @valve_adjustment.pending? ? @valve_adjustment.new_gap_from_state(valve) : valve.gap %></td>
             <td><%= valve.shim.thickness %></td>
             <% if session[:debug] %>
               <td><%= valve.shim.id %></td>
             <% end %>
-            <td><%= valve.gap.present? ? valve_shim_calculator.new_shim_thickness_range(valve) : '-' %></td>
-            <% shim = params[:choose_shims] ? valve_shim_calculator.new_shim(valve) : @valve_adjustment.new_shim(valve) %>
+            <td><%= valve.gap.present? ? @valve_adjustment.new_shim_thickness_range(valve) : '-' %></td>
+            <% shim = params[:choose_shims] ? @valve_adjustment.proposed_shim(valve) : @valve_adjustment.shim_from_state(valve) %>
 
             <% if shim %>
-              <% shim_attrs = valve_adjust_attrs(valve_shim_calculator.shim_status(valve, shim)) %>
+              <% shim_attrs = valve_adjust_attrs(@valve_adjustment.shim_status(valve, shim)) %>
               <td class="shim <%= shim_attrs[:class] %>" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= shim_attrs[:title] %>">
                 <%= shim.thickness %>
                 <% if session[:debug] %>

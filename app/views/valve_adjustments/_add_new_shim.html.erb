@@ -1,8 +1,9 @@
 <%
+  # todo: refactor this to use a single method
   if params[:choose_shims]
-    unused_shims = valve_shim_calculator.unused_shims
-  elsif valve_adjustment.pending?
     unused_shims = valve_adjustment.unused_shims
+  elsif valve_adjustment.pending?
+    unused_shims = valve_adjustment.unused_shims_from_state
   else
     unused_shims = Shim.unused_for_engine(@engine)
   end

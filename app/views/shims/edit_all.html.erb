@@ -44,7 +44,7 @@ end
 
                 <div class="col-sm-4 col-lg-3 col-xl-2">
                   <%= label_tag "#{ label } shim size", nil, for: "_valve_#{ valve.id }_thickness", class: "form-label"  %>
-                  <%= number_field_tag "[valve][#{ valve.id }][thickness]", @valve_adjustment.present? ? @valve_adjustment.new_shim(valve).thickness : valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control", step: :any %>
+                  <%= number_field_tag "[valve][#{ valve.id }][thickness]", @valve_adjustment.present? ? @valve_adjustment.shim_from_state(valve).thickness : valve.shim&.thickness, readonly: params[:update], data: { shim_target: "thickness" }, class: "form-control", step: :any %>
                   <div class="form-text"><%= Shim::SIZE_LIMITS.first %>-<%= Shim::SIZE_LIMITS.last %></div>
                 </div>
               </div>

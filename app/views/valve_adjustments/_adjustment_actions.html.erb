@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-sm-6">
-    <%= render "add_new_shim", valve_adjustment: @valve_adjustment, valve_shim_calculator: @valve_shim_calculator %>
+    <%= render "add_new_shim", valve_adjustment: @valve_adjustment %>
   </div>
   <div class="col-sm-6">
     <h3>Actions</h3>
@@ -19,13 +19,13 @@
           Need to make adjustments?
         </div>
         <div class="col-sm-12">
-          <%= button_to "Enable shim adjustments", { action: :update_in_progress }, method: :put, params: { valve_adjustment: { status: ValveAdjustment::NEEDS_GAPS } }, class: "btn btn-secondary" %>
+          <%= button_to "Enable shim adjustments", { action: :update }, method: :put, params: { return_to: :adjust, valve_adjustment: { status: ValveAdjustment::IN_PROGRESS } }, class: "btn btn-secondary" %>
         </div>
       </div>
     <% end %>
 
     <div class="row">
-      <% unless @valve_shim_calculator.shims_applied? %>
+      <% unless @valve_adjustment.shims_applied? %>
         <div class="col-sm-12">
           Ready to auto-assign new shims?
         </div>

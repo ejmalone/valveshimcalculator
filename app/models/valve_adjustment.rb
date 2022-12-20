@@ -23,8 +23,7 @@
 #  fk_rails_...  (engine_id => engines.id)
 #
 class ValveAdjustment < ApplicationRecord
-  include AdjustmentCommon
-
+  include Calculator
   has_paper_trail
 
   IN_PROGRESS = 'in progress'
@@ -63,18 +62,18 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
-  def unused_shims
+  def unused_shims_from_state
     Shim.where(id: valve_state["unused_shims"])
   end
 
   # --------------------------------------------------------------
-  def new_shim(valve)
+  def shim_from_state(valve)
     json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
     Shim.find(json_valve["shim_id"])
   end
 
   # --------------------------------------------------------------
-  def new_gap(valve)
+  def new_gap_from_state(valve)
     json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
     json_valve["gap"].to_d
   end
@@ -87,7 +86,7 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
-  def update_gap(valve, gap)
+  def set_gap(valve, gap)
     json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
     json_valve["gap"] = gap
   end
@@ -98,6 +97,7 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
+  # Move the valve_state values into associated models (valve, shim)
   def complete!
     ActiveRecord::Base.transaction do
       Shim.where(id: valve_state["unused_shims"].map { |shim| shim["id"] }).update_all(valve_id: nil)
@@ -122,7 +122,6 @@ class ValveAdjustment < ApplicationRecord
         unused_shims: json_shims(Shim.unused_for_engine(engine)),
         valves: engine.cylinders.map(&:valves).flatten.map do |valve|
           {
-            index: valve_json_key(valve),
             id: valve.id,
             shim_id: valve.shim.id,
             gap: valve.gap

@@ -28,7 +28,7 @@ class ShimsController < ApplicationController
   def update_all
     ActiveRecord::Base.transaction do
       shim_creator = Shims::ShimCreator.new(current_or_anon_user, params[:valve])
-      shim_creator.update(@engine, @valve_adjustment)
+      shim_creator.update(@valve_adjustment)
     rescue StandardError => e
       logger.debug("Error updating shims/updating valves: #{e.message}")
       redirect_to edit_all_engine_shims_path(@engine, update: true, valve_adjustment_id: params[:valve_adjustment_id]),

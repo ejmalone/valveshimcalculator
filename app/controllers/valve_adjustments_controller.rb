@@ -29,8 +29,6 @@ class ValveAdjustmentsController < ApplicationController
   def adjust
     breadcrumb @valve_adjustment.pending? ? 'Confirming adjustment' : 'Selecting new shims'
 
-    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine, @valve_adjustment)
-
     return unless @valve_adjustment.needs_gaps_measured?
 
     redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment.id),
@@ -63,8 +61,12 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       if @valve_adjustment.update(valve_adjustment_params)
         format.html do
-          redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment),
-                      notice: 'Valve adjustment was successfully updated.'
+          if params[:return_to] == "adjust"
+            redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment)
+          else
+            redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment),
+              notice: 'Valve adjustment was successfully updated.'
+          end
         end
         format.json { render :show, status: :ok, location: @valve_adjustment }
       else
@@ -77,32 +79,13 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # PATCH/PUT /valve_adjustments/1/update_shims or /valve_adjustments/1/update_shims.json
   def update_shims
-    @valve_shim_calculator = ValveAdjustments::Calculator.new(@engine, @valve_adjustment)
-    @valve_shim_calculator.apply_shims
-    @valve_adjustment.update(status: ValveAdjustment::IN_PROGRESS)
+    @valve_adjustment.apply_shims
 
     respond_to do |format|
       format.html do
         redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment), status: :see_other
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
-    end
-  end
-
-  # --------------------------------------------------------------
-  # From the adjustment SPA, resets to 'needs gaps' so that the user can change shims
-  # PATCH/PUT /valve_adjustments/1/update_needs_gaps or /valve_adjustments/1/update_needs_gaps.json
-  def update_in_progress
-    respond_to do |format|
-      if @valve_adjustment.update(status: ValveAdjustment::IN_PROGRESS)
-        format.html do
-          redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment)
-        end
-        format.json { render :show, status: :ok, location: @valve_adjustment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @valve_adjustment.errors, status: :unprocessable_entity }
-      end
     end
   end
 
@@ -148,7 +131,7 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # Only allow a list of trusted parameters through.
   def valve_adjustment_params
-    params.require(:valve_adjustment).permit(:mileage, :adjustment_date, :notes)
+    params.require(:valve_adjustment).permit(:mileage, :adjustment_date, :notes, :status)
   end
 
   # --------------------------------------------------------------
