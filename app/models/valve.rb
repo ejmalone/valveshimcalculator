@@ -28,7 +28,7 @@ class Valve < ApplicationRecord
   has_one :shim, dependent: :destroy
 
   # valves can have empty gap on creation via Engine#create_internals
-  validates :gap, inclusion: 0.01..15.0, unless: proc { |v| v.gap.blank? }
+  validates :gap, inclusion: 0.01..15.0, allow_blank: true
 
   # --------------------------------------------------------------
   def intake?

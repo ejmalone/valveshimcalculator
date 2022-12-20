@@ -33,25 +33,15 @@ module ValveAdjustments
     end
 
     # --------------------------------------------------------------
-    def apply_shims(update_engine: false)
+    def apply_shims
       shims = []
       choose_shims.each do |valve, shim|
         shims << shim
-        if update_engine
-          Shim.find(shim.id).update(valve_id: valve.id)
-          Valve.find(valve.id).update(gap: nil)
-        else
-          valve_adjustment.update_valve(valve, shim)
-        end
+        @valve_adjustment.set_shim(valve, shim)
       end
 
       unused_shims = @engine.shims - shims
-
-      if update_engine
-        Shim.where(id: unused_shims.map(&:id)).update_all(valve_id: nil)
-      else
-        valve_adjustment.update_unused_shims(unused_shims)
-      end
+      @valve_adjustment.update_unused_shims(unused_shims)
     end
 
     # --------------------------------------------------------------

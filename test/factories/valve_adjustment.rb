@@ -6,11 +6,10 @@
 #
 #  id              :bigint           not null, primary key
 #  adjustment_date :date
-#  initial         :json
 #  mileage         :integer
 #  notes           :text
-#  result          :json
 #  status          :string
+#  valve_state     :json
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  engine_id       :bigint           not null
@@ -25,9 +24,9 @@
 #
 FactoryBot.define do
   factory :valve_adjustment do
-    engine { nil }
-    mileage { 1 }
-    adjustment_date { '2022-03-30' }
+    engine { klr_with_out_of_spec_valve }
+    mileage { 1_000 }
+    adjustment_date { Time.zone.now }
     notes { 'MyText' }
   end
 end

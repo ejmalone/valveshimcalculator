@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+OUT_OF_SPEC_DIFFERENCE = 0.05
+
 FactoryBot.define do
   factory :klr650, class: 'Engine' do
     association :userable, factory: :user
@@ -11,26 +13,29 @@ FactoryBot.define do
     intake_max { 0.2 }
     exhaust_min { 0.15 }
     exhaust_max { 0.25 }
-
-    # --------------------------------------------------------------
-    factory :klr_without_internals do
-      before(:build) { |engine| engine.class.skip_callback(:create, :after, :create_internals) }
-    end
   end
 end
 
 # --------------------------------------------------------------
-# create an engine with the first valve out of spec
+# create an engine with the first intake valve out of spec
 def klr_with_out_of_spec_valve
-  engine = build(:klr_without_internals)
-  engine.cylinders = [build(:cylinder)]
-  engine.cylinders[0].valves = [
-    build(:out_of_spec_intake_valve, shim: build(:shim, engine: engine)),
-    build(:intake_valve, valve_num: 2, shim: build(:shim, engine: engine)),
-    build(:exhaust_valve, valve_num: 3, shim: build(:shim, engine: engine)),
-    build(:exhaust_valve, valve_num: 4, shim: build(:shim, engine: engine))
-  ]
+  engine = create(:klr650)
+  set_out_of_spec = false
 
-  engine.save!
+  engine.cylinders.first.valves.each do |valve|
+    gap = if valve.intake? && !set_out_of_spec
+      set_out_of_spec = true
+      engine.intake_min - OUT_OF_SPEC_DIFFERENCE
+    elsif valve.intake?
+      engine.intake_min
+    else
+      engine.exhaust_min
+    end
+
+    valve.update!(gap: gap)
+    Shim.create(engine: engine, valve: valve, thickness: (Shim::SIZE_LIMITS.first..Shim::SIZE_LIMITS.last - 100).to_a.sample)
+  end
+
+  engine.reload
   engine
 end

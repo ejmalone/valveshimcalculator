@@ -107,7 +107,7 @@ class ValveAdjustmentsController < ApplicationController
   end
 
   # --------------------------------------------------------------
-  # Creates a shim and returns to the current valve adjustment
+  # Creates a shim not associated with a valve, thus 'available' for this adjustment
   def create_shim
     @shim = Shim.create!(engine: @engine, thickness: params[:shim][:thickness])
     redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment.id, choose_shims: true)
@@ -116,7 +116,7 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   # PATCH/PUT /valve_adjustments/1/complete or /valve_adjustments/1/complete.json
   def complete
-    @valve_adjustment.update(status: ValveAdjustment::COMPLETE)
+    @valve_adjustment.complete!
 
     respond_to do |format|
       format.html do

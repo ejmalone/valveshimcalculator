@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_06_225158) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_19_221145) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -84,8 +84,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_225158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
-    t.json "initial"
-    t.json "result"
+    t.json "valve_state"
     t.index ["engine_id"], name: "index_valve_adjustments_on_engine_id"
   end
 
@@ -97,6 +96,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_225158) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cylinder_id"], name: "index_valves_on_cylinder_id"
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
   add_foreign_key "anonymous_users", "users"

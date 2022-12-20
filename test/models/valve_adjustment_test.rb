@@ -6,11 +6,10 @@
 #
 #  id              :bigint           not null, primary key
 #  adjustment_date :date
-#  initial         :json
 #  mileage         :integer
 #  notes           :text
-#  result          :json
 #  status          :string
+#  valve_state     :json
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  engine_id       :bigint           not null
