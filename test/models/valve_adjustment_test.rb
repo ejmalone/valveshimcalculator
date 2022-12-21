@@ -67,9 +67,9 @@ class ValveAdjustmentTest < ActiveSupport::TestCase
       @out_of_spec_valve.reload
       existing_shim.reload
 
-      assert_nil existing_shim.valve_id, "Shim #{ existing_shim.id } should not be applied to the valve #{ @out_of_spec_valve.id } any more"
+      assert_nil existing_shim.valve_id, "Shim #{existing_shim.id} should not be applied to the valve #{@out_of_spec_valve.id} any more"
       assert_equal in_spec_shim, @out_of_spec_valve.shim
-      assert @valve_adjustment.min_spec?(@out_of_spec_valve), "Valve should have gap #{ @out_of_spec_valve.gap } that is within intake spec"
+      assert @valve_adjustment.min_spec?(@out_of_spec_valve), "Valve should have gap #{@out_of_spec_valve.gap} that is within intake spec"
 
       assert_equal 5, @engine.shims.count, 'started with 4 shims, and added a new one for adjustment'
     end

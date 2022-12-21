@@ -21,14 +21,14 @@ class EnginesController < ApplicationController
   def new
     @engine = Engine.new(userable: current_user || anonymous_user(create: true))
 
-    breadcrumb "Engines", engines_url
+    breadcrumb 'Engines', engines_url
   end
 
   # --------------------------------------------------------------
   # GET /engines/1/edit
   def edit
     breadcrumb "My #{helpers.engine_name(@engine)}", engine_url(@engine)
-    breadcrumb "Editing"
+    breadcrumb 'Editing'
   end
 
   # --------------------------------------------------------------
@@ -103,6 +103,6 @@ class EnginesController < ApplicationController
 
   # --------------------------------------------------------------
   def set_engines_breadcrumb
-    breadcrumb "Engines", engines_url
+    breadcrumb 'Engines', engines_url
   end
 end

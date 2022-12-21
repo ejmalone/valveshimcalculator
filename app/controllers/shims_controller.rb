@@ -11,7 +11,7 @@ class ShimsController < ApplicationController
   # Adds shims to valves an sets valve gaps in a single form
   # @see create_all and update_all for PUT of this form
   def edit_all
-    breadcrumb "Engines", engines_url
+    breadcrumb 'Engines', engines_url
     breadcrumb "My #{helpers.engine_name(@engine)}", engine_url(@engine)
 
     if params[:valve_adjustment_id].present?

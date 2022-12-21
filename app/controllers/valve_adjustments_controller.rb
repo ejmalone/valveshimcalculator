@@ -61,11 +61,11 @@ class ValveAdjustmentsController < ApplicationController
     respond_to do |format|
       if @valve_adjustment.update(valve_adjustment_params)
         format.html do
-          if params[:return_to] == "adjust"
+          if params[:return_to] == 'adjust'
             redirect_to adjust_engine_valve_adjustment_url(@engine, @valve_adjustment)
           else
             redirect_to engine_valve_adjustment_url(@engine, @valve_adjustment),
-              notice: 'Valve adjustment was successfully updated.'
+                        notice: 'Valve adjustment was successfully updated.'
           end
         end
         format.json { render :show, status: :ok, location: @valve_adjustment }
@@ -83,7 +83,8 @@ class ValveAdjustmentsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment), status: :see_other
+        redirect_to edit_all_engine_shims_url(@engine, update: true, valve_adjustment_id: @valve_adjustment),
+                    status: :see_other
       end
       format.json { render :show, status: :ok, location: @valve_adjustment }
     end
@@ -149,8 +150,8 @@ class ValveAdjustmentsController < ApplicationController
 
   # --------------------------------------------------------------
   def set_breadcrumb
-    breadcrumb "Engines", engines_url
-    breadcrumb "My #{ helpers.engine_name(@engine) }", engine_url(@engine)
+    breadcrumb 'Engines', engines_url
+    breadcrumb "My #{helpers.engine_name(@engine)}", engine_url(@engine)
 
     return unless @valve_adjustment.present?
 

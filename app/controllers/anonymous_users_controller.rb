@@ -5,10 +5,8 @@ class AnonymousUsersController < ApplicationController
 
   # --------------------------------------------------------------
   def token
-    if current_user.present?
-      redirect_to :root, notice: 'You are already signed in'
-      return
-    end
+    return unless current_user.present?
+    redirect_to :root, notice: 'You are already signed in'
   end
 
   # --------------------------------------------------------------

@@ -9,11 +9,9 @@ module ApplicationHelper
     end
   end
 
-  def centered_content
-    tag.div class: "row justify-content-center" do
-      tag.div class: "col-md-12 col-lg-8" do
-        yield
-      end
+  def centered_content(&block)
+    tag.div class: 'row justify-content-center' do
+      tag.div class: 'col-md-12 col-lg-8', &block
     end
   end
 end

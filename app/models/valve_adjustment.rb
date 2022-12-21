@@ -48,7 +48,7 @@ class ValveAdjustment < ApplicationRecord
 
   # --------------------------------------------------------------
   def incomplete?
-    [ IN_PROGRESS, PENDING, NEEDS_GAPS, nil ].include? status
+    [IN_PROGRESS, PENDING, NEEDS_GAPS, nil].include? status
   end
 
   # --------------------------------------------------------------
@@ -63,48 +63,48 @@ class ValveAdjustment < ApplicationRecord
 
   # --------------------------------------------------------------
   def unused_shims_from_state
-    Shim.where(id: valve_state["unused_shims"])
+    Shim.where(id: valve_state['unused_shims'])
   end
 
   # --------------------------------------------------------------
   def shim_from_state(valve)
-    json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
-    Shim.find(json_valve["shim_id"])
+    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
+    Shim.find(json_valve['shim_id'])
   end
 
   # --------------------------------------------------------------
   def new_gap_from_state(valve)
-    json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
-    json_valve["gap"].to_d
+    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
+    json_valve['gap'].to_d
   end
 
   # --------------------------------------------------------------
   def set_shim(valve, shim)
-    json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
-    json_valve["gap"] = nil
-    json_valve["shim_id"] = shim.id
+    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
+    json_valve['gap'] = nil
+    json_valve['shim_id'] = shim.id
   end
 
   # --------------------------------------------------------------
   def set_gap(valve, gap)
-    json_valve = valve_state["valves"].detect { |v| v["id"] == valve.id }
-    json_valve["gap"] = gap
+    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
+    json_valve['gap'] = gap
   end
 
   # --------------------------------------------------------------
   def update_unused_shims(unused_shims)
-    valve_state["unused_shims"] = json_shims(unused_shims)
+    valve_state['unused_shims'] = json_shims(unused_shims)
   end
 
   # --------------------------------------------------------------
   # Move the valve_state values into associated models (valve, shim)
   def complete!
     ActiveRecord::Base.transaction do
-      Shim.where(id: valve_state["unused_shims"].map { |shim| shim["id"] }).update_all(valve_id: nil)
+      Shim.where(id: valve_state['unused_shims'].map { |shim| shim['id'] }).update_all(valve_id: nil)
 
-      valve_state["valves"].each do |valve_info|
-        Valve.where(id: valve_info["id"]).first.update(gap: valve_info["gap"])
-        Shim.where(id: valve_info["shim_id"]).first.update(valve_id: valve_info["id"])
+      valve_state['valves'].each do |valve_info|
+        Valve.where(id: valve_info['id']).first.update(gap: valve_info['gap'])
+        Shim.where(id: valve_info['shim_id']).first.update(valve_id: valve_info['id'])
       end
 
       update(status: ValveAdjustment::COMPLETE)
@@ -113,22 +113,21 @@ class ValveAdjustment < ApplicationRecord
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------
   def json_engine
-    @serialize_engine = begin
-      {
-        unused_shims: json_shims(Shim.unused_for_engine(engine)),
-        valves: engine.cylinders.map(&:valves).flatten.map do |valve|
-          {
-            id: valve.id,
-            shim_id: valve.shim.id,
-            gap: valve.gap
-          }
-        end
-      }
-    end
+    @serialize_engine = {
+      unused_shims: json_shims(Shim.unused_for_engine(engine)),
+      valves: engine.cylinders.map(&:valves).flatten.map do |valve|
+                {
+                  id: valve.id,
+                  shim_id: valve.shim.id,
+                  gap: valve.gap
+                }
+              end
+    }
   end
 
   # --------------------------------------------------------------

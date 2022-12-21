@@ -26,7 +26,8 @@
 class Engine < ApplicationRecord
   CYLINDER_OPTS = [1, 2, 4].freeze
   VALVES_PER_CYLINDER_OPTS = [2, 4].freeze
-  MAKES = [ "Aprilia", "Buell", "Ducati", "Gas Gas", "Harley", "Honda", "Indian", "KTM", "Kawasaki", "Moto Guzzi", "Suzuki", "Triumph", "Vespa" ].freeze
+  MAKES = ['Aprilia', 'Buell', 'Ducati', 'Gas Gas', 'Harley', 'Honda', 'Indian', 'KTM', 'Kawasaki', 'Moto Guzzi',
+           'Suzuki', 'Triumph', 'Vespa'].freeze
 
   belongs_to :userable, polymorphic: true
   has_many :cylinders, dependent: :destroy

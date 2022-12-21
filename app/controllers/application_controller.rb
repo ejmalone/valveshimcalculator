@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
   def adder
     AddJob.perform_async(params[:one].to_i, params[:two].to_i)
-    render plain: "added async job"
+    render plain: 'added async job'
   end
 
   # --------------------------------------------------------------
@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------

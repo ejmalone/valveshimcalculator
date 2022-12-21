@@ -67,10 +67,10 @@ group :development, :test do
 end
 
 group :development do
-  gem "aws-sdk-rails"
-  gem "aws-sdk-ec2"
-  gem "aws-sdk-apprunner"
-  gem "aws-sdk-ecs"
+  gem 'aws-sdk-apprunner'
+  gem 'aws-sdk-ec2'
+  gem 'aws-sdk-ecs'
+  gem 'aws-sdk-rails'
 
   # github linting
   gem 'brakeman'
@@ -103,8 +103,8 @@ gem 'cssbundling-rails'
 
 gem 'jsbundling-rails'
 
-gem "sidekiq", "~> 6.4"
+gem 'sidekiq', '~> 6.4'
 
-gem "rollbar", "~> 3.3"
+gem 'rollbar', '~> 3.3'
 
-gem "paper_trail", "~> 14.0"
+gem 'paper_trail', '~> 14.0'

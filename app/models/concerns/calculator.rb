@@ -3,10 +3,10 @@
 module Calculator
   extend ActiveSupport::Concern
 
-  IN_SPEC = 'in spec'.freeze
-  MIN_SPEC = 'min spec'.freeze
-  OUT_OF_SPEC = 'out of spec'.freeze
-  UNKNOWN_SPEC = 'unknown spec'.freeze
+  IN_SPEC = 'in spec'
+  MIN_SPEC = 'min spec'
+  OUT_OF_SPEC = 'out of spec'
+  UNKNOWN_SPEC = 'unknown spec'
 
   attr_accessor :shims_applied
 
@@ -157,7 +157,7 @@ module Calculator
   def valve_gap(valve)
     return new_gap_from_state(valve)
 
-    # todo determine if this is necessary
+    # TODO: determine if this is necessary
     if @valve_adjustment.present?
       @valve_adjustment.new_gap(valve)
     else

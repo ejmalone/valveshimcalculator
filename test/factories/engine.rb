@@ -24,13 +24,13 @@ def klr_with_out_of_spec_valve
 
   engine.cylinders.first.valves.each do |valve|
     gap = if valve.intake? && !set_out_of_spec
-      set_out_of_spec = true
-      engine.intake_min - OUT_OF_SPEC_DIFFERENCE
-    elsif valve.intake?
-      engine.intake_min
-    else
-      engine.exhaust_min
-    end
+            set_out_of_spec = true
+            engine.intake_min - OUT_OF_SPEC_DIFFERENCE
+          elsif valve.intake?
+            engine.intake_min
+          else
+            engine.exhaust_min
+          end
 
     valve.update!(gap: gap)
     Shim.create(engine: engine, valve: valve, thickness: (Shim::SIZE_LIMITS.first..Shim::SIZE_LIMITS.last - 100).to_a.sample)

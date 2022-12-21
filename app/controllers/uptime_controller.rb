@@ -4,14 +4,14 @@ class UptimeController < ApplicationController
   layout false
 
   def check
-    render plain: "OK"
+    render plain: 'OK'
   end
 
   def test_exception
-    raise params[:exception] || "This is a test exception at #{ Time.zone.now }"
-  rescue => e
+    raise params[:exception] || "This is a test exception at #{Time.zone.now}"
+  rescue StandardError => e
     Rollbar.error(e)
   ensure
-    render plain: "Error sent"
+    render plain: 'Error sent'
   end
 end
