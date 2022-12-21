@@ -31,7 +31,7 @@
             <% if session[:debug] %>
               <td><%= valve.id %></td>
             <% end %>
-            <td><%= @valve_adjustment.pending? ? @valve_adjustment.new_gap_from_state(valve) : valve.gap %></td>
+            <td><%= @valve_adjustment.pending? ? @valve_adjustment.gap_from_state(valve) : valve.gap %></td>
             <td><%= valve.shim.thickness %></td>
             <% if session[:debug] %>
               <td><%= valve.shim.id %></td>

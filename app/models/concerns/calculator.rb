@@ -135,12 +135,12 @@ module Calculator
 
   # --------------------------------------------------------------
   def well_in_spec?(valve)
-    min_spec?(valve) && valve_range(valve).last - valve_gap(valve) <= 0.05
+    min_spec?(valve) && valve_range(valve).last - gap_from_state(valve) <= 0.05
   end
 
   # --------------------------------------------------------------
   def min_spec?(valve)
-    valve_range(valve).cover?(valve_gap(valve))
+    valve_range(valve).cover?(gap_from_state(valve))
   end
 
   # --------------------------------------------------------------
@@ -154,18 +154,8 @@ module Calculator
   end
 
   # --------------------------------------------------------------
-  def valve_gap(valve)
-    return new_gap_from_state(valve)
-
-    # TODO: determine if this is necessary
-    if @valve_adjustment.present?
-      @valve_adjustment.new_gap(valve)
-    else
-      valve.gap
-    end
-  end
-
   private
+  # --------------------------------------------------------------
 
   def valves
     engine.cylinders.map(&:valves).flatten

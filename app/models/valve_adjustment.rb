@@ -73,7 +73,7 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
-  def new_gap_from_state(valve)
+  def gap_from_state(valve)
     json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
     json_valve['gap'].to_d
   end
