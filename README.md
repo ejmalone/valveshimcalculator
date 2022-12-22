@@ -28,3 +28,25 @@ coding skills and technology (Docker, AWS).
 * Show a timeline of valve + shim state before and after each valve adjustment.
 * Add a Sidekiq job and deploy to production, maybe a CSV email report for all of a user's bikes and histories.
 * Add a generic maintenance log feature (date, mileage, work done) and compose a timeline merged with valve adjustments.
+
+## Usage
+
+### Development
+
+`docker compose up --build` # include `--build` if first time or needing image changes
+
+***Commands***
+
+`docker ps` # get container names, specifically `motorcycleshims_web` and `postgres`
+
+`docker attach {motorcycleshims_web container name}` # attach to STDIN for debugging, detach via `ctrl-p, ctrl-q`
+
+`docker exec -it {motorcycleshims_web container name} '/bin/bash'` # connect to container for `rails c` and rake tasks
+
+### Site
+
+`rake aws:deploy_site`
+
+### Sidekiq
+
+`rake aws:deploy_sidekiq`  # include `SKIP_UPLOAD=true` if docker image has recently been uploaded via site deploy
