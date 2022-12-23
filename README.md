@@ -22,6 +22,7 @@ coding skills and technology (Docker, AWS).
 * Postgres
 * Nginx
 * Docker containers deployed to AWS (App Runner, ECR)
+* Rollbar for error monitoring
 
 ## To do
 
