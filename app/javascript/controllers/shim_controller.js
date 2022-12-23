@@ -24,7 +24,7 @@ export default class extends FormController {
         shim.value = shimThickness
       }
 
-      if (isNaN(shimThickness) || shimThickness <= this.minValue || shimThickness > this.maxValue) {
+      if (isNaN(shimThickness) || shimThickness < this.minValue || shimThickness > this.maxValue) {
         shim.classList.add("is-invalid")
 
         if (this.hasAccordionTarget) {

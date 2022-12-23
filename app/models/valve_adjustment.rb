@@ -62,8 +62,20 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
+  def valves_and_gaps_from_state
+    valve_state['valves'].map do |state|
+      { valve: Valve.includes(:cylinder).find(state['id']), gap: state['gap'], shim_thickness: state['shim_thickness'] }
+    end
+  end
+
+  # --------------------------------------------------------------
   def unused_shims_from_state
-    Shim.where(id: valve_state['unused_shims'])
+    Shim.where(id: valve_state['unused_shims'].map { |state| state['id'] })
+  end
+
+  # --------------------------------------------------------------
+  def unused_shim_thickness_from_state
+    valve_state['unused_shims'].map { |state| state['thickness'] }
   end
 
   # --------------------------------------------------------------
@@ -83,6 +95,7 @@ class ValveAdjustment < ApplicationRecord
     json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
     json_valve['gap'] = nil
     json_valve['shim_id'] = shim.id
+    json_valve['shim_thickness'] = shim.thickness
   end
 
   # --------------------------------------------------------------
@@ -124,6 +137,7 @@ class ValveAdjustment < ApplicationRecord
                 {
                   id: valve.id,
                   shim_id: valve.shim.id,
+                  shim_thickness: valve.shim.thickness,
                   gap: valve.gap
                 }
               end

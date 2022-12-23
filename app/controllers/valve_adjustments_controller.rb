@@ -9,7 +9,7 @@ class ValveAdjustmentsController < ApplicationController
   # GET /valve_adjustments or /valve_adjustments.json
   def index
     breadcrumb 'All valve adjustments'
-    @valve_adjustments = @engine.valve_adjustments
+    @valve_adjustments = @engine.valve_adjustments.order("adjustment_date ASC")
   end
 
   # --------------------------------------------------------------

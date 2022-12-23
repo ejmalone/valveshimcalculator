@@ -25,9 +25,11 @@ coding skills and technology (Docker, AWS).
 
 ## To do
 
+* Show strikethrough of original shim that's being replaced in 'Using shim' on Valve Adjustment page
 * Show a timeline of valve + shim state before and after each valve adjustment.
 * Add a Sidekiq job and deploy to production, maybe a CSV email report for all of a user's bikes and histories.
 * Add a generic maintenance log feature (date, mileage, work done) and compose a timeline merged with valve adjustments.
+* Delete unused shims - maybe user has taken an extra shim and used it on another engine.
 
 ## Usage
 

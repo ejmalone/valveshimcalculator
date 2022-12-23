@@ -24,4 +24,15 @@
     <%= valve_adjustment.status || "new" %>
   </p>
 
+  <p>
+    <strong>Initial valve state:</strong>
+    <%= render 'valve_adjustment_state', valve_adjustment: valve_adjustment.versions.second.reify %>
+  </p>
+
+  <% if valve_adjustment.completed? %>
+    <p>
+      <strong>Final valve state:</strong>
+      <%= render 'valve_adjustment_state', valve_adjustment: valve_adjustment %>
+    </p>
+  <% end %>
 </div>
