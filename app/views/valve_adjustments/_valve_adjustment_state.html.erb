@@ -1,12 +1,12 @@
-<table>
+<table class="table">
   <tr>
     <th>
-      unused shim thicknesses
+      Unused shims
     </th>
   </tr>
   <% if valve_adjustment.unused_shim_thickness_from_state.none? %>
     <td>
-      no unused shims
+      n/a
     </td>
   <% else %>
     <% valve_adjustment.unused_shim_thickness_from_state.each do |thickness| %>
@@ -17,7 +17,7 @@
   <% end %>
 </table>
 
-<table>
+<table class="table">
   <tr>
     <th>Valve</th>
     <th>Gap</th>
