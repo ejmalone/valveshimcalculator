@@ -53,3 +53,9 @@ coding skills and technology (Docker, AWS).
 ### Sidekiq
 
 `rake aws:deploy_sidekiq`  # include `SKIP_UPLOAD=true` if docker image has recently been uploaded via site deploy
+
+### Audits
+
+`rubocop -a` # lint check (commit automatic fixes then fix remaining poorly structured code)
+
+`bundle-audit check --update` # vulnerability check (then update Gemfile)
