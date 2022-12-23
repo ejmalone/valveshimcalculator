@@ -1,3 +1,5 @@
+<% show_state ||= false %>
+
 <div id="<%= dom_id valve_adjustment %>" class="row">
   <p>
     <strong>Engine:</strong>
@@ -24,15 +26,17 @@
     <%= valve_adjustment.status || "new" %>
   </p>
 
-  <div class="col-md-6 col-lg-4">
-    <strong>Initial valve state:</strong>
-    <%= render 'valve_adjustment_state', valve_adjustment: valve_adjustment.versions.second.reify %>
-  </div>
-
-  <% if valve_adjustment.completed? %>
+  <% if show_state %>
     <div class="col-md-6 col-lg-4">
-      <strong>Final valve state:</strong>
-      <%= render 'valve_adjustment_state', valve_adjustment: valve_adjustment %>
+      <strong>Initial valve state:</strong>
+      <%= render 'valve_adjustment_state', valve_adjustment: valve_adjustment.versions.second.reify %>
     </div>
+
+    <% if valve_adjustment.completed? %>
+      <div class="col-md-6 col-lg-4">
+        <strong>Final valve state:</strong>
+        <%= render 'valve_adjustment_state', valve_adjustment: valve_adjustment %>
+      </div>
+    <% end %>
   <% end %>
 </div>

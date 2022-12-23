@@ -1,27 +1,12 @@
 <div id="<%= dom_id engine %>">
   <p>
-    <strong>Cylinders:</strong>
-    <%= engine.num_cylinders %>
+    <strong>Motorcycle:</strong>
+    <%= engine_name(engine) %>
   </p>
 
   <p>
-    <strong>Valves per cylinder:</strong>
-    <%= engine.valves_per_cylinder %>
-  </p>
-
-  <p>
-    <strong>Make:</strong>
-    <%= engine.make %>
-  </p>
-
-  <p>
-    <strong>Model:</strong>
-    <%= engine.model %>
-  </p>
-
-  <p>
-    <strong>Nickname:</strong>
-    <%= engine.nickname %>
+    <strong>Engine:</strong>
+    <%= engine.num_cylinders %> cylinder, <%= engine.valves_per_cylinder %> valves per cylinder
   </p>
 
   <p>
@@ -41,6 +26,6 @@
 
   <p>
     <strong>Latest valve adjustment</strong>:
-    <%= engine.latest_adjustment&.completed? ? engine.latest_adjustment.adjustment_date : "n/a" %>
+    <%= engine.latest_adjustment&.completed? ? completion_date_mileage(engine.latest_adjustment): "n/a" %>
   </p>
 </div>
