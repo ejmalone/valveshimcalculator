@@ -24,15 +24,15 @@
     <th>Shim thickness</th>
   </tr>
   <%# todo: fix ugly iteration %>
-  <% valve_adjustment.valves_and_gaps_from_state.group_by { |valve_gap_thickness| valve_gap_thickness[:valve].cylinder }.each do |cylinder, valve_gap_thickness| %>
+  <% valve_adjustment.valves_and_cylinders.each do |cylinder, valve_gap_thickness| %>
     <tr>
       <th colspan="3">Cylinder <%= cylinder.cylinder_num %></th>
     </tr>
     <% valve_gap_thickness.each do |values| %>
       <tr>
-        <td><%= valve_form_label(values[:valve]) %></td>
-        <td><%= values[:gap] %></td>
-        <td><%= values[:shim_thickness] %></td>
+        <td><%= valve_form_label(values['valve']) %></td>
+        <td><%= values['gap'] %></td>
+        <td><%= values['shim_thickness'] %></td>
       </tr>
     <% end %>
   <% end %>

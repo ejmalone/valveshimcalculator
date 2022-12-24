@@ -24,6 +24,8 @@
 #
 class ValveAdjustment < ApplicationRecord
   include Calculator
+  include ValveState
+
   has_paper_trail
 
   IN_PROGRESS = 'in progress'
@@ -38,7 +40,6 @@ class ValveAdjustment < ApplicationRecord
   scope :incomplete, -> { where(status: [nil, PENDING, NEEDS_GAPS]) }
   scope :current, -> { most_recent.incomplete }
 
-  before_create :save_valve_state
   before_create :set_in_progress
 
   # --------------------------------------------------------------
@@ -62,54 +63,6 @@ class ValveAdjustment < ApplicationRecord
   end
 
   # --------------------------------------------------------------
-  def valves_and_gaps_from_state
-    valve_state['valves'].map do |state|
-      { valve: Valve.includes(:cylinder).find(state['id']), gap: state['gap'], shim_thickness: state['shim_thickness'] }
-    end
-  end
-
-  # --------------------------------------------------------------
-  def unused_shims_from_state
-    Shim.where(id: valve_state['unused_shims'].map { |state| state['id'] })
-  end
-
-  # --------------------------------------------------------------
-  def unused_shim_thickness_from_state
-    valve_state['unused_shims'].map { |state| state['thickness'] }
-  end
-
-  # --------------------------------------------------------------
-  def shim_from_state(valve)
-    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
-    Shim.find(json_valve['shim_id'])
-  end
-
-  # --------------------------------------------------------------
-  def gap_from_state(valve)
-    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
-    json_valve['gap'].to_d
-  end
-
-  # --------------------------------------------------------------
-  def set_shim(valve, shim)
-    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
-    json_valve['gap'] = nil
-    json_valve['shim_id'] = shim.id
-    json_valve['shim_thickness'] = shim.thickness
-  end
-
-  # --------------------------------------------------------------
-  def set_gap(valve, gap)
-    json_valve = valve_state['valves'].detect { |v| v['id'] == valve.id }
-    json_valve['gap'] = gap
-  end
-
-  # --------------------------------------------------------------
-  def update_unused_shims(unused_shims)
-    valve_state['unused_shims'] = json_shims(unused_shims)
-  end
-
-  # --------------------------------------------------------------
   # Move the valve_state values into associated models (valve, shim)
   def complete!
     ActiveRecord::Base.transaction do
@@ -128,36 +81,6 @@ class ValveAdjustment < ApplicationRecord
   private
 
   # --------------------------------------------------------------
-
-  # --------------------------------------------------------------
-  def json_engine
-    @serialize_engine = {
-      unused_shims: json_shims(Shim.unused_for_engine(engine)),
-      valves: engine.cylinders.map(&:valves).flatten.map do |valve|
-                {
-                  id: valve.id,
-                  shim_id: valve.shim.id,
-                  shim_thickness: valve.shim.thickness,
-                  gap: valve.gap
-                }
-              end
-    }
-  end
-
-  # --------------------------------------------------------------
-  def json_shims(shims)
-    shims.map do |shim|
-      {
-        id: shim.id,
-        thickness: shim.thickness
-      }
-    end
-  end
-
-  # --------------------------------------------------------------
-  def save_valve_state
-    self.valve_state = json_engine
-  end
 
   # --------------------------------------------------------------
   def set_in_progress
