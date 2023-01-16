@@ -33,8 +33,7 @@ module Calculator
       set_shim(valve, shim)
     end
 
-    unused_shims = engine.shims - shims
-    update_unused_shims(unused_shims)
+    set_unused_shims(engine.shims - shims)
     update(status: ValveAdjustment::IN_PROGRESS)
   end
 

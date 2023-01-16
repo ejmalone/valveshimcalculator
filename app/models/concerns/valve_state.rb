@@ -55,7 +55,7 @@ module ValveState
   end
 
   # --------------------------------------------------------------
-  def update_unused_shims(unused_shims)
+  def set_unused_shims(unused_shims)
     valve_state['unused_shims'] = shims_json(unused_shims)
   end
 
