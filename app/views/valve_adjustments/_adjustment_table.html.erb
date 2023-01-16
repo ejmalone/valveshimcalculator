@@ -23,26 +23,45 @@
         </tr>
 
         <% cylinder.valves.each do |valve| %>
+          <% shim = params[:choose_shims] ? @valve_adjustment.proposed_shim(valve) : @valve_adjustment.shim_from_state(valve) %>
           <% valve_attrs = valve_adjust_attrs(@valve_adjustment.valve_status(valve)) %>
           <tr valve-id="<%= valve.id %>">
             <td class="valve <%= valve_attrs[:class] %>" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= valve_attrs[:title] %>">
               <%= label_tag valve_form_label(valve) %>
             </td>
+
             <% if session[:debug] %>
               <td><%= valve.id %></td>
             <% end %>
-            <td><%= @valve_adjustment.pending? ? @valve_adjustment.gap_from_state(valve) : valve.gap %></td>
-            <td><%= valve.shim.thickness %></td>
+
+            <td>
+              <%= @valve_adjustment.pending? ? @valve_adjustment.gap_from_state(valve) : valve.gap %>
+            </td>
+
+            <% if params[:choose_shims] %>
+              <% old_shim_attrs = valve_adjust_attrs(@valve_adjustment.shim_status(valve, valve.shim)) %>
+              <td class="shim <%= shim&.id != valve.shim.id && "old-shim" %>" title="<%= old_shim_attrs[:title] %>">
+                <%= valve.shim.thickness %>
+              </td>
+            <% else %>
+              <td>
+                <%= valve.shim.thickness %>
+              </td>
+            <% end %>
+
             <% if session[:debug] %>
               <td><%= valve.shim.id %></td>
             <% end %>
+
             <td><%= valve.gap.present? ? @valve_adjustment.new_shim_thickness_range(valve) : '-' %></td>
-            <% shim = params[:choose_shims] ? @valve_adjustment.proposed_shim(valve) : @valve_adjustment.shim_from_state(valve) %>
 
             <% if shim %>
               <% shim_attrs = valve_adjust_attrs(@valve_adjustment.shim_status(valve, shim)) %>
-              <td class="shim <%= shim_attrs[:class] %>" data-bs-toggle="tooltip" data-bs-placement="left" title="<%= shim_attrs[:title] %>">
-                <%= shim.thickness %>
+              <td class="shim <%= shim_attrs[:class] %>" title="<%= shim_attrs[:title] %>" data-bs-toggle="tooltip" data-bs-placement="left">
+                <span >
+                  <%= shim.thickness %>
+                </span>
+
                 <% if session[:debug] %>
                   - <%= shim.id %>
                 <% end %>

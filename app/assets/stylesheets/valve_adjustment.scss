@@ -13,5 +13,8 @@
     &.unknown-spec {
       color: $gray-500;
     }
+    &.old-shim {
+      text-decoration: line-through;
+    }
   }
 }
