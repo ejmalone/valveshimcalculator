@@ -1,0 +1,18 @@
+<%
+  phone_number ||= nil
+  sent ||= false
+%>
+
+<turbo-frame id="send_to_phone">
+  <%= form_tag send_to_phone_engine_valve_adjustment_path(engine_id: @valve_adjustment.engine, id: @valve_adjustment), method: :put, remote: true do %>
+    <div>
+      Send this page to your phone
+      <%= text_field_tag :phone_number, phone_number, type: :tel %>
+      <% if sent %>
+        <button type="button" class="btn btn-success">Sent!</button>
+      <% else %>
+        <%= submit_tag 'Submit', class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  <% end %>
+</turbo-frame>

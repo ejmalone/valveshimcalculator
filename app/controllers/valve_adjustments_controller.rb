@@ -125,8 +125,14 @@ class ValveAdjustmentsController < ApplicationController
   end
 
   # --------------------------------------------------------------
-  private
+  def send_to_phone
+    SendToPhoneJob.perform_async(params[:phone_number],
+      edit_all_engine_shims_url(engine_id: @valve_adjustment.engine, update: true, valve_adjustment_id: @valve_adjustment))
+    render partial: 'send_to_phone', locals: { sent: true, phone_number: params[:phone_number] }
+  end
 
+  # --------------------------------------------------------------
+  private
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------

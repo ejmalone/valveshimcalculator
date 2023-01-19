@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         put "update_in_progress"
         put "complete"
         post "create_shim"
+        put "send_to_phone"
       end
     end
   end

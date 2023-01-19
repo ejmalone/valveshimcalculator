@@ -108,3 +108,5 @@ gem 'sidekiq', '~> 6.4'
 gem 'rollbar', '~> 3.3'
 
 gem 'paper_trail', '~> 14.0'
+
+gem "twilio-ruby", "~> 5.74"

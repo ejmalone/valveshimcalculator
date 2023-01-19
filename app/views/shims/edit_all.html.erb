@@ -6,19 +6,21 @@ end
 %>
 
 <h1>Editing shims</h1>
+<div class="alert alert-info" role="alert">
+  Note: Enter shim size in mm thickness in hundreds (enter 2.61mm as "261")
+
+  <% if params[:update] %>
+    <div>
+      <hr>
+      <strong>Now install these shims and re-measure the gaps</strong>
+    </div>
+
+    <%= render partial: 'valve_adjustments/send_to_phone' %>
+  <% end %>
+</div>
 
 <%= form_tag({ action: action }, method: :put, data: { controller: "valve-gaps", action: "valve-gaps#validate" }.merge_stimulus_data(shim_data_controller)) do %>
   <%= hidden_field_tag(:valve_adjustment_id, @valve_adjustment.id) if @valve_adjustment.present? %>
-
-  <div class="alert alert-info" role="alert">
-    Note: Enter shim size in mm thickness in hundreds (enter 2.61mm as "261")
-
-    <% if params[:update] %>
-      <hr>
-      <strong>Now install these shims and re-measure the gaps</strong>
-    <% end %>
-  </div>
-
   <%= form_errors_element(:shim, :valve_gaps) %>
 
   <div class="accordion mb-3" id="shimsaccordion" data-valve-gaps-target="accordion" data-shim-target="accordion">

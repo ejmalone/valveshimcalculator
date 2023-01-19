@@ -47,3 +47,5 @@
 yarn-error.log
 
 /config/credentials/production.key
+
+/config/credentials/development.key
