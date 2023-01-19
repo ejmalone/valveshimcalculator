@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ShimsController < ApplicationController
+  before_action :store_location, only: %[edit_all], if: Proc.new { !current_or_anon_user.present? }
+  before_action :semi_authenticate_user!
   before_action :load_engine, only: %i[edit_all create_all update_all]
   before_action :load_valve_adjustment, only: %i[edit_all update_all]
   before_action :redirect_to_engine_if_created, only: %i[create_all]
@@ -54,8 +56,13 @@ class ShimsController < ApplicationController
 
   # --------------------------------------------------------------
   private
+  # --------------------------------------------------------------
 
   # --------------------------------------------------------------
+  # allows user to return to this page after signing in, see ValveAdjustmentsController#send_to_phone
+  def store_location
+    store_location_for(:user, request.fullpath)
+  end
 
   # --------------------------------------------------------------
   # ensure we don't try to generate shims & populate gaps if already done

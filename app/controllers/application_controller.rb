@@ -46,6 +46,13 @@ class ApplicationController < ActionController::Base
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------
+  def semi_authenticate_user!
+    unless current_or_anon_user.present?
+      redirect_to new_user_session_url, alert: "Please sign in"
+    end
+  end
+
+  # --------------------------------------------------------------
   def create_anonymous_user
     user = AnonymousUser.create
     session[:anonymous_user] = user.token

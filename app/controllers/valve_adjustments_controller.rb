@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ValveAdjustmentsController < ApplicationController
+  before_action :semi_authenticate_user!
   before_action :load_engine
   before_action :load_valve_adjustment, except: %i[ index new create ]
   before_action :set_breadcrumb
