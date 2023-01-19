@@ -6,7 +6,7 @@ module ValveAdjustmentsHelper
   end
 
   def completion_date_mileage(valve_adjustment)
-    "#{ valve_adjustment.adjustment_date.to_fs(:rfc822) } (#{ number_with_delimiter(valve_adjustment.mileage) } miles)"
+    "#{valve_adjustment.adjustment_date.to_fs(:rfc822)} (#{number_with_delimiter(valve_adjustment.mileage)} miles)"
   end
 
   def valve_adjust_attrs(status)

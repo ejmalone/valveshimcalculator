@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
 
   # --------------------------------------------------------------
   def semi_authenticate_user!
-    unless current_or_anon_user.present?
-      redirect_to new_user_session_url, alert: "Please sign in"
-    end
+    return if current_or_anon_user.present?
+
+    redirect_to new_user_session_url, alert: 'Please sign in'
   end
 
   # --------------------------------------------------------------

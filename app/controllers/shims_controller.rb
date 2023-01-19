@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShimsController < ApplicationController
-  before_action :store_location, only: %[edit_all], if: Proc.new { !current_or_anon_user.present? }
+  before_action :store_location, only: %(edit_all), if: proc { !current_or_anon_user.present? }
   before_action :semi_authenticate_user!
   before_action :load_engine, only: %i[edit_all create_all update_all]
   before_action :load_valve_adjustment, only: %i[edit_all update_all]
@@ -56,6 +56,7 @@ class ShimsController < ApplicationController
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------

@@ -10,7 +10,7 @@ class ValveAdjustmentsController < ApplicationController
   # GET /valve_adjustments or /valve_adjustments.json
   def index
     breadcrumb 'All valve adjustments'
-    @valve_adjustments = @engine.valve_adjustments.order("adjustment_date ASC")
+    @valve_adjustments = @engine.valve_adjustments.order('adjustment_date ASC')
   end
 
   # --------------------------------------------------------------
@@ -128,12 +128,14 @@ class ValveAdjustmentsController < ApplicationController
   # --------------------------------------------------------------
   def send_to_phone
     SendToPhoneJob.perform_async(params[:phone_number],
-      edit_all_engine_shims_url(engine_id: @valve_adjustment.engine, update: true, valve_adjustment_id: @valve_adjustment))
+                                 edit_all_engine_shims_url(engine_id: @valve_adjustment.engine, update: true,
+                                                           valve_adjustment_id: @valve_adjustment))
     render partial: 'send_to_phone', locals: { sent: true, phone_number: params[:phone_number] }
   end
 
   # --------------------------------------------------------------
   private
+
   # --------------------------------------------------------------
 
   # --------------------------------------------------------------
