@@ -5,7 +5,7 @@ namespace :aws do
   # --------------------------------------------------------------
   desc 'Uploads new image for AppRunner, which then deploys automatically (SKIP_UPLOAD to skip image)'
   task deploy_site: :upload_image do
-    runner = Aws::AppRunner::Client.new(region: 'us-west-2')
+    runner = Aws::AppRunner::Client.new(region: 'us-west-2', profile: 'app_runner')
     service = runner.list_services.service_summary_list.detect { |s| s.service_name == 'shimsproduction' }
     response = runner.start_deployment(service_arn: service.service_arn)
 
@@ -20,7 +20,7 @@ namespace :aws do
   # TODO: figure out how to better update the service since this deletes the service, needs to wait until it's exited, then start anew
   desc 'Deploy site config (and new deployment) to update AppRunner'
   task deploy_apprunner_config: :upload_image do
-    runner = Aws::AppRunner::Client.new(region: 'us-west-2')
+    runner = Aws::AppRunner::Client.new(region: 'us-west-2', profile: 'app_runner')
     service = runner.list_services.service_summary_list.detect { |s| s.service_name == 'shimsproduction' }
 
     if service.present?
@@ -41,7 +41,7 @@ namespace :aws do
   # --------------------------------------------------------------
   desc 'Deploy Sidekiq to ECS cluster (SKIP_UPLOAD to skip image)'
   task deploy_sidekiq: :upload_image do
-    ecs = Aws::ECS::Client.new(region: 'us-west-2')
+    ecs = Aws::ECS::Client.new(region: 'us-west-2', profile: 'app_runner')
     config = YAML.load_file(Rails.root + 'config' + 'aws' + 'sidekiq.yml').deep_symbolize_keys
     ecs.register_task_definition(config)
     ecs.update_service(cluster: 'shims-cluster', service: 'shimsweb', task_definition: 'shimsweb')
