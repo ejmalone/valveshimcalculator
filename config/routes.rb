@@ -1,7 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  mount Sidekiq::Web => '/sidekiq'
+  authenticate :user do
+    mount Sidekiq::Web => '/sidekiq'
+  end
   
   devise_for :users, controllers: {
     registrations: 'users/registrations'
@@ -27,7 +29,7 @@ Rails.application.routes.draw do
         put "update_in_progress"
         put "complete"
         post "create_shim"
-        put "send_to_phone"
+
       end
     end
   end
