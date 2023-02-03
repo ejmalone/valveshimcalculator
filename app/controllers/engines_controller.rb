@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class EnginesController < ApplicationController
-  before_action :semi_authenticate_user!
+  before_action :semi_authenticate_user!, only: %i[ index show edit update destroy ]
   before_action :load_engine, only: %i[ show edit update destroy ]
   before_action :set_engines_breadcrumb, only: %i[ show edit ]
 
