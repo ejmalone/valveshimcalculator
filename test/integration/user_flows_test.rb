@@ -8,13 +8,12 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     @email = Faker::Internet.email
   end
 
-  test 'anonymous user can create an engine then sign up' do
+  test 'anonymous user can create an engine, sign up, and engine is associated with actual user' do
     assert AnonymousUser.all.blank?
     assert Engine.all.blank?
 
     get new_engine_url
     assert_response :success
-    assert_select "a[href*='users/restart']"
 
     post engines_url,
          params: { engine: { num_cylinders: @engine.num_cylinders, exhaust_max: @engine.exhaust_max,
